@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/iv_vLogin_bannerPic"
+        android:layout_width="wrap_content"
+        android:layout_height="175dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/mosquad_banner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_vLogin_username"
+        android:layout_width="316dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/blk_border_with_radius"
+        android:clickable="false"
+        android:ems="10"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_vLogin_password"
+        app:layout_constraintEnd_toEndOf="@+id/et_vLogin_password"
+        app:layout_constraintStart_toStartOf="@+id/et_vLogin_password" />
+
+    <TextView
+        android:id="@+id/tv_vLogin_usernameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:textColor="@color/black"
+        app:autoSizeMaxTextSize="20dp"
+        app:autoSizeMinTextSize="10dp"
+        app:autoSizeStepGranularity="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_vLogin_username"
+        app:layout_constraintStart_toStartOf="@+id/et_vLogin_username" />
+
+    <EditText
+        android:id="@+id/et_vLogin_password"
+        android:layout_width="316dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="33dp"
+        android:background="@drawable/blk_border_with_radius"
+        android:ems="10"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_vLogin_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_vLogin_passwordDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/et_vLogin_password"
+        app:layout_constraintStart_toStartOf="@+id/et_vLogin_password" />
+
+    <Button
+        android:id="@+id/btn_vLogin_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:text="Login"
+        android:textColor="@color/white"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_vLogin_createAccount"
+        app:layout_constraintEnd_toEndOf="@+id/btn_vLogin_createAccount"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_vLogin_createAccount" />
+
+    <Button
+        android:id="@+id/btn_vLogin_createAccount"
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:text="Create Account"
+        android:textColor="@color/white"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
