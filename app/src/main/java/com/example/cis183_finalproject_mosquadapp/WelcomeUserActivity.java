@@ -2,6 +2,7 @@ package com.example.cis183_finalproject_mosquadapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,5 +45,17 @@ public class WelcomeUserActivity extends AppCompatActivity
         lv_jWelcomeUser_addressList = findViewById(R.id.lv_vWelcomeUser_addressList);
         lv_jWelcomeUser_addressList.setAdapter(jWelcomeUser_addressListAdapter);
         jWelcomeUser_loginIntent = new Intent(this, LoginActivity.class);
+    }
+
+    private void WU_OnClickListeners()
+    {
+        btn_jWelcomeUser_logout.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(jWelcomeUser_loginIntent);
+            }
+        });
     }
 }
