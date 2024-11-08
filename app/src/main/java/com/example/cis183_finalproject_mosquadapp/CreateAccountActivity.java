@@ -40,6 +40,12 @@ public class CreateAccountActivity extends AppCompatActivity
 
     private void CA_InitData()
     {
+        CA_ListOfViews();
+        jCreateAcct_loginIntent       = new Intent(this, LoginActivity.class);
+    }
+
+    private void CA_ListOfViews()
+    {
         et_jCreateAcct_username       = findViewById(R.id.et_vCreateAcct_username);
         et_jCreateAcct_password       = findViewById(R.id.et_vCreateAcct_password);
         et_jCreateAcct_confirmpass    = findViewById(R.id.et_vCreateAcct_confirmPass);
@@ -49,7 +55,6 @@ public class CreateAccountActivity extends AppCompatActivity
         et_jCreateAcct_phoneNumber    = findViewById(R.id.et_vCreateAcct_phoneNumber);
         btn_jCreateAcct_back          = findViewById(R.id.btn_vCreateAcct_back);
         btn_jCreateAcct_createAccount = findViewById(R.id.btn_vCreateAcct_createAccount);
-        jCreateAcct_loginIntent       = new Intent(this, LoginActivity.class);
     }
 
     private void CA_OnClickListeners()

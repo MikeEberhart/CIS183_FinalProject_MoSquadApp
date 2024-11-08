@@ -2,6 +2,7 @@ package com.example.cis183_finalproject_mosquadapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity
     EditText et_jLogin_password;
     Button btn_jLogin_login;
     Button btn_jLogin_createAccount;
+    DatabaseHelper jLogin_dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,13 +38,20 @@ public class LoginActivity extends AppCompatActivity
 
     private void LA_InitData()
     {
+        LA_ListOfViews();
+        jLogin_createAccountIntent = new Intent(this, CreateAccountActivity.class);
+        jLogin_welcomeUserIntent   = new Intent(this, WelcomeUserActivity.class);
+        jLogin_dbHelper = new DatabaseHelper(this);
+        jLogin_dbHelper.DB_PopulateDummyData();
+    }
+
+    private void LA_ListOfViews()
+    {
         iv_jLogin_bannerPic        = findViewById(R.id.iv_vLogin_bannerPic);
         et_jLogin_username         = findViewById(R.id.et_vLogin_username);
         et_jLogin_password         = findViewById(R.id.et_vLogin_password);
         btn_jLogin_login           = findViewById(R.id.btn_vLogin_login);
         btn_jLogin_createAccount   = findViewById(R.id.btn_vLogin_createAccount);
-        jLogin_createAccountIntent = new Intent(this, CreateAccountActivity.class);
-        jLogin_welcomeUserIntent   = new Intent(this, WelcomeUserActivity.class);
     }
 
     private void LA_OnClickListeners()
@@ -52,7 +61,13 @@ public class LoginActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(jLogin_welcomeUserIntent);
+                String uname = et_jLogin_username.getText().toString();
+                String pass = et_jLogin_password.getText().toString();
+                if(jLogin_dbHelper.DB_UserLoginGood(uname, pass))
+                {
+                    Log.d("inside btn click", "inside btn click");
+                    startActivity(jLogin_welcomeUserIntent);
+                }
 //               MessingWithToast();
             }
         });

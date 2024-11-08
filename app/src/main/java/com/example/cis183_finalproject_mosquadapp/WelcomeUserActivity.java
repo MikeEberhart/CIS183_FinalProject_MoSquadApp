@@ -18,9 +18,16 @@ import java.util.ArrayList;
 public class WelcomeUserActivity extends AppCompatActivity
 {
     Intent jWelcomeUser_loginIntent;
-    Button btn_jWelcomeUser_logout;
     TextView tv_jWelcomeUser_userFname;
     ListView lv_jWelcomeUser_addressList;
+    Button btn_jWelcomeUser_logout;
+    Button btn_jWelcomeUser_deleteAddress;
+    Button btn_jWelcomeUser_updateAddress;
+    Button btn_jWelcomeUser_updateEstimate;
+    Button btn_jWelcomeUser_reviews;
+    Button btn_jWelcomeUser_userAccount;
+    Button btn_jWelcomeUser_newEstimate;
+    Button btn_jWelcomeUser_packageDetails;
     AddressListAdapter jWelcomeUser_addressListAdapter;
     ArrayList<String> testArray;
 
@@ -32,6 +39,7 @@ public class WelcomeUserActivity extends AppCompatActivity
         setContentView(R.layout.activity_welcome_user);
 
         WU_InitData();
+        WU_OnClickListeners();
     }
 
     private void WU_InitData()
@@ -39,12 +47,24 @@ public class WelcomeUserActivity extends AppCompatActivity
         testArray = new ArrayList<>();
         testArray.add("school");
         testArray.add("base camp");
+        WU_ListOfViews();
         jWelcomeUser_addressListAdapter = new AddressListAdapter(this, testArray);
-        tv_jWelcomeUser_userFname = findViewById(R.id.tv_vWelcomeUser_userFname);
-        btn_jWelcomeUser_logout = findViewById(R.id.btn_vWelcomeUser_logout);
-        lv_jWelcomeUser_addressList = findViewById(R.id.lv_vWelcomeUser_addressList);
-        lv_jWelcomeUser_addressList.setAdapter(jWelcomeUser_addressListAdapter);
         jWelcomeUser_loginIntent = new Intent(this, LoginActivity.class);
+        lv_jWelcomeUser_addressList.setAdapter(jWelcomeUser_addressListAdapter);
+    }
+
+    private void WU_ListOfViews()
+    {
+        tv_jWelcomeUser_userFname       = findViewById(R.id.tv_vWelcomeUser_userFname);
+        lv_jWelcomeUser_addressList     = findViewById(R.id.lv_vWelcomeUser_addressList);
+        btn_jWelcomeUser_logout         = findViewById(R.id.btn_vWelcomeUser_logout);
+        btn_jWelcomeUser_deleteAddress  = findViewById(R.id.btn_vWelcomeUser_deleteAddress);
+        btn_jWelcomeUser_updateAddress  = findViewById(R.id.btn_vWelcomeUser_updateAddress);
+        btn_jWelcomeUser_updateEstimate = findViewById(R.id.btn_vWelcomeUser_updateEstimate);
+        btn_jWelcomeUser_reviews        = findViewById(R.id.btn_vWelcomeUser_reviews);
+        btn_jWelcomeUser_userAccount    = findViewById(R.id.btn_vWelcomeUser_userAccount);
+        btn_jWelcomeUser_newEstimate    = findViewById(R.id.btn_vWelcomeUser_newEstimate);
+        btn_jWelcomeUser_packageDetails = findViewById(R.id.btn_vWelcomeUser_packageDetails);
     }
 
     private void WU_OnClickListeners()

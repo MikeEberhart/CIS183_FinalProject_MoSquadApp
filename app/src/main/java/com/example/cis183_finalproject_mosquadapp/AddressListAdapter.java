@@ -53,7 +53,7 @@ public class AddressListAdapter extends BaseAdapter
         TextView tv_jAddressCell_state = view.findViewById(R.id.tv_vAddressCell_state);
         TextView tv_jAddressCell_zipCode = view.findViewById(R.id.tv_vAddressCell_zipCode);
         TextView tv_jAddressCell_acreage = view.findViewById(R.id.tv_vAddressCell_acreage);
-        TextView tv_jAddressCell_estimate = view.findViewById(R.id.tv_vAddressCell_estimate);
+        TextView tv_jAddressCell_estimate = view.findViewById(R.id.tv_vAddressCell_singleTreatment);
         return view;
     }
 }
