@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,14 @@ public class AddressListAdapter extends BaseAdapter
             LayoutInflater listInflater = (LayoutInflater) ala_passedContext.getSystemService(WelcomeUserActivity.LAYOUT_INFLATER_SERVICE);
             view = listInflater.inflate(R.layout.listview_address_cell, null);
         }
+        // object class here //
+        TextView tv_jAddressCell_streetAddress = view.findViewById(R.id.tv_vAddressCell_streetAddress);
+        TextView tv_jAddressCell_aptAddress = view.findViewById(R.id.tv_vAddressCell_aptAddress);
+        TextView tv_jAddressCell_city = view.findViewById(R.id.tv_vAddressCell_city);
+        TextView tv_jAddressCell_state = view.findViewById(R.id.tv_vAddressCell_state);
+        TextView tv_jAddressCell_zipCode = view.findViewById(R.id.tv_vAddressCell_zipCode);
+        TextView tv_jAddressCell_acreage = view.findViewById(R.id.tv_vAddressCell_acreage);
+        TextView tv_jAddressCell_estimate = view.findViewById(R.id.tv_vAddressCell_estimate);
         return view;
     }
 }
