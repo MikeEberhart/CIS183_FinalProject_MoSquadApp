@@ -8,10 +8,28 @@
     android:background="@color/white"
     tools:context=".CreateAccountActivity">
 
+    <TextView
+        android:id="@+id/tv_vCreateAcct_phoneNumError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:text="*Error*"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vCreateAcct_phoneNumber"
+        app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_phoneNumber"
+        app:layout_constraintStart_toEndOf="@+id/tv_vCreateAcct_phoneDisplay"
+        app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_email" />
+
     <EditText
         android:id="@+id/et_vCreateAcct_username"
-        android:layout_width="316dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/blk_border_with_radius"
         android:ems="10"
         android:inputType="text"
@@ -26,8 +44,8 @@
         android:id="@+id/tv_vCreateAcct_fnameDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="First Name"
+        android:layout_marginTop="8dp"
+        android:text="First Name:"
         android:textColor="@color/black"
         app:autoSizeMaxTextSize="20dp"
         app:autoSizeMinTextSize="10dp"
@@ -39,8 +57,8 @@
         android:id="@+id/tv_vCreateAcct_lnameDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Last Name"
+        android:layout_marginTop="8dp"
+        android:text="Last Name:"
         android:textColor="@color/black"
         app:autoSizeMaxTextSize="20dp"
         app:autoSizeMinTextSize="10dp"
@@ -52,15 +70,15 @@
         android:id="@+id/tv_vCreateAcct_passwordDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Password"
+        android:layout_marginTop="8dp"
+        android:text="Password:"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/et_vCreateAcct_password"
         app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_username" />
 
     <EditText
         android:id="@+id/et_vCreateAcct_email"
-        android:layout_width="316dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@drawable/blk_border_with_radius"
         android:ems="10"
@@ -74,11 +92,12 @@
 
     <EditText
         android:id="@+id/et_vCreateAcct_phoneNumber"
-        android:layout_width="316dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@drawable/blk_border_with_radius"
         android:ems="10"
         android:inputType="text"
+        android:singleLine="true"
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -90,8 +109,8 @@
         android:id="@+id/tv_vCreateAcct_usernameDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Username"
+        android:layout_marginTop="8dp"
+        android:text="Username:"
         android:textColor="@color/black"
         app:autoSizeMaxTextSize="20dp"
         app:autoSizeMinTextSize="10dp"
@@ -103,15 +122,15 @@
         android:id="@+id/tv_vCreateAcct_confirmPassDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Confirm Password"
+        android:layout_marginTop="8dp"
+        android:text="Confirm Password:"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/et_vCreateAcct_confirmPass"
         app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_password" />
 
     <EditText
         android:id="@+id/et_vCreateAcct_confirmPass"
-        android:layout_width="316dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@drawable/blk_border_with_radius"
         android:ems="10"
@@ -125,7 +144,7 @@
 
     <EditText
         android:id="@+id/et_vCreateAcct_password"
-        android:layout_width="316dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@drawable/blk_border_with_radius"
         android:ems="10"
@@ -141,8 +160,8 @@
         android:id="@+id/tv_vCreateAcct_phoneDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Phone Number"
+        android:layout_marginTop="8dp"
+        android:text="Phone Number:"
         android:textColor="@color/black"
         app:autoSizeMaxTextSize="20dp"
         app:autoSizeMinTextSize="10dp"
@@ -154,8 +173,8 @@
         android:id="@+id/tv_vCreateAcct_emailDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Email"
+        android:layout_marginTop="8dp"
+        android:text="Email:"
         android:textColor="@color/black"
         app:autoSizeMaxTextSize="20dp"
         app:autoSizeMinTextSize="10dp"
@@ -165,7 +184,7 @@
 
     <EditText
         android:id="@+id/et_vCreateAcct_lname"
-        android:layout_width="316dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@drawable/blk_border_with_radius"
         android:ems="10"
@@ -179,7 +198,7 @@
 
     <EditText
         android:id="@+id/et_vCreateAcct_fname"
-        android:layout_width="316dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@drawable/blk_border_with_radius"
         android:ems="10"
@@ -204,24 +223,38 @@
     <Button
         android:id="@+id/btn_vCreateAcct_createAccount"
         android:layout_width="148dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp"
         android:text="Create Account"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_phoneNumber"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/et_vCreateAcct_phoneNumber"
         app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_phoneNumber" />
 
     <Button
         android:id="@+id/btn_vCreateAcct_back"
         android:layout_width="148dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp"
         android:text="Back"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_phoneNumber"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_vCreateAcct_phoneNumber"
         app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_phoneNumber" />
 
@@ -238,5 +271,101 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_vCreateAcct_createAcctBanner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_vCreateAcct_usernameError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:text="*Invalid Username*"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vCreateAcct_username"
+        app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_username"
+        app:layout_constraintStart_toEndOf="@+id/tv_vCreateAcct_usernameDisplay"
+        app:layout_constraintTop_toBottomOf="@+id/iv_vCreateAcct_createAcctBanner" />
+
+    <TextView
+        android:id="@+id/tv_vCreateAcct_passwordError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:text="*Error*"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vCreateAcct_password"
+        app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_password"
+        app:layout_constraintStart_toEndOf="@+id/tv_vCreateAcct_passwordDisplay"
+        app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_username" />
+
+    <TextView
+        android:id="@+id/tv_vCreateAcct_confirmPassError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:text="*Error*"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vCreateAcct_confirmPass"
+        app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_confirmPass"
+        app:layout_constraintStart_toEndOf="@+id/tv_vCreateAcct_confirmPassDisplay"
+        app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_password" />
+
+    <TextView
+        android:id="@+id/tv_vCreateAcct_fnameError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:text="*Error*"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vCreateAcct_fname"
+        app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_fname"
+        app:layout_constraintStart_toEndOf="@+id/tv_vCreateAcct_fnameDisplay"
+        app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_confirmPass" />
+
+    <TextView
+        android:id="@+id/tv_vCreateAcct_lnameError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:text="*Error*"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vCreateAcct_lname"
+        app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_lname"
+        app:layout_constraintStart_toEndOf="@+id/tv_vCreateAcct_lnameDisplay"
+        app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_fname" />
+
+    <TextView
+        android:id="@+id/tv_vCreateAcct_emailError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:text="*Error*"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vCreateAcct_email"
+        app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_email"
+        app:layout_constraintStart_toEndOf="@+id/tv_vCreateAcct_emailDisplay"
+        app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_lname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,103 @@
 package com.example.cis183_finalproject_mosquadapp;
 
+import android.view.View;
+import android.widget.TextView;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 // used to house all the function that will be used across multiple activities //
 public class FunctionLibrary
 {
+    private static final String ALLOWED_USERNAME_CHARS = "^[a-zA-Z0-9_.-]{8,}+$";
+    private static final String ALLOWED_PASSWORD_CHARS = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&*()_\\-=+{}\\[\\]|;:\"'<>,.?/~]).{12,}$";
+    private static final String ALLOWED_NAME_CHARS = "^[a-zA-Z\\s]+$";
+    private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z](?:[a-zA-Z0-9_.-]*[a-zA-Z0-9])?+@(?:[a-zA-Z]*[a-zA-Z.])+(?:\\.com|\\.gov|\\.edu)$";
+    private static final String ALLOWED_PHONE_NUMBERS = "^[2-9]{3}-[2-9]{3}-[0-9]{4}$";
+
     public FunctionLibrary()
     {
 
+    }
+
+    public boolean FL_UsernameInputValidation(TextView tv, CharSequence cs)
+    {
+        Pattern goodChars = Pattern.compile(ALLOWED_USERNAME_CHARS);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean tempBool = checkingChars.find();
+        if(tempBool)
+        {
+            tv.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(R.string.username_error_message);
+        }
+        return tempBool;
+    }
+    public boolean FL_PasswordInputValidation(TextView tv, CharSequence cs)
+    {
+        Pattern goodChars = Pattern.compile(ALLOWED_PASSWORD_CHARS);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean tempBool = checkingChars.find();
+        if(tempBool)
+        {
+            tv.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(R.string.password_error_message);
+        }
+        return tempBool;
+    }
+    public boolean FL_NameInputValidation(TextView tv, CharSequence cs)
+    {
+        Pattern goodChars = Pattern.compile(ALLOWED_NAME_CHARS);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean tempBool = checkingChars.find();
+        if(tempBool)
+        {
+            tv.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(R.string.name_error_message);
+        }
+        return tempBool;
+    }
+    public boolean FL_EmailInputValidation(TextView tv, CharSequence cs)
+    {
+        Pattern goodChars = Pattern.compile(ALLOWED_EMAIL_CHARS);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean tempBool = checkingChars.find();
+        if(tempBool)
+        {
+            tv.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(R.string.email_error_message);
+        }
+        return tempBool;
+    }
+    public boolean FL_PhoneNumberValidation(TextView tv, CharSequence cs)
+    {
+        Pattern goodChars = Pattern.compile(ALLOWED_PHONE_NUMBERS);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean tempBool = checkingChars.find();
+        if(tempBool)
+        {
+            tv.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(R.string.phone_error_message);
+        }
+        return tempBool;
     }
 }

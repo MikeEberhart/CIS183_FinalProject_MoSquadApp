@@ -1,5 +1,6 @@
 package com.example.cis183_finalproject_mosquadapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
@@ -9,6 +10,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {
@@ -22,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context c)
     {
-        super(c, DATABASE_NAME, null, 1);
+        super(c, DATABASE_NAME, null, 4);
     }
 
     @Override
@@ -63,10 +66,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 " All_Natural integer, Special_Event integer);");
 
         db.execSQL("CREATE TABLE " + SERVICE_ADDRESSES_TABLE + " (AddressID integer primary key autoincrement not null," +
-                " Username varchar, Street_Address varchar, Apt varchar, City varchar, State varchar, PolygonID integer," +
-                " Total_Acreage double, ServiceID integer, Estimated_Price double, foreign key (Username) references " +
-                USERS_TABLE + "(Username), foreign key (PolygonID) references " + POLYGON_DATA_TABLE + "(PolygonID)," +
-                " foreign key (ServiceID) references " + YARD_SERVICES_TABLE + "(ServiceID));");
+                " Username varchar, Street_Address varchar, Apt varchar, City varchar, State varchar, ZipCode varchar, PolygonID integer," +
+                " Total_Acreage double, ServiceID integer, Single_Treatment_Price double, Season_Treatment_Price double, " +
+                "foreign key (Username) references " + USERS_TABLE + "(Username), foreign key (PolygonID) references " +
+                POLYGON_DATA_TABLE + "(PolygonID), foreign key (ServiceID) references " + YARD_SERVICES_TABLE + "(ServiceID));");
 
         db.execSQL("CREATE TABLE " + REVIEWS_TABLE + " (ReviewID integer primary key autoincrement not null," +
                 " Username varchar, Star_Count integer, Review_Text varchar, Review_Date varchar, foreign key" +
@@ -155,8 +158,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
         {
             SQLiteDatabase db = this.getWritableDatabase();
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
-                       " (Username, Street_Address, Apt, City, State, PolygonID, Total_Acreage, ServiceID, Estimated_Price) " +
-                       "VALUES ('mEbbs123', '13101  Wanty Rd', null, 'Milan', 'MI', null, null, 1, null);");
+                       " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                       "VALUES ('mEbbs123', '13101  Wanty Rd', null, 'Milan', 'MI', '48160', null, null, 1, 123.323, 1223.233);");
         }
     }
     private void DB_PackagePriceData()
@@ -173,22 +176,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Special_Event', 30.00);"); // add the barrier treatment price to this later in the code
         }
     }
-
     public boolean DB_UsernameExists(String u)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        int cnt = 0;
-        String checkForUsername = "SELECT count(username) FROM " + USERS_TABLE + " WHERE username = '" + u + "';";
+        String checkForUsername = "SELECT username FROM " + USERS_TABLE + " WHERE username = '" + u + "';";
         Cursor uexists_cursor = db.rawQuery(checkForUsername, null);
         if(uexists_cursor.moveToFirst())
         {
-            cnt = uexists_cursor.getInt(0);
             uexists_cursor.close();
+            return true;
         }
-        Log.d("username exists", String.valueOf(cnt));
-        return cnt > 0;
+        uexists_cursor.close();
+        return false;
     }
-
     public boolean DB_UserLoginGood(String uname, String pass)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -197,29 +197,73 @@ public class DatabaseHelper extends SQLiteOpenHelper
         String savedPassword = "";
         Cursor checkForUserCursor = db.rawQuery(checkForUsername, null);
         Cursor getUserAcctCursor = db.rawQuery(getUserAcctData, null);
-        if(DB_UsernameExists(uname))
+        if(checkForUserCursor.moveToFirst())
         {
-            if(checkForUserCursor.moveToFirst())
-            {
-                savedPassword = checkForUserCursor.getString(0);
-                Log.d("saved password", savedPassword);
-            }
-            if(pass.equals(savedPassword) && getUserAcctCursor.moveToFirst())
-            {
-                User userData = new User(getUserAcctCursor.getString(0),
-                                         getUserAcctCursor.getString(1),
-                                         getUserAcctCursor.getString(2),
-                                         getUserAcctCursor.getString(3),
-                                         getUserAcctCursor.getString(4),
-                                         getUserAcctCursor.getString(5));
-                UserSessionData.setLoggedInUser(userData);
-                Log.d("saved password", "pass = savedpass");
-                return true;
-            }
-            checkForUserCursor.close();
-            getUserAcctCursor.close();
+            savedPassword = checkForUserCursor.getString(0);
+            Log.d("saved password", savedPassword);
         }
+        if(pass.equals(savedPassword) && getUserAcctCursor.moveToFirst())
+        {
+            User userData = new User(getUserAcctCursor.getString(0),
+                                     getUserAcctCursor.getString(1),
+                                     getUserAcctCursor.getString(2),
+                                     getUserAcctCursor.getString(3),
+                                     getUserAcctCursor.getString(4),
+                                     getUserAcctCursor.getString(5));
+            UserSessionData.SetLoggedInUser(userData);
+            DB_GetUserServiceAddresses();
+            Log.d("saved password", "pass = savedpass");
+            return true;
+        }
+        checkForUserCursor.close();
+        getUserAcctCursor.close();
         db.close();
         return false;
+    }
+    public void DB_GetUserServiceAddresses()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<ServiceAddress> userAddresses = new ArrayList<>();
+        String currentUsername = UserSessionData.GetLoggedInUser().getUser_username();
+        String getUserAddress = "SELECT * FROM " + SERVICE_ADDRESSES_TABLE + " WHERE Username = '" + currentUsername + "';";
+        Cursor userAddressCursor = db.rawQuery(getUserAddress, null);
+        if(userAddressCursor.moveToFirst())
+        {
+            do
+            {
+                userAddresses.add(new ServiceAddress(
+                        userAddressCursor.getInt(0),       // addressID
+                        userAddressCursor.getString(1),    // username
+                        userAddressCursor.getString(2),    // street address
+                        userAddressCursor.getString(3),    // apt
+                        userAddressCursor.getString(4),    // city
+                        userAddressCursor.getString(5),    // state
+                        userAddressCursor.getString(6),    // zipcode
+                        userAddressCursor.getInt(7),       // polygonID
+                        userAddressCursor.getDouble(8),    // total acreage
+                        userAddressCursor.getInt(9),       // serviceId
+                        userAddressCursor.getDouble(10),   // singleT
+                        userAddressCursor.getDouble(11))); // seasonT
+            }
+            while(userAddressCursor.moveToNext());
+        }
+        UserSessionData.SetUserAddressData(userAddresses);
+        UserSessionData.SetUserAddressCount(userAddresses.size());
+        userAddressCursor.close();
+        db.close();
+//        return userAddresses;
+    }
+    public void DB_AddNewUser(String un, String p, String f, String l, String e, String pn)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues addUser = new ContentValues();
+        addUser.put("Username", un);
+        addUser.put("Password", p);
+        addUser.put("First_Name", f);
+        addUser.put("Last_Name", l);
+        addUser.put("Email", e);
+        addUser.put("Phone_Number", pn);
+        db.insert(USERS_TABLE, null, addUser);
+        db.close();
     }
 }

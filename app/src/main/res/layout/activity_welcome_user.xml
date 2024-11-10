@@ -24,6 +24,7 @@
         android:id="@+id/btn_vWelcomeUser_logout"
         android:layout_width="60dp"
         android:layout_height="35dp"
+        android:layout_marginTop="3dp"
         android:backgroundTint="@color/mosquad_green"
         android:elevation="2dp"
         android:paddingLeft="2dp"
@@ -33,23 +34,11 @@
         android:rotation="0"
         android:text="Logout"
         android:textColor="@color/white"
+        android:textSize="16sp"
         android:translationZ="2dp"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/lv_vWelcomeUser_addressList"
-        app:layout_constraintStart_toStartOf="@+id/lv_vWelcomeUser_addressList" />
-
-    <TextView
-        android:id="@+id/tv_vWelcomeUser_welcomeMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/lv_vWelcomeUser_addressList"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/tv_vWelcomeUser_userFname"
@@ -59,30 +48,29 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/lv_vWelcomeUser_addressList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="240dp"
         android:background="@drawable/blk_border_with_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vWelcomeUser_userFname" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_vWelcomeUser_logout" />
 
     <Button
         android:id="@+id/btn_vWelcomeUser_deleteAddress"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="56dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="4dp"
@@ -91,6 +79,7 @@
         android:paddingBottom="4dp"
         android:text="Delete Address"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintStart_toStartOf="@+id/lv_vWelcomeUser_addressList"
         app:layout_constraintTop_toBottomOf="@+id/lv_vWelcomeUser_addressList" />
@@ -98,7 +87,7 @@
     <Button
         android:id="@+id/btn_vWelcomeUser_updateEstimate"
         android:layout_width="100dp"
-        android:layout_height="52dp"
+        android:layout_height="56dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="4dp"
@@ -107,6 +96,7 @@
         android:paddingBottom="4dp"
         android:text="Update Estimate"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/lv_vWelcomeUser_addressList"
         app:layout_constraintTop_toBottomOf="@+id/lv_vWelcomeUser_addressList" />
@@ -114,7 +104,7 @@
     <Button
         android:id="@+id/btn_vWelcomeUser_updateAddress"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="56dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="4dp"
@@ -123,6 +113,7 @@
         android:paddingBottom="4dp"
         android:text="Update Address"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/btn_vWelcomeUser_updateEstimate"
         app:layout_constraintStart_toEndOf="@+id/btn_vWelcomeUser_deleteAddress"
@@ -131,9 +122,9 @@
     <Button
         android:id="@+id/btn_vWelcomeUser_reviews"
         android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_height="56dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="4dp"
         android:paddingTop="4dp"
@@ -141,6 +132,7 @@
         android:paddingBottom="4dp"
         android:text="Reviews"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintStart_toStartOf="@+id/btn_vWelcomeUser_deleteAddress"
         app:layout_constraintTop_toBottomOf="@+id/btn_vWelcomeUser_deleteAddress" />
@@ -148,7 +140,7 @@
     <Button
         android:id="@+id/btn_vWelcomeUser_userAccount"
         android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_height="56dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="4dp"
@@ -157,6 +149,7 @@
         android:paddingBottom="4dp"
         android:text="User Account"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintStart_toStartOf="@+id/btn_vWelcomeUser_reviews"
         app:layout_constraintTop_toBottomOf="@+id/btn_vWelcomeUser_reviews" />
@@ -164,8 +157,8 @@
     <Button
         android:id="@+id/btn_vWelcomeUser_newEstimate"
         android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="4dp"
@@ -174,6 +167,7 @@
         android:paddingBottom="4dp"
         android:text="New Estimate"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/btn_vWelcomeUser_updateEstimate"
         app:layout_constraintTop_toBottomOf="@+id/btn_vWelcomeUser_updateEstimate" />
@@ -181,7 +175,7 @@
     <Button
         android:id="@+id/btn_vWelcomeUser_packageDetails"
         android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_height="56dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="4dp"
@@ -190,6 +184,7 @@
         android:paddingBottom="4dp"
         android:text="Package Details"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/btn_vWelcomeUser_newEstimate"
         app:layout_constraintTop_toBottomOf="@+id/btn_vWelcomeUser_newEstimate" />
@@ -198,12 +193,30 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="-List of Saved Estimates-"
+        android:layout_marginBottom="-2dp"
+        android:background="@drawable/blk_border_top_radius"
+        android:text="Saved Estimates"
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_vWelcomeUser_logout"
+        app:layout_constraintBottom_toTopOf="@+id/lv_vWelcomeUser_addressList"
         app:layout_constraintEnd_toEndOf="@+id/lv_vWelcomeUser_addressList"
         app:layout_constraintStart_toStartOf="@+id/lv_vWelcomeUser_addressList" />
+
+    <TextView
+        android:id="@+id/tv_vWelcomeUser_noSavedEstimates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="*No Saved Estimates*"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/lv_vWelcomeUser_addressList"
+        app:layout_constraintStart_toStartOf="@+id/lv_vWelcomeUser_addressList"
+        app:layout_constraintTop_toTopOf="@+id/lv_vWelcomeUser_addressList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

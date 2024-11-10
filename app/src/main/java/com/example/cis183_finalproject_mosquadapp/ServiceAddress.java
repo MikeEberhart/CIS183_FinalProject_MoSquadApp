@@ -7,26 +7,32 @@ public class ServiceAddress
     String sa_streetAddress;
     String sa_apt;
     String sa_city;
+    String sa_state;
+    String sa_zipCode;
     int sa_polygonID;
     double sa_totalAcreage;
     int sa_serviceID;
-    double sa_estimatePrice;
+    double sa_singleTreatment;
+    double sa_seasonTreatment;
 
     public ServiceAddress()
     {
 
     }
-    public ServiceAddress(int aID, String u, String sa, String a, String c, int pID, double ta, int sID, double ep)
+    public ServiceAddress(int aID, String u, String sa, String a, String c, String st, String z, int pID, double ta, int sID, double sigT, double seaT)
     {
         sa_addressID = aID;
         sa_username = u;
         sa_streetAddress = sa;
         sa_apt = a;
         sa_city = c;
+        sa_state = st;
+        sa_zipCode = z;
         sa_polygonID = pID;
         sa_totalAcreage = ta;
         sa_serviceID = sID;
-        sa_estimatePrice = ep;
+        sa_singleTreatment = sigT;
+        sa_seasonTreatment = seaT;
     }
 
     // GETTERS //
@@ -50,6 +56,14 @@ public class ServiceAddress
     {
         return sa_city;
     }
+    public String getSa_state()
+    {
+        return sa_state;
+    }
+    public String getSa_zipCode()
+    {
+        return sa_zipCode;
+    }
     public int getSa_polygonID()
     {
         return sa_polygonID;
@@ -62,9 +76,13 @@ public class ServiceAddress
     {
         return sa_serviceID;
     }
-    public double getSa_estimatePrice()
+    public double getSa_singleTreatment()
     {
-        return sa_estimatePrice;
+        return sa_singleTreatment;
+    }
+    public double getSa_seasonTreatment()
+    {
+        return sa_seasonTreatment;
     }
 
     // SETTERS //
@@ -88,6 +106,14 @@ public class ServiceAddress
     {
         this.sa_city = sa_city;
     }
+    public void setSa_state(String sa_state)
+    {
+        this.sa_state = sa_state;
+    }
+    public void setSa_zipCode(String sa_zipCode)
+    {
+        this.sa_zipCode = sa_zipCode;
+    }
     public void setSa_polygonID(int sa_polygonID)
     {
         this.sa_polygonID = sa_polygonID;
@@ -100,8 +126,12 @@ public class ServiceAddress
     {
         this.sa_serviceID = sa_serviceID;
     }
-    public void setSa_estimatePrice(double sa_estimatePrice)
+    public void setSa_singleTreatment(double sa_singleTreatment)
     {
-        this.sa_estimatePrice = sa_estimatePrice;
+        this.sa_singleTreatment = sa_singleTreatment;
+    }
+    public void setSa_seasonTreatment(double sa_seasonTreatment)
+    {
+        this.sa_seasonTreatment = sa_seasonTreatment;
     }
 }

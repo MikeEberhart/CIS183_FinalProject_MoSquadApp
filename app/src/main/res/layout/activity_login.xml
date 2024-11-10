@@ -11,16 +11,19 @@
     <ImageView
         android:id="@+id/iv_vLogin_bannerPic"
         android:layout_width="wrap_content"
-        android:layout_height="175dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/mosquad_banner"
+        android:layout_height="300dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mosquad_login_image"
+        app:layout_constraintBottom_toTopOf="@+id/tv_vLogin_usernameDisplay"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
     <EditText
         android:id="@+id/et_vLogin_username"
-        android:layout_width="316dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/blk_border_with_radius"
@@ -49,10 +52,10 @@
 
     <EditText
         android:id="@+id/et_vLogin_password"
-        android:layout_width="316dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="33dp"
         android:background="@drawable/blk_border_with_radius"
         android:ems="10"
@@ -77,12 +80,17 @@
     <Button
         android:id="@+id/btn_vLogin_login"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_marginBottom="30dp"
         android:backgroundTint="@color/mosquad_green"
-        android:textColor="@color/white"
-        app:cornerRadius="10dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp"
         android:text="Login"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_vLogin_createAccount"
         app:layout_constraintEnd_toEndOf="@+id/btn_vLogin_createAccount"
         app:layout_constraintHorizontal_bias="0.0"
@@ -91,14 +99,41 @@
     <Button
         android:id="@+id/btn_vLogin_createAccount"
         android:layout_width="148dp"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_marginBottom="70dp"
         android:backgroundTint="@color/mosquad_green"
-        android:text="Create Account"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp"
+        android:text="Create \nNew Account"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_vLogin_usernameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="*Invalid Username*"
+        android:textColor="@color/design_default_color_error"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vLogin_username"
+        app:layout_constraintStart_toEndOf="@+id/tv_vLogin_usernameDisplay" />
+
+    <TextView
+        android:id="@+id/tv_vLogin_passwordError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="*Invalid Password*"
+        android:textColor="@color/design_default_color_error"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vLogin_password"
+        app:layout_constraintStart_toEndOf="@+id/tv_vLogin_passwordDisplay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

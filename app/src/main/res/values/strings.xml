@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">CIS183_FinalProject_MoSquadApp</string>
+    <string name="app_name">The MoSquad App</string>
+    <string name="username_error_message">Only[a–z][A–Z][0–9][_.-]Allowed-length=12</string>
+    <string name="password_error_message">1 [a–z][A–Z][0–9][Special Character] each</string>
+    <string name="name_error_message">[a-z][A-Z] Letters Only</string>
+    <string name="email_error_message">Standard Email Only example = jDoe34@gmail.com</string>
+    <string name="phone_error_message">Only [0–9] with "–" Allowed Format = 555–555–4455 </string>
+    <string name="password_dont_match_message">Passwords Do Not Match</string>
+    <string name="username_alread_exists">Username Already Exists</string>
 </resources>
