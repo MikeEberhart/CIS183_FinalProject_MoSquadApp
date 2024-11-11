@@ -210,16 +210,44 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mosquad_banner" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_vUserAcct_homeBtn"
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
+        android:text="Change Password"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="594dp" />
+
+    <Button
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:clickable="true"
-        app:backgroundTint="@color/mosquad_green"
-        app:layout_constraintBottom_toBottomOf="@+id/textView13"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView13"
-        app:srcCompat="@drawable/home_icon" />
+        android:text="Save"
+        tools:layout_editor_absoluteX="307dp"
+        tools:layout_editor_absoluteY="594dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Account"
+        tools:layout_editor_absoluteX="180dp"
+        tools:layout_editor_absoluteY="594dp" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="660dp" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Account"
+        tools:layout_editor_absoluteX="268dp"
+        tools:layout_editor_absoluteY="656dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
