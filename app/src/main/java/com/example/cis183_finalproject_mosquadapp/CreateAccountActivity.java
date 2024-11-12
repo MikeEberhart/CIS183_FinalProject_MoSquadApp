@@ -13,11 +13,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CreateAccountActivity extends AppCompatActivity
 {
@@ -39,17 +34,10 @@ public class CreateAccountActivity extends AppCompatActivity
     EditText et_jCreateAcct_phoneNumber;
     Button btn_jCreateAcct_back;
     Button btn_jCreateAcct_createAccount;
-    ArrayList<EditText> etView; // maybe use an array of textviews and edittext to pass to function library to use there //
-    FunctionLibrary funcLib;
+    User ca_tempUser;
+    FunctionLibrary ca_funcLib;
     DatabaseHelper ca_dbHelper;
-    ConstraintLayout cl;
-    private boolean ca_goodUsername;
-    private boolean ca_goodPassword;
-    private boolean ca_goodConfirmPass;
-    private boolean ca_goodFname;
-    private boolean ca_goodLname;
-    private boolean ca_goodEmail;
-    private boolean ca_goodPhoneNum;
+    private boolean[] ca_inputIsGood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -67,10 +55,11 @@ public class CreateAccountActivity extends AppCompatActivity
     {
         CA_ListOfViews();
         CA_ResetErrorsAndBools();
-        funcLib = new FunctionLibrary();
+        ca_funcLib = new FunctionLibrary();
         ca_dbHelper = new DatabaseHelper(this);
         jCreateAcct_loginIntent = new Intent(this, LoginActivity.class);
         jCreateAcct_WelcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
+        ca_inputIsGood = new boolean[7];
     }
 
 //    private void testingLoop() // used to get all the textviews in the constraintlayout to later pass to function library //
@@ -87,7 +76,6 @@ public class CreateAccountActivity extends AppCompatActivity
 
     private void CA_ListOfViews()
     {
-        cl = findViewById(R.id.main);
         tv_jCreateAcct_usernameError    = findViewById(R.id.tv_vCreateAcct_usernameError);
         tv_jCreateAcct_passwordError    = findViewById(R.id.tv_vCreateAcct_passwordError);
         tv_jCreateAcct_confirmPassError = findViewById(R.id.tv_vCreateAcct_confirmPassError);
@@ -121,37 +109,35 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if(!CA_EmptyEditTextInput())
+                Log.d("OnClick", "OnClick");
+                String tempUsername = et_jCreateAcct_username.getText().toString();
+//                    if(ca_goodUsername && ca_goodPassword && ca_goodConfirmPass && ca_goodFname && ca_goodLname &&
+//                            ca_goodEmail && ca_goodPhoneNum && !ca_dbHelper.DB_UsernameExists(tempUsername)) // maybe put these bools in an array too //
+                if(!CA_InputIsEmptyCheck() && ca_funcLib.FL_InputIsGood(ca_inputIsGood) && !ca_dbHelper.DB_UsernameExists(tempUsername))
                 {
-                    Log.d("OnClick", "OnClick");
-                    String tempUsername = et_jCreateAcct_username.getText().toString();
-                    if(ca_goodUsername && ca_goodPassword && ca_goodConfirmPass && ca_goodFname && ca_goodLname &&
-                            ca_goodEmail && ca_goodPhoneNum && !ca_dbHelper.DB_UsernameExists(tempUsername))
+                    Log.d("before IF", "before IF");
+                    String pass = et_jCreateAcct_password.getText().toString();
+                    String confirmPass = et_jCreateAcct_confirmpass.getText().toString();
+                    if(pass.equals(confirmPass))
                     {
-                        Log.d("before IF", "before IF");
-                        String pass = et_jCreateAcct_password.getText().toString();
-                        String confirmPass = et_jCreateAcct_confirmpass.getText().toString();
-                        if(pass.equals(confirmPass))
-                        {
-                            CA_SaveNewUser();
-                            Toast.makeText(CreateAccountActivity.this, "New Account Create", Toast.LENGTH_SHORT).show();
+                        CA_SaveNewUser();
+                        Toast.makeText(CreateAccountActivity.this, "New Account Create", Toast.LENGTH_SHORT).show();
 //                            Toast toast = new Toast();
 //                            toast.
-                            Log.d("equal pass", "equal pass");
-                            startActivity(jCreateAcct_loginIntent);
-                        }
-                        else
-                        {
-                            Log.d("not equal pass", "not equal pass");
-                            tv_jCreateAcct_confirmPassError.setVisibility(View.VISIBLE);
-                            tv_jCreateAcct_confirmPassError.setText(R.string.password_dont_match_message);
-                        }
+                        Log.d("equal pass", "equal pass");
+                        startActivity(jCreateAcct_loginIntent);
                     }
-                    else if(ca_dbHelper.DB_UsernameExists(tempUsername))
+                    else
                     {
-                        tv_jCreateAcct_usernameError.setVisibility(View.VISIBLE);
-                        tv_jCreateAcct_usernameError.setText(R.string.username_alread_exists);
+                        Log.d("not equal pass", "not equal pass");
+                        tv_jCreateAcct_confirmPassError.setVisibility(View.VISIBLE);
+                        tv_jCreateAcct_confirmPassError.setText(R.string.password_dont_match_message);
                     }
+                }
+                else if(ca_dbHelper.DB_UsernameExists(tempUsername))
+                {
+                    tv_jCreateAcct_usernameError.setVisibility(View.VISIBLE);
+                    tv_jCreateAcct_usernameError.setText(R.string.username_alread_exists);
                 }
             }
         });
@@ -168,8 +154,7 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                ca_goodUsername = funcLib.FL_UsernameInputValidation(tv_jCreateAcct_usernameError, s);
-                Log.d("1", ca_goodUsername + "");
+                ca_inputIsGood[0] = ca_funcLib.FL_UsernameInputValidation(tv_jCreateAcct_usernameError, s);
             }
             @Override
             public void afterTextChanged(Editable s)
@@ -185,8 +170,7 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                Log.d("2", ca_goodPassword + "");
-                ca_goodPassword = funcLib.FL_PasswordInputValidation(tv_jCreateAcct_passwordError, s);
+                ca_inputIsGood[1] = ca_funcLib.FL_PasswordInputValidation(tv_jCreateAcct_passwordError, s);
             }
             @Override
             public void afterTextChanged(Editable s)
@@ -202,8 +186,7 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                Log.d("3", ca_goodConfirmPass + "");
-                ca_goodConfirmPass = funcLib.FL_PasswordInputValidation(tv_jCreateAcct_confirmPassError, s);
+                ca_inputIsGood[2] = ca_funcLib.FL_PasswordInputValidation(tv_jCreateAcct_confirmPassError, s);
             }
             @Override
             public void afterTextChanged(Editable s)
@@ -219,8 +202,7 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                Log.d("4", ca_goodFname +"");
-                ca_goodFname = funcLib.FL_NameInputValidation(tv_jCreateAcct_fnameError, s);
+                ca_inputIsGood[3] = ca_funcLib.FL_NameInputValidation(tv_jCreateAcct_fnameError, s);
             }
             @Override
             public void afterTextChanged(Editable s)
@@ -236,8 +218,7 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                Log.d("5", ca_goodLname + "");
-                ca_goodLname = funcLib.FL_NameInputValidation(tv_jCreateAcct_lnameError, s);
+                ca_inputIsGood[4] = ca_funcLib.FL_NameInputValidation(tv_jCreateAcct_lnameError, s);
             }
             @Override
             public void afterTextChanged(Editable s)
@@ -253,8 +234,7 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                Log.d("6", ca_goodEmail + "");
-                ca_goodEmail = funcLib.FL_EmailInputValidation(tv_jCreateAcct_emailError, s);
+                ca_inputIsGood[5] = ca_funcLib.FL_EmailInputValidation(tv_jCreateAcct_emailError, s);
             }
             @Override
             public void afterTextChanged(Editable s)
@@ -270,8 +250,7 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                Log.d("7", ca_goodPhoneNum + "");
-                ca_goodPhoneNum = funcLib.FL_PhoneNumberValidation(tv_jCreateAcct_phoneNumError, s);
+                ca_inputIsGood[6] = ca_funcLib.FL_PhoneNumberValidation(tv_jCreateAcct_phoneNumError, s);
             }
             @Override
             public void afterTextChanged(Editable s)
@@ -288,70 +267,28 @@ public class CreateAccountActivity extends AppCompatActivity
         tv_jCreateAcct_lnameError.setVisibility(View.INVISIBLE);
         tv_jCreateAcct_emailError.setVisibility(View.INVISIBLE);
         tv_jCreateAcct_phoneNumError.setVisibility(View.INVISIBLE);
-        ca_goodUsername = false;
-        ca_goodPassword = false;
-        ca_goodConfirmPass = false;
-        ca_goodFname = false;
-        ca_goodLname = false;
-        ca_goodEmail = false;
-        ca_goodPhoneNum = false;
+
     }
-    private boolean CA_EmptyEditTextInput()
+    private boolean CA_InputIsEmptyCheck()
     {
-        boolean ca_emptyTextBox = false;
-        if(et_jCreateAcct_username.getText().toString().isEmpty())
-        {
-            tv_jCreateAcct_usernameError.setVisibility(View.VISIBLE);
-            tv_jCreateAcct_usernameError.setText("Must Enter Username");
-            ca_emptyTextBox = true;
-        }
-        if(et_jCreateAcct_password.getText().toString().isEmpty())
-        {
-            tv_jCreateAcct_passwordError.setVisibility(View.VISIBLE);
-            tv_jCreateAcct_passwordError.setText("Must Enter a Password");
-            ca_emptyTextBox = true;
-        }
-        if(et_jCreateAcct_confirmpass.getText().toString().isEmpty())
-        {
-            tv_jCreateAcct_confirmPassError.setVisibility(View.VISIBLE);
-            tv_jCreateAcct_confirmPassError.setText("Must Enter a Password");
-            ca_emptyTextBox = true;
-        }
-        if(et_jCreateAcct_fname.getText().toString().isEmpty())
-        {
-            tv_jCreateAcct_fnameError.setVisibility(View.VISIBLE);
-            tv_jCreateAcct_fnameError.setText("Must Enter a First Name");
-            ca_emptyTextBox = true;
-        }
-        if(et_jCreateAcct_lname.getText().toString().isEmpty())
-        {
-            tv_jCreateAcct_lnameError.setVisibility(View.VISIBLE);
-            tv_jCreateAcct_lnameError.setText("Must Enter a Last Name");
-            ca_emptyTextBox = true;
-        }
-        if(et_jCreateAcct_email.getText().toString().isEmpty())
-        {
-            tv_jCreateAcct_emailError.setVisibility(View.VISIBLE);
-            tv_jCreateAcct_emailError.setText("Must Enter a Email");
-            ca_emptyTextBox = true;
-        }
-        if(et_jCreateAcct_phoneNumber.getText().toString().isEmpty())
-        {
-            tv_jCreateAcct_phoneNumError.setVisibility(View.VISIBLE);
-            tv_jCreateAcct_phoneNumError.setText("Must Enter a Phone Number");
-            ca_emptyTextBox = true;
-        }
-        Log.d("empty text", "empty text");
-        return ca_emptyTextBox;
+        boolean[] ca_emptyTextBox = new boolean[7];
+        ca_emptyTextBox[0] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_username, tv_jCreateAcct_usernameError, getString(R.string.username_blank));
+        ca_emptyTextBox[1] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_password, tv_jCreateAcct_passwordError, getString(R.string.password_blank));
+        ca_emptyTextBox[2] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_confirmpass, tv_jCreateAcct_confirmPassError, getString(R.string.password_blank));
+        ca_emptyTextBox[3] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_fname, tv_jCreateAcct_fnameError, getString(R.string.first_name_blank));
+        ca_emptyTextBox[4] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_lname, tv_jCreateAcct_lnameError, getString(R.string.last_name_blank));
+        ca_emptyTextBox[5] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_email, tv_jCreateAcct_emailError, getString(R.string.email_blank));
+        ca_emptyTextBox[6] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_phoneNumber, tv_jCreateAcct_phoneNumError, getString(R.string.phone_number_blank));
+        return ca_funcLib.FL_InputIsGood(ca_emptyTextBox);
     }
     private void CA_SaveNewUser()
     {
-        String uname = et_jCreateAcct_username.getText().toString();
-        String pass = et_jCreateAcct_password.getText().toString();
-        String fname = et_jCreateAcct_fname.getText().toString();
-        String lname = et_jCreateAcct_lname.getText().toString();
-        String email = et_jCreateAcct_email.getText().toString();
-        String phoneNum = et_jCreateAcct_phoneNumber.getText().toString();
-        ca_dbHelper.DB_AddNewUser(uname, pass, fname, lname, email, phoneNum);
+        ca_tempUser = new User(et_jCreateAcct_username.getText().toString(),
+                               et_jCreateAcct_password.getText().toString(),
+                               et_jCreateAcct_fname.getText().toString(),
+                               et_jCreateAcct_lname.getText().toString(),
+                               et_jCreateAcct_email.getText().toString(),
+                               et_jCreateAcct_phoneNumber.getText().toString());
+        ca_dbHelper.DB_AddNewUser(ca_tempUser);
     }
 }

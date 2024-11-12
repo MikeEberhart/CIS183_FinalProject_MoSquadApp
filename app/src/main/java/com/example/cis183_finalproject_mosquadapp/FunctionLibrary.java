@@ -1,6 +1,8 @@
 package com.example.cis183_finalproject_mosquadapp;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.regex.Matcher;
@@ -9,10 +11,10 @@ import java.util.regex.Pattern;
 // used to house all the function that will be used across multiple activities //
 public class FunctionLibrary
 {
-    private static final String ALLOWED_USERNAME_CHARS = "^[a-zA-Z0-9_.-]{8,}+$";
+    private static final String ALLOWED_USERNAME_CHARS = "^[a-zA-Z0-9_.-]{12,}$";
     private static final String ALLOWED_PASSWORD_CHARS = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&*()_\\-=+{}\\[\\]|;:\"'<>,.?/~]).{12,}$";
     private static final String ALLOWED_NAME_CHARS = "^[a-zA-Z\\s]+$";
-    private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z](?:[a-zA-Z0-9_.-]*[a-zA-Z0-9])?+@(?:[a-zA-Z]*[a-zA-Z.])+(?:\\.com|\\.gov|\\.edu)$";
+    private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z]([a-zA-Z0-9_.-]*[a-zA-Z0-9])@([a-zA-Z]*[a-zA-Z.]*[a-zA-Z])(\\.com|\\.gov|\\.edu)$";
     private static final String ALLOWED_PHONE_NUMBERS = "^[2-9]{3}-[2-9]{3}-[0-9]{4}$";
 
     public FunctionLibrary()
@@ -99,5 +101,32 @@ public class FunctionLibrary
             tv.setText(R.string.phone_error_message);
         }
         return tempBool;
+    }
+    public boolean FL_IsEmptyInputCheck(EditText et, TextView tv, String s)
+    {
+        if(et.getText().toString().isEmpty())
+        {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(s);
+            Log.d("is empty input check", et.toString());
+            return true;
+        }
+        return false;
+    }
+    public boolean FL_InputIsGood(boolean[] b)
+    {
+        int cnt = 0;
+        for (boolean bool : b)
+        {
+            if(!bool)
+            {
+                Log.d("input is good", bool + " - " + cnt);
+
+                return false;
+            }
+            cnt++;
+        }
+        Log.d("out the loop", true + " - " + cnt);
+        return true;
     }
 }

@@ -55,28 +55,29 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     private void DB_CreateTables(@NonNull SQLiteDatabase db)
     {
-        db.execSQL("CREATE TABLE " + USERS_TABLE + " (Username varchar primary key not null, Password varchar," +
-                " First_Name varchar, Last_Name varchar, Email varchar, Phone_Number varchar);");
+        db.execSQL("CREATE TABLE " + USERS_TABLE + " (Username varchar primary key not null, Password varchar not null," +
+                " First_Name varchar not null, Last_Name varchar not null, Email varchar not null, Phone_Number varchar not null);");
 
         db.execSQL("CREATE TABLE " + POLYGON_DATA_TABLE + " (PolygonID integer primary key autoincrement not null," +
-                " Polygon_Points varchar, Display_Format varchar);");
+                " Polygon_Points varchar not null, Display_Format varchar not null);");
 
         db.execSQL("CREATE TABLE " + YARD_SERVICES_TABLE + " (ServiceID integer primary key autoincrement not null," +
                 " Barrier_Treatment integer, Fly_Control integer, Home_Shield integer, Invader_Guard integer, Yard_Defender integer," +
                 " All_Natural integer, Special_Event integer);");
 
         db.execSQL("CREATE TABLE " + SERVICE_ADDRESSES_TABLE + " (AddressID integer primary key autoincrement not null," +
-                " Username varchar, Street_Address varchar, Apt varchar, City varchar, State varchar, ZipCode varchar, PolygonID integer," +
+                " Username varchar not null, Street_Address varchar not null, Apt varchar, City varchar not null," +
+                " State varchar not null, ZipCode varchar not null, PolygonID integer," +
                 " Total_Acreage double, ServiceID integer, Single_Treatment_Price double, Season_Treatment_Price double, " +
                 "foreign key (Username) references " + USERS_TABLE + "(Username), foreign key (PolygonID) references " +
                 POLYGON_DATA_TABLE + "(PolygonID), foreign key (ServiceID) references " + YARD_SERVICES_TABLE + "(ServiceID));");
 
         db.execSQL("CREATE TABLE " + REVIEWS_TABLE + " (ReviewID integer primary key autoincrement not null," +
-                " Username varchar, Star_Count integer, Review_Text varchar, Review_Date varchar, foreign key" +
-                " (Username) references " + USERS_TABLE + "(Username));");
+                " Username varchar not null, Star_Count integer not null, Review_Text varchar not null, Review_Date varchar not null, " +
+                "foreign key (Username) references " + USERS_TABLE + "(Username));");
 
         db.execSQL("CREATE TABLE " + PACKAGE_PRICES_TABLE + " (Package_Name varchar primary key not null," +
-                " Price double);");
+                " Price double not null);");
     }
     // used to count the number of records in a given table //
     private int DB_RecordCount(String tableName)
@@ -253,17 +254,37 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
 //        return userAddresses;
     }
-    public void DB_AddNewUser(String un, String p, String f, String l, String e, String pn)
+    public void DB_AddNewUser(User user) //String un, String p, String f, String l, String e, String pn)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues addUser = new ContentValues();
-        addUser.put("Username", un);
-        addUser.put("Password", p);
-        addUser.put("First_Name", f);
-        addUser.put("Last_Name", l);
-        addUser.put("Email", e);
-        addUser.put("Phone_Number", pn);
+        addUser.put("Username", user.getUser_username());
+        addUser.put("Password", user.getUser_password());
+        addUser.put("First_Name", user.getUser_fname());
+        addUser.put("Last_Name", user.getUser_lname());
+        addUser.put("Email", user.getUser_email());
+        addUser.put("Phone_Number", user.getUser_phoneNumber());
         db.insert(USERS_TABLE, null, addUser);
+        db.close();
+    }
+
+    public void DB_UpdateUserData(User user)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues updateUser = new ContentValues();
+        updateUser.put("First_Name", user.getUser_fname());
+        updateUser.put("Last_Name", user.getUser_lname());
+        updateUser.put("Email", user.getUser_email());
+        updateUser.put("Phone_Number", user.getUser_phoneNumber());
+        db.update(USERS_TABLE, updateUser, "Username = ?", new String[]{user.getUser_username()});
+//        UserSessionData.SetLoggedInUser(user); // used to make sure new data has been push to SessionData // might not need later
+    }
+
+    public void DB_DeleteUserAccount(User user)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + USERS_TABLE + " WHERE Username='" + user.getUser_username() + "';");
+        UserSessionData.SetLoggedInUser(null);
         db.close();
     }
 }
