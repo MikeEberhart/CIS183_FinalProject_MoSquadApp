@@ -2,18 +2,18 @@ package com.example.cis183_finalproject_mosquadapp;
 
 public class ServiceAddress
 {
-    int sa_addressID;
-    String sa_username;
-    String sa_streetAddress;
-    String sa_apt;
-    String sa_city;
-    String sa_state;
-    String sa_zipCode;
-    int sa_polygonID;
-    double sa_totalAcreage;
-    int sa_serviceID;
-    double sa_singleTreatment;
-    double sa_seasonTreatment;
+    private int sa_addressID;
+    private String sa_username;
+    private String sa_streetAddress;
+    private String sa_apt;
+    private String sa_city;
+    private String sa_state;
+    private String sa_zipCode;
+    private int sa_polygonID;
+    private double sa_totalAcreage;
+    private int sa_serviceID;
+    private double sa_singleTreatment;
+    private double sa_seasonTreatment;
 
     public ServiceAddress()
     {

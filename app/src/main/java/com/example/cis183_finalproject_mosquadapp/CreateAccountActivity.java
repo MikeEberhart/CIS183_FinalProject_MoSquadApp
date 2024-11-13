@@ -16,8 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CreateAccountActivity extends AppCompatActivity
 {
-    Intent jCreateAcct_loginIntent;
-    Intent jCreateAcct_WelcomeUserIntent;
+    Intent ca_loginIntent;
+//    Intent ca_WelcomeUserIntent; might not use this
     TextView tv_jCreateAcct_usernameError;
     TextView tv_jCreateAcct_passwordError;
     TextView tv_jCreateAcct_confirmPassError;
@@ -34,9 +34,9 @@ public class CreateAccountActivity extends AppCompatActivity
     EditText et_jCreateAcct_phoneNumber;
     Button btn_jCreateAcct_back;
     Button btn_jCreateAcct_createAccount;
-    User ca_tempUser;
     FunctionLibrary ca_funcLib;
     DatabaseHelper ca_dbHelper;
+    private User ca_newUser;
     private boolean[] ca_inputIsGood;
 
     @Override
@@ -54,11 +54,11 @@ public class CreateAccountActivity extends AppCompatActivity
     private void CA_InitData()
     {
         CA_ListOfViews();
-        CA_ResetErrorsAndBools();
+//        CA_ResetErrors();
         ca_funcLib = new FunctionLibrary();
         ca_dbHelper = new DatabaseHelper(this);
-        jCreateAcct_loginIntent = new Intent(this, LoginActivity.class);
-        jCreateAcct_WelcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
+        ca_loginIntent = new Intent(this, LoginActivity.class);
+//        ca_WelcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
         ca_inputIsGood = new boolean[7];
     }
 
@@ -101,7 +101,7 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(jCreateAcct_loginIntent);
+                startActivity(ca_loginIntent);
             }
         });
         btn_jCreateAcct_createAccount.setOnClickListener(new View.OnClickListener()
@@ -125,7 +125,7 @@ public class CreateAccountActivity extends AppCompatActivity
 //                            Toast toast = new Toast();
 //                            toast.
                         Log.d("equal pass", "equal pass");
-                        startActivity(jCreateAcct_loginIntent);
+                        startActivity(ca_loginIntent);
                     }
                     else
                     {
@@ -258,7 +258,7 @@ public class CreateAccountActivity extends AppCompatActivity
             }
         });
     }
-    private void CA_ResetErrorsAndBools()
+    private void CA_ResetErrors()
     {
         tv_jCreateAcct_usernameError.setVisibility(View.INVISIBLE);
         tv_jCreateAcct_passwordError.setVisibility(View.INVISIBLE);
@@ -271,24 +271,24 @@ public class CreateAccountActivity extends AppCompatActivity
     }
     private boolean CA_InputIsEmptyCheck()
     {
-        boolean[] ca_emptyTextBox = new boolean[7];
-        ca_emptyTextBox[0] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_username, tv_jCreateAcct_usernameError, getString(R.string.username_blank));
-        ca_emptyTextBox[1] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_password, tv_jCreateAcct_passwordError, getString(R.string.password_blank));
-        ca_emptyTextBox[2] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_confirmpass, tv_jCreateAcct_confirmPassError, getString(R.string.password_blank));
-        ca_emptyTextBox[3] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_fname, tv_jCreateAcct_fnameError, getString(R.string.first_name_blank));
-        ca_emptyTextBox[4] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_lname, tv_jCreateAcct_lnameError, getString(R.string.last_name_blank));
-        ca_emptyTextBox[5] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_email, tv_jCreateAcct_emailError, getString(R.string.email_blank));
-        ca_emptyTextBox[6] = ca_funcLib.FL_IsEmptyInputCheck(et_jCreateAcct_phoneNumber, tv_jCreateAcct_phoneNumError, getString(R.string.phone_number_blank));
-        return ca_funcLib.FL_InputIsGood(ca_emptyTextBox);
+        boolean[] ca_emptyInput = new boolean[7];
+        ca_emptyInput[0] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_username, tv_jCreateAcct_usernameError, getString(R.string.username_blank));
+        ca_emptyInput[1] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_password, tv_jCreateAcct_passwordError, getString(R.string.password_blank));
+        ca_emptyInput[2] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_confirmpass, tv_jCreateAcct_confirmPassError, getString(R.string.password_blank));
+        ca_emptyInput[3] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_fname, tv_jCreateAcct_fnameError, getString(R.string.first_name_blank));
+        ca_emptyInput[4] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_lname, tv_jCreateAcct_lnameError, getString(R.string.last_name_blank));
+        ca_emptyInput[5] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_email, tv_jCreateAcct_emailError, getString(R.string.email_blank));
+        ca_emptyInput[6] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_phoneNumber, tv_jCreateAcct_phoneNumError, getString(R.string.phone_number_blank));
+        return ca_funcLib.FL_InputIsGood(ca_emptyInput);
     }
     private void CA_SaveNewUser()
     {
-        ca_tempUser = new User(et_jCreateAcct_username.getText().toString(),
+        ca_newUser = new User(et_jCreateAcct_username.getText().toString(),
                                et_jCreateAcct_password.getText().toString(),
                                et_jCreateAcct_fname.getText().toString(),
                                et_jCreateAcct_lname.getText().toString(),
                                et_jCreateAcct_email.getText().toString(),
                                et_jCreateAcct_phoneNumber.getText().toString());
-        ca_dbHelper.DB_AddNewUser(ca_tempUser);
+        ca_dbHelper.DB_AddNewUser(ca_newUser);
     }
 }

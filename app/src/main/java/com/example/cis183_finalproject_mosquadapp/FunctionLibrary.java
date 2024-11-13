@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class FunctionLibrary
 {
     private static final String ALLOWED_USERNAME_CHARS = "^[a-zA-Z0-9_.-]{12,}$";
-    private static final String ALLOWED_PASSWORD_CHARS = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&*()_\\-=+{}\\[\\]|;:\"'<>,.?/~]).{12,}$";
+    private static final String ALLOWED_PASSWORD_CHARS = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_\\-=+{}\\[\\]|;:\"'<>,.?/~]).{12,}$";
     private static final String ALLOWED_NAME_CHARS = "^[a-zA-Z\\s]+$";
     private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z]([a-zA-Z0-9_.-]*[a-zA-Z0-9])@([a-zA-Z]*[a-zA-Z.]*[a-zA-Z])(\\.com|\\.gov|\\.edu)$";
     private static final String ALLOWED_PHONE_NUMBERS = "^[2-9]{3}-[2-9]{3}-[0-9]{4}$";
@@ -27,14 +27,14 @@ public class FunctionLibrary
         Pattern goodChars = Pattern.compile(ALLOWED_USERNAME_CHARS);
         Matcher checkingChars = goodChars.matcher(cs);
         boolean tempBool = checkingChars.find();
-        if(tempBool)
-        {
-            tv.setVisibility(View.INVISIBLE);
-        }
-        else
+        if(!tempBool)
         {
             tv.setVisibility(View.VISIBLE);
             tv.setText(R.string.username_error_message);
+        }
+        else
+        {
+            tv.setVisibility(View.INVISIBLE);
         }
         return tempBool;
     }
@@ -43,14 +43,14 @@ public class FunctionLibrary
         Pattern goodChars = Pattern.compile(ALLOWED_PASSWORD_CHARS);
         Matcher checkingChars = goodChars.matcher(cs);
         boolean tempBool = checkingChars.find();
-        if(tempBool)
-        {
-            tv.setVisibility(View.INVISIBLE);
-        }
-        else
+        if(!tempBool)
         {
             tv.setVisibility(View.VISIBLE);
             tv.setText(R.string.password_error_message);
+        }
+        else
+        {
+            tv.setVisibility(View.INVISIBLE);
         }
         return tempBool;
     }
@@ -102,7 +102,7 @@ public class FunctionLibrary
         }
         return tempBool;
     }
-    public boolean FL_IsEmptyInputCheck(EditText et, TextView tv, String s)
+    public boolean FL_IsInputEmptyCheck(EditText et, TextView tv, String s)
     {
         if(et.getText().toString().isEmpty())
         {
@@ -111,6 +111,7 @@ public class FunctionLibrary
             Log.d("is empty input check", et.toString());
             return true;
         }
+        tv.setVisibility(View.INVISIBLE);
         return false;
     }
     public boolean FL_InputIsGood(boolean[] b)
@@ -118,15 +119,17 @@ public class FunctionLibrary
         int cnt = 0;
         for (boolean bool : b)
         {
+            cnt++;
+            Log.d("start of loop", bool + "");
             if(!bool)
             {
-                Log.d("input is good", bool + " - " + cnt);
+                Log.d("input is false", bool + " - " + cnt);
 
                 return false;
             }
-            cnt++;
         }
-        Log.d("out the loop", true + " - " + cnt);
+        Log.d("input is true", true + " - " + cnt);
         return true;
     }
+
 }

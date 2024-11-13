@@ -18,8 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity
 {
-    Intent jLogin_createAccountIntent;
-    Intent jLogin_welcomeUserIntent;
+    Intent la_createAccountIntent;
+    Intent la_welcomeUserIntent;
     ImageView iv_jLogin_bannerPic;
     EditText et_jLogin_username;
     EditText et_jLogin_password;
@@ -27,7 +27,9 @@ public class LoginActivity extends AppCompatActivity
     TextView getTv_jLogin_passwordError;
     Button btn_jLogin_login;
     Button btn_jLogin_createAccount;
+    Button btn_jSkipLogin;
     DatabaseHelper jLogin_dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
+        LA_ListOfViews();
         LA_InitData();
         LA_OnClickListeners();
         LA_TextChangeEventListeners();
@@ -44,9 +47,8 @@ public class LoginActivity extends AppCompatActivity
 
     private void LA_InitData()
     {
-        LA_ListOfViews();
-        jLogin_createAccountIntent = new Intent(this, CreateAccountActivity.class);
-        jLogin_welcomeUserIntent   = new Intent(this, WelcomeUserActivity.class);
+        la_createAccountIntent = new Intent(this, CreateAccountActivity.class);
+        la_welcomeUserIntent   = new Intent(this, WelcomeUserActivity.class);
         jLogin_dbHelper = new DatabaseHelper(this);
         jLogin_dbHelper.DB_PopulateDummyData();
     }
@@ -60,7 +62,7 @@ public class LoginActivity extends AppCompatActivity
         getTv_jLogin_passwordError = findViewById(R.id.tv_vLogin_passwordError);
         btn_jLogin_login           = findViewById(R.id.btn_vLogin_login);
         btn_jLogin_createAccount   = findViewById(R.id.btn_vLogin_createAccount);
-
+        btn_jSkipLogin             = findViewById(R.id.btn_skipLogin);
     }
 
     private void LA_OnClickListeners()
@@ -79,7 +81,7 @@ public class LoginActivity extends AppCompatActivity
                     {
                         getTv_jLogin_passwordError.setVisibility(View.INVISIBLE);
                         Log.d("inside btn click", "inside btn click");
-                        startActivity(jLogin_welcomeUserIntent);
+                        startActivity(la_welcomeUserIntent);
                     }
                     else
                     {
@@ -90,7 +92,6 @@ public class LoginActivity extends AppCompatActivity
                 {
                     tv_jLogin_usernameError.setVisibility(View.VISIBLE);
                 }
-
 //               MessingWithToast();
             }
         });
@@ -99,7 +100,19 @@ public class LoginActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(jLogin_createAccountIntent);
+                startActivity(la_createAccountIntent);
+            }
+        });
+        btn_jSkipLogin.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(jLogin_dbHelper.DB_UserLoginGood("mEbbs123", "MikeEbbs123!!!"))
+                {
+                    startActivity(la_welcomeUserIntent);
+                    Log.d("login skipped", "login skipped");
+                }
             }
         });
     }

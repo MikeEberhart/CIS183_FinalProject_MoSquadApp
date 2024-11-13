@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".UserReviewsActivity">
+
+    <ListView
+        android:id="@+id/lv_vUserReviews_listOfReviews"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="300dp"
+        android:background="@drawable/blk_border_with_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vUserReviews_headerMessage" />
+
+    <TextView
+        android:id="@+id/tv_vUserReviews_headerMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:text="User Reviews"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="175dp"
+        android:layout_marginTop="16dp"
+        android:elevation="0dp"
+        android:translationZ="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mosquad_banner" />
+
+    <Button
+        android:id="@+id/btn_vUserReviews_back"
+        android:layout_width="120dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp"
+        android:text="Back"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/lv_vUserReviews_listOfReviews" />
+
+    <Button
+        android:id="@+id/btn_vUserReview_home"
+        android:layout_width="52dp"
+        android:layout_height="56dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="5dp"
+        android:paddingTop="4dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="4dp"
+        android:textAlignment="center"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/white_home_icon"
+        app:iconSize="42dp"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_vUserReviews_back"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vUserReviews_leaveReview"
+        app:layout_constraintStart_toEndOf="@+id/btn_vUserReviews_back"
+        app:layout_constraintTop_toTopOf="@+id/btn_vUserReviews_leaveReview" />
+
+    <Button
+        android:id="@+id/btn_vUserReviews_leaveReview"
+        android:layout_width="120dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp"
+        android:text="Leave\nReview"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/lv_vUserReviews_listOfReviews" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

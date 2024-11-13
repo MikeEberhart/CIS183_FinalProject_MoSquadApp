@@ -18,8 +18,9 @@ import java.util.ArrayList;
 
 public class WelcomeUserActivity extends AppCompatActivity
 {
-    Intent jWelcomeUser_loginIntent;
-    Intent jWelcomeUser_userAcctIntent;
+    Intent wu_loginIntent;
+    Intent wu_userAcctIntent;
+    Intent wu_userReviewsIntent;
     TextView tv_jWelcomeUser_userFname;
     TextView tv_jWelcomeUser_noSavedEstimates;
     ListView lv_jWelcomeUser_addressList;
@@ -31,8 +32,8 @@ public class WelcomeUserActivity extends AppCompatActivity
     Button btn_jWelcomeUser_userAccount;
     Button btn_jWelcomeUser_newEstimate;
     Button btn_jWelcomeUser_packageDetails;
-    AddressListAdapter jWelcomeUser_addressListAdapter;
-    User currentActiveUser;
+    AddressListAdapter wu_addressListAdapter;
+    private User wu_currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,16 +50,17 @@ public class WelcomeUserActivity extends AppCompatActivity
     {
 
         WU_ListOfViews();
-        jWelcomeUser_loginIntent = new Intent(this, LoginActivity.class);
-        jWelcomeUser_userAcctIntent = new Intent(this, UserAccountActivity.class);
-        currentActiveUser = UserSessionData.GetLoggedInUser();
-        String welcomeMessage = "Welcome " + currentActiveUser.getUser_fname();
+        wu_loginIntent = new Intent(this, LoginActivity.class);
+        wu_userAcctIntent = new Intent(this, UserAccountActivity.class);
+        wu_userReviewsIntent = new Intent(this, UserReviewsActivity.class);
+        wu_currentUser = UserSessionData.GetLoggedInUser();
+        String welcomeMessage = "Welcome " + wu_currentUser.getUser_fname();
         tv_jWelcomeUser_userFname.setText(welcomeMessage);
         if(UserSessionData.GetUserAddressCount() != 0)
         {
             tv_jWelcomeUser_noSavedEstimates.setVisibility(View.INVISIBLE);
-            jWelcomeUser_addressListAdapter = new AddressListAdapter(this, UserSessionData.GetUserAddressData());
-            lv_jWelcomeUser_addressList.setAdapter(jWelcomeUser_addressListAdapter);
+            wu_addressListAdapter = new AddressListAdapter(this, UserSessionData.GetUserAddressData());
+            lv_jWelcomeUser_addressList.setAdapter(wu_addressListAdapter);
         }
         else
         {
@@ -90,7 +92,7 @@ public class WelcomeUserActivity extends AppCompatActivity
             {
                 UserSessionData.SetLoggedInUser(null);
                 UserSessionData.SetUserAddressData(null);
-                startActivity(jWelcomeUser_loginIntent);
+                startActivity(wu_loginIntent);
             }
         });
         btn_jWelcomeUser_deleteAddress.setOnClickListener(new View.OnClickListener()
@@ -122,7 +124,7 @@ public class WelcomeUserActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
+                startActivity(wu_userReviewsIntent);
             }
         });
         btn_jWelcomeUser_newEstimate.setOnClickListener(new View.OnClickListener()
@@ -138,7 +140,7 @@ public class WelcomeUserActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(jWelcomeUser_userAcctIntent);
+                startActivity(wu_userAcctIntent);
             }
         });
         btn_jWelcomeUser_packageDetails.setOnClickListener(new View.OnClickListener()

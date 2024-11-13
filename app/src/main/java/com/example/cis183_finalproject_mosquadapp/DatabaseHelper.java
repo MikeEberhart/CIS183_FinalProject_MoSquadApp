@@ -3,13 +3,11 @@ package com.example.cis183_finalproject_mosquadapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -25,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context c)
     {
-        super(c, DATABASE_NAME, null, 4);
+        super(c, DATABASE_NAME, null, 6);
     }
 
     @Override
@@ -44,15 +42,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.execSQL("DROP TABLE IF EXISTS " + PACKAGE_PRICES_TABLE + ";");
         onCreate(db);
     }
-
     public void DB_PopulateDummyData()
     {
         DB_DummyUserData();
         DB_DummyYardServiceData();
         DB_DummyServiceAddressData();
+        DB_DummyReviewData();
         DB_PackagePriceData();
     }
-
     private void DB_CreateTables(@NonNull SQLiteDatabase db)
     {
         db.execSQL("CREATE TABLE " + USERS_TABLE + " (Username varchar primary key not null, Password varchar not null," +
@@ -68,13 +65,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.execSQL("CREATE TABLE " + SERVICE_ADDRESSES_TABLE + " (AddressID integer primary key autoincrement not null," +
                 " Username varchar not null, Street_Address varchar not null, Apt varchar, City varchar not null," +
                 " State varchar not null, ZipCode varchar not null, PolygonID integer," +
-                " Total_Acreage double, ServiceID integer, Single_Treatment_Price double, Season_Treatment_Price double, " +
-                "foreign key (Username) references " + USERS_TABLE + "(Username), foreign key (PolygonID) references " +
+                " Total_Acreage double, ServiceID integer, Single_Treatment_Price double, Season_Treatment_Price double," +
+                " foreign key (Username) references " + USERS_TABLE + "(Username), foreign key (PolygonID) references " +
                 POLYGON_DATA_TABLE + "(PolygonID), foreign key (ServiceID) references " + YARD_SERVICES_TABLE + "(ServiceID));");
 
         db.execSQL("CREATE TABLE " + REVIEWS_TABLE + " (ReviewID integer primary key autoincrement not null," +
-                " Username varchar not null, Star_Count integer not null, Review_Text varchar not null, Review_Date varchar not null, " +
-                "foreign key (Username) references " + USERS_TABLE + "(Username));");
+                " Username varchar not null, Star_Count float not null, Review_Text varchar not null, Review_Date varchar not null," +
+                " foreign key (Username) references " + USERS_TABLE + "(Username));");
 
         db.execSQL("CREATE TABLE " + PACKAGE_PRICES_TABLE + " (Package_Name varchar primary key not null," +
                 " Price double not null);");
@@ -140,6 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                        "VALUES ('ZWallace66', 'ZekWallace123!!!', 'Zeke', 'Wallace', 'ZWallace66@mailfence.com', '901-700-6705');");
             db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
                        "VALUES ('GWallace44', 'GavWallace123!!!', 'Gavin', 'Wallace', 'GWallace44@hey.com', '845-731-0746');");
+            db.close();
 
         }
     }
@@ -151,6 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
                     " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
                     " VALUES (1,0,0,0,0,0,0);");
+            db.close();
         }
     }
     private void DB_DummyServiceAddressData()
@@ -161,6 +160,57 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                        " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
                        "VALUES ('mEbbs123', '13101  Wanty Rd', null, 'Milan', 'MI', '48160', null, null, 1, 123.323, 1223.233);");
+            db.close();
+        }
+    }
+    private void DB_DummyReviewData()
+    {
+        if(DB_RecordCount(REVIEWS_TABLE) == 0)
+        {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                       "VALUES ('mEbbs123', 4.5, 'Not a bug in sight for weeks', '06-14-2023');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('AWhite93', 3.5, 'Exceptional service! The pest control team did an incredible job eliminating mosquitoes" +
+                    " and ticks from our yard. We''ve noticed a huge improvement—no more bites or worries! Highly recommend!', '07-10-2022');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('CMay27', 4.0, 'Amazing job by the pest control team! Our yard is now free from mosquitoes and ticks, making" +
+                    " outdoor time enjoyable again. Couldn''t be happier with the results!', '06-20-2023');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('AChambers9', 4.5, 'Thrilled with the service! Not a single tick or mosquito in sight. " +
+                    "It''s been weeks, and our yard is still pest-free. Highly recommend to anyone dealing with bugs.', '05-18-2023');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('WDuncan65', 2.0, 'Saw a reduction in pests initially, but within a few weeks, mosquitoes returned. Service " +
+                    "was decent, but I expected a longer-lasting effect.', '03-12-2022');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('CBradley68', 4.0, 'Happy with the results! The mosquitoes are almost gone, and we haven''t seen a tick since. " +
+                    "Worth the investment for anyone struggling with these pests.', '09-30-2022');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('CAllison3', 3.5, 'Good initial results, though a few bugs are starting to show up again. Overall, much better " +
+                    "than before, but might need a follow-up treatment.', '10-04-2022');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('LPerry54', 5.0, 'We have been using Mosquito Squad for two years now. They do an excellent job. Trustworthy, " +
+                    "great customer service and fast efficient service. Will definitely use this service again.', '11-22-2023');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('ARodgers45', 4.0, 'Effective service. Haven''t noticed any ticks or mosquitoes since the treatment. Very happy " +
+                    "with how it''s working so far.', '08-15-2023');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('AScott83', 5.0, 'Thank you Mosquito Squad, without your service we wouldn’t be able to enjoy our yard. This is our 3rd " +
+                    "year using your service and we will be a retuning customer next year.', '07-04-2022');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('LNorris99', 4.0, 'Great results! We''ve seen a huge improvement, with hardly any pests left. Considering regular " +
+                    "treatments to keep it this way.', '05-09-2023');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('JTurner68', 4.5, 'Fantastic! Ticks and mosquitoes are gone as promised. The treatment exceeded our expectations, " +
+                    "and we plan to continue with it.', '04-22-2023');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('SRobertson65', 2.5, 'Effective initially, but pests slowly started coming back. Improvement was noticeable but expected " +
+                    "a bit more lasting impact.', '02-10-2022');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('TWeber55', 1.5, 'Unfortunately, the service didn''t work well for us. We still have mosquitoes and ticks in our yard. " +
+                    "Very disappointed given the cost of the treatment.', '06-05-2023');");
+
+            db.close();
         }
     }
     private void DB_PackagePriceData()
@@ -193,30 +243,33 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public boolean DB_UserLoginGood(String uname, String pass)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String checkForUsername = "SELECT Password FROM " + USERS_TABLE + " WHERE Username = '" + uname + "';";
         String getUserAcctData = "SELECT * FROM " + USERS_TABLE + " WHERE Username = '" + uname + "';";
+        String getUserPassword = "SELECT Password FROM " + USERS_TABLE + " WHERE Username = '" + uname + "';";
         String savedPassword = "";
-        Cursor checkForUserCursor = db.rawQuery(checkForUsername, null);
+        Cursor getUserPassCursor = db.rawQuery(getUserPassword, null);
         Cursor getUserAcctCursor = db.rawQuery(getUserAcctData, null);
-        if(checkForUserCursor.moveToFirst())
+        if(getUserAcctCursor.moveToFirst())
         {
-            savedPassword = checkForUserCursor.getString(0);
-            Log.d("saved password", savedPassword);
+            if(getUserPassCursor.moveToFirst())
+            {
+                savedPassword = getUserPassCursor.getString(0);
+                Log.d("good password", savedPassword);
+            }
+            if(pass.equals(savedPassword))
+            {
+                User userData = new User(getUserAcctCursor.getString(0),
+                        getUserAcctCursor.getString(1),
+                        getUserAcctCursor.getString(2),
+                        getUserAcctCursor.getString(3),
+                        getUserAcctCursor.getString(4),
+                        getUserAcctCursor.getString(5));
+                UserSessionData.SetLoggedInUser(userData);
+                DB_GetUserServiceAddresses();
+                Log.d("saved password", "pass = savedpass");
+                return true;
+            }
         }
-        if(pass.equals(savedPassword) && getUserAcctCursor.moveToFirst())
-        {
-            User userData = new User(getUserAcctCursor.getString(0),
-                                     getUserAcctCursor.getString(1),
-                                     getUserAcctCursor.getString(2),
-                                     getUserAcctCursor.getString(3),
-                                     getUserAcctCursor.getString(4),
-                                     getUserAcctCursor.getString(5));
-            UserSessionData.SetLoggedInUser(userData);
-            DB_GetUserServiceAddresses();
-            Log.d("saved password", "pass = savedpass");
-            return true;
-        }
-        checkForUserCursor.close();
+        getUserPassCursor.close();
         getUserAcctCursor.close();
         db.close();
         return false;
@@ -254,7 +307,24 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
 //        return userAddresses;
     }
-    public void DB_AddNewUser(User user) //String un, String p, String f, String l, String e, String pn)
+    public String DB_GetUserData(String uname)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        User db_tempUser = new User();
+        String getUserData = "SELECT First_Name, Last_Name FROM " + USERS_TABLE + " WHERE Username = '" + uname + "';";
+        String fname = "";
+        String lname = "";
+        Cursor userData = db.rawQuery(getUserData, null);
+        if(userData.moveToFirst())
+        {
+            fname = userData.getString(0);
+            lname = userData.getString(1);
+        }
+        userData.close();
+        db.close();
+        return fname + " " + lname.charAt(0) + ".";
+    }
+    public void DB_AddNewUser(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues addUser = new ContentValues();
@@ -267,7 +337,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.insert(USERS_TABLE, null, addUser);
         db.close();
     }
-
     public void DB_UpdateUserData(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -277,14 +346,44 @@ public class DatabaseHelper extends SQLiteOpenHelper
         updateUser.put("Email", user.getUser_email());
         updateUser.put("Phone_Number", user.getUser_phoneNumber());
         db.update(USERS_TABLE, updateUser, "Username = ?", new String[]{user.getUser_username()});
+        db.close();
 //        UserSessionData.SetLoggedInUser(user); // used to make sure new data has been push to SessionData // might not need later
     }
-
+    public void DB_SaveNewUserPassword(User user)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues updatePass = new ContentValues();
+        updatePass.put("Password", user.getUser_password());
+        db.update(USERS_TABLE, updatePass, "Username = ?", new String[]{user.getUser_username()});
+        db.close();
+    }
     public void DB_DeleteUserAccount(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + USERS_TABLE + " WHERE Username='" + user.getUser_username() + "';");
         UserSessionData.SetLoggedInUser(null);
         db.close();
+    }
+    public ArrayList<UserReview> DB_GetListOfReviews()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<UserReview> db_listOfReviews = new ArrayList<>();
+        String getReviewList = "SELECT * FROM " + REVIEWS_TABLE;
+        Cursor reviewList = db.rawQuery(getReviewList, null);
+        if(reviewList.moveToFirst())
+        {
+            do
+            {
+                db_listOfReviews.add(new UserReview(reviewList.getInt(0),
+                                                    reviewList.getString(1),
+                                                    reviewList.getFloat(2),
+                                                    reviewList.getString(3),
+                                                    reviewList.getString(4)));
+            }
+            while(reviewList.moveToNext());
+        }
+        reviewList.close();
+        db.close();
+        return db_listOfReviews;
     }
 }

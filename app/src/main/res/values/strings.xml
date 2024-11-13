@@ -13,4 +13,6 @@
     <string name="last_name_blank">Must Enter a Last Name</string>
     <string name="email_blank">Must Enter an Email</string>
     <string name="phone_number_blank">Must Enter a Phone Number</string>
+    <string name="old_pass_dont_match">Password does not match old password</string>
+    <string name="new_pass_matches_old">Cannot reuse this password</string>
 </resources>

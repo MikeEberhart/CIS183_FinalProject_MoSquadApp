@@ -2,12 +2,12 @@ package com.example.cis183_finalproject_mosquadapp;
 
 public class User
 {
-    String user_username;
-    String user_password;
-    String user_fname;
-    String user_lname;
-    String user_email;
-    String user_phoneNumber;
+    private String user_username;
+    private String user_password;
+    private String user_fname;
+    private String user_lname;
+    private String user_email;
+    private String user_phoneNumber;
 
     public User()
     {

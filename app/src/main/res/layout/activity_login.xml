@@ -8,6 +8,16 @@
     android:background="@color/white"
     tools:context=".LoginActivity">
 
+    <Button
+        android:id="@+id/btn_skipLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Skip Login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ImageView
         android:id="@+id/iv_vLogin_bannerPic"
         android:layout_width="wrap_content"

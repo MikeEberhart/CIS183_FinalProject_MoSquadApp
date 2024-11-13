@@ -12,11 +12,13 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Arrays;
+
 public class UserAccountActivity extends AppCompatActivity
 {
-    Intent ua_welcomeUserActivity;
-    Intent ua_changePassActivity;
-    Intent ua_loginActivity;
+    Intent ua_welcomeUserIntent;
+    Intent ua_changePassIntent;
+    Intent ua_loginIntent;
     TextView tv_jUserAcct_userAcctHeader;
     TextView tv_jUserAcct_fnameError;
     TextView tv_jUserAcct_lnameError;
@@ -33,7 +35,7 @@ public class UserAccountActivity extends AppCompatActivity
     Button btn_jUserAcct_home;
     DatabaseHelper ua_dbHelper;
     FunctionLibrary ua_funcLib;
-    User ua_currentUser;
+    private User ua_currentUser;
     private boolean[] ua_inputIsGood;
 
     @Override
@@ -47,9 +49,7 @@ public class UserAccountActivity extends AppCompatActivity
         UA_InitData();
         UA_OnClickListeners();
         UA_TextChangeEventListeners();
-
     }
-
     private void UA_ListOfViews()
     {
         tv_jUserAcct_userAcctHeader = findViewById(R.id.tv_vUserAcct_userAcctHeader);
@@ -67,14 +67,15 @@ public class UserAccountActivity extends AppCompatActivity
         btn_jUserAcct_deleteAcct    = findViewById(R.id.btn_vUserAcct_deleteAcct);
         btn_jUserAcct_home          = findViewById(R.id.btn_vUserAcct_home);
     }
-
     private void UA_InitData()
     {
         ua_currentUser = null;
         ua_inputIsGood = new boolean[4];
-        ua_welcomeUserActivity = new Intent(this, WelcomeUserActivity.class);
-        ua_changePassActivity = new Intent(this, ChangePasswordActivity.class);
-        ua_loginActivity  = new Intent(this, LoginActivity.class);
+        // setting bools to true since data loaded into the editTextboxes is good/true //
+        Arrays.fill(ua_inputIsGood, true);
+        ua_welcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
+        ua_changePassIntent = new Intent(this, ChangePasswordActivity.class);
+        ua_loginIntent  = new Intent(this, LoginActivity.class);
         ua_dbHelper = new DatabaseHelper(this);
         ua_funcLib = new FunctionLibrary();
         ua_currentUser = UserSessionData.GetLoggedInUser();
@@ -83,10 +84,8 @@ public class UserAccountActivity extends AppCompatActivity
         et_jUserAcct_lname.setText(ua_currentUser.getUser_lname());
         et_jUserAcct_email.setText(ua_currentUser.getUser_email());
         et_jUserAcct_phoneNum.setText(ua_currentUser.getUser_phoneNumber());
-
         UA_ToggleEditText(false);
     }
-
     private void UA_OnClickListeners()
     {
         btn_jUserAcct_editAcct.setOnClickListener(new View.OnClickListener()
@@ -103,8 +102,10 @@ public class UserAccountActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                Log.d("save acct click", "save acct click");
                 if(!UA_InputIsEmptyCheck() && ua_funcLib.FL_InputIsGood(ua_inputIsGood))
                 {
+                    Log.d("save acct", "save acct");
                     UA_ToggleEditText(false);
                     // function to save the updated info to the database //
                     UA_UpdatingUserData();
@@ -117,7 +118,7 @@ public class UserAccountActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(ua_changePassActivity);
+                startActivity(ua_changePassIntent);
             }
         });
         btn_jUserAcct_home.setOnClickListener(new View.OnClickListener()
@@ -125,7 +126,7 @@ public class UserAccountActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(ua_welcomeUserActivity);
+                startActivity(ua_welcomeUserIntent);
             }
         });
         btn_jUserAcct_deleteAcct.setOnClickListener(new View.OnClickListener()
@@ -134,11 +135,10 @@ public class UserAccountActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 ua_dbHelper.DB_DeleteUserAccount(ua_currentUser);
-                startActivity(ua_loginActivity);
+                startActivity(ua_loginIntent);
             }
         });
     }
-
     private void UA_TextChangeEventListeners()
     {
         et_jUserAcct_fname.addTextChangedListener(new TextWatcher()
@@ -217,7 +217,6 @@ public class UserAccountActivity extends AppCompatActivity
         et_jUserAcct_email.setEnabled(enable);
         et_jUserAcct_phoneNum.setEnabled(enable);
     }
-
     private void UA_UpdatingUserData()
     {
         ua_currentUser.setUser_fname(et_jUserAcct_fname.getText().toString());
@@ -228,14 +227,13 @@ public class UserAccountActivity extends AppCompatActivity
         Log.d("user data", ua_currentUser.getUser_fname() + " - " + ua_currentUser.getUser_lname() + " - " +
                 ua_currentUser.getUser_email() + " - " + ua_currentUser.getUser_phoneNumber());
     }
-
     private boolean UA_InputIsEmptyCheck()
     {
         boolean[] ua_emptyTextBox = new boolean[4];
-        ua_emptyTextBox[0] = ua_funcLib.FL_IsEmptyInputCheck(et_jUserAcct_fname, tv_jUserAcct_fnameError, getString(R.string.first_name_blank));
-        ua_emptyTextBox[1] = ua_funcLib.FL_IsEmptyInputCheck(et_jUserAcct_lname, tv_jUserAcct_lnameError, getString(R.string.last_name_blank));
-        ua_emptyTextBox[2] = ua_funcLib.FL_IsEmptyInputCheck(et_jUserAcct_email, tv_jUserAcct_emailError, getString(R.string.email_blank));
-        ua_emptyTextBox[3] = ua_funcLib.FL_IsEmptyInputCheck(et_jUserAcct_phoneNum, tv_jUserAcct_phoneNumError, getString(R.string.phone_number_blank));
+        ua_emptyTextBox[0] = ua_funcLib.FL_IsInputEmptyCheck(et_jUserAcct_fname, tv_jUserAcct_fnameError, getString(R.string.first_name_blank));
+        ua_emptyTextBox[1] = ua_funcLib.FL_IsInputEmptyCheck(et_jUserAcct_lname, tv_jUserAcct_lnameError, getString(R.string.last_name_blank));
+        ua_emptyTextBox[2] = ua_funcLib.FL_IsInputEmptyCheck(et_jUserAcct_email, tv_jUserAcct_emailError, getString(R.string.email_blank));
+        ua_emptyTextBox[3] = ua_funcLib.FL_IsInputEmptyCheck(et_jUserAcct_phoneNum, tv_jUserAcct_phoneNumError, getString(R.string.phone_number_blank));
         return ua_funcLib.FL_InputIsGood(ua_emptyTextBox);
     }
 }
