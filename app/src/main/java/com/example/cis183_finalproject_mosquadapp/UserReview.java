@@ -3,8 +3,8 @@ package com.example.cis183_finalproject_mosquadapp;
 public class UserReview
 {
     private int urv_reviewID;
-    String urv_username;
-    float urv_starCount;
+//    String urv_username;
+    String urv_starCount;
     String urv_reviewText;
     String urv_reviewDate;
 
@@ -12,10 +12,9 @@ public class UserReview
     {
 
     }
-    public UserReview(int rID, String un, float sc, String rt, String rd)
+    public UserReview(int rID, String sc, String rt, String rd)
     {
         urv_reviewID = rID;
-        urv_username = un;
         urv_starCount = sc;
         urv_reviewText = rt;
         urv_reviewDate = rd;
@@ -25,11 +24,7 @@ public class UserReview
     {
         return urv_reviewID;
     }
-    public String getUrv_username()
-    {
-        return urv_username;
-    }
-    public float getUrv_starCount()
+    public String getUrv_starCount()
     {
         return urv_starCount;
     }
@@ -46,11 +41,7 @@ public class UserReview
     {
         this.urv_reviewID = urv_reviewID;
     }
-    public void setUrv_username(String urv_username)
-    {
-        this.urv_username = urv_username;
-    }
-    public void setUrv_starCount(float urv_starCount)
+    public void setUrv_starCount(String urv_starCount)
     {
         this.urv_starCount = urv_starCount;
     }

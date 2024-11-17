@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/cl_vUserAcct_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/btn_vUserAcct_home"
         android:layout_width="52dp"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="5dp"
         android:paddingTop="4dp"
@@ -233,25 +233,26 @@
     <Button
         android:id="@+id/btn_vUserAcct_changePass"
         android:layout_width="120dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="44dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/mosquad_green"
-        android:paddingLeft="4dp"
-        android:paddingTop="4dp"
-        android:paddingRight="4dp"
-        android:paddingBottom="4dp"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
         android:text="Change Password"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:cornerRadius="10dp"
-        app:layout_constraintStart_toStartOf="@+id/btn_vUserAcct_editAcct"
-        app:layout_constraintTop_toBottomOf="@+id/btn_vUserAcct_editAcct" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btn_vUserAcct_editAcct" />
 
     <Button
         android:id="@+id/btn_vUserAcct_editAcct"
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="28dp"
         android:backgroundTint="@color/mosquad_green"
         android:gravity="center"
         android:paddingLeft="8dp"
@@ -265,14 +266,17 @@
         app:icon="@drawable/white_edit_acct_icon"
         app:iconSize="24dp"
         app:iconTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_vUserAcct_changePass"
         app:layout_constraintStart_toStartOf="@+id/et_vUserAcct_phoneNum"
-        app:layout_constraintTop_toBottomOf="@+id/et_vUserAcct_phoneNum" />
+        app:layout_constraintTop_toBottomOf="@+id/et_vUserAcct_phoneNum"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_vUserAcct_saveAcct"
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="28dp"
         android:backgroundTint="@color/mosquad_green"
         android:gravity="center"
         android:paddingLeft="8dp"
@@ -287,25 +291,27 @@
         app:icon="@drawable/white_save_icon"
         app:iconSize="28dp"
         app:iconTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_vUserAcct_deleteAcct"
         app:layout_constraintEnd_toEndOf="@+id/et_vUserAcct_phoneNum"
-        app:layout_constraintTop_toBottomOf="@+id/et_vUserAcct_phoneNum" />
+        app:layout_constraintTop_toBottomOf="@+id/et_vUserAcct_phoneNum"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_vUserAcct_deleteAcct"
         android:layout_width="120dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="44dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/mosquad_green"
-        android:paddingLeft="4dp"
-        android:paddingTop="4dp"
-        android:paddingRight="4dp"
-        android:paddingBottom="4dp"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
         android:text="Delete\nAccount"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_vUserAcct_saveAcct"
-        app:layout_constraintTop_toBottomOf="@+id/btn_vUserAcct_saveAcct" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btn_vUserAcct_saveAcct" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

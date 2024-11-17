@@ -113,7 +113,7 @@ public class CreateAccountActivity extends AppCompatActivity
                 String tempUsername = et_jCreateAcct_username.getText().toString();
 //                    if(ca_goodUsername && ca_goodPassword && ca_goodConfirmPass && ca_goodFname && ca_goodLname &&
 //                            ca_goodEmail && ca_goodPhoneNum && !ca_dbHelper.DB_UsernameExists(tempUsername)) // maybe put these bools in an array too //
-                if(!CA_InputIsEmptyCheck() && ca_funcLib.FL_InputIsGood(ca_inputIsGood) && !ca_dbHelper.DB_UsernameExists(tempUsername))
+                if(!CA_InputIsEmptyCheck() && ca_funcLib.FL_InputIsGood(ca_inputIsGood) && !ca_dbHelper.DB_UsernameAlreadyExists(tempUsername))
                 {
                     Log.d("before IF", "before IF");
                     String pass = et_jCreateAcct_password.getText().toString();
@@ -134,7 +134,7 @@ public class CreateAccountActivity extends AppCompatActivity
                         tv_jCreateAcct_confirmPassError.setText(R.string.password_dont_match_message);
                     }
                 }
-                else if(ca_dbHelper.DB_UsernameExists(tempUsername))
+                else if(ca_dbHelper.DB_UsernameAlreadyExists(tempUsername))
                 {
                     tv_jCreateAcct_usernameError.setVisibility(View.VISIBLE);
                     tv_jCreateAcct_usernameError.setText(R.string.username_alread_exists);
@@ -283,12 +283,19 @@ public class CreateAccountActivity extends AppCompatActivity
     }
     private void CA_SaveNewUser()
     {
-        ca_newUser = new User(et_jCreateAcct_username.getText().toString(),
-                               et_jCreateAcct_password.getText().toString(),
-                               et_jCreateAcct_fname.getText().toString(),
-                               et_jCreateAcct_lname.getText().toString(),
-                               et_jCreateAcct_email.getText().toString(),
-                               et_jCreateAcct_phoneNumber.getText().toString());
+        ca_newUser = new User();
+        ca_newUser.setUser_username(et_jCreateAcct_username.getText().toString());
+        ca_newUser.setUser_password(et_jCreateAcct_password.getText().toString());
+        ca_newUser.setUser_fname(et_jCreateAcct_fname.getText().toString());
+        ca_newUser.setUser_lname(et_jCreateAcct_lname.getText().toString());
+        ca_newUser.setUser_email(et_jCreateAcct_email.getText().toString());
+        ca_newUser.setUser_phoneNumber(et_jCreateAcct_phoneNumber.getText().toString());
+        Log.d("username", ca_newUser.getUser_username());
+        Log.d("password", ca_newUser.getUser_password());
+        Log.d("fname", ca_newUser.getUser_fname());
+        Log.d("lname", ca_newUser.getUser_lname());
+        Log.d("email", ca_newUser.getUser_email());
+        Log.d("phoneNum", ca_newUser.getUser_phoneNumber());
         ca_dbHelper.DB_AddNewUser(ca_newUser);
     }
 }

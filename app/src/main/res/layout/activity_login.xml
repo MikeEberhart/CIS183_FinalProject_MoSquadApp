@@ -2,11 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/cl_vLogin_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".LoginActivity">
+
+    <Button
+        android:id="@+id/btn_skipLoginTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Skip Login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_skipLogin"
@@ -90,13 +100,13 @@
     <Button
         android:id="@+id/btn_vLogin_login"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="30dp"
         android:backgroundTint="@color/mosquad_green"
-        android:paddingLeft="4dp"
-        android:paddingTop="4dp"
-        android:paddingRight="4dp"
-        android:paddingBottom="4dp"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
         android:text="Login"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -108,14 +118,14 @@
 
     <Button
         android:id="@+id/btn_vLogin_createAccount"
-        android:layout_width="148dp"
-        android:layout_height="56dp"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="70dp"
         android:backgroundTint="@color/mosquad_green"
-        android:paddingLeft="4dp"
-        android:paddingTop="4dp"
-        android:paddingRight="4dp"
-        android:paddingBottom="4dp"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
         android:text="Create \nNew Account"
         android:textColor="@color/white"
         android:textSize="16sp"

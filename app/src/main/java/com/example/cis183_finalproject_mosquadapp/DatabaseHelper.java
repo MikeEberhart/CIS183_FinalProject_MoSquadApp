@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context c)
     {
-        super(c, DATABASE_NAME, null, 6);
+        super(c, DATABASE_NAME, null, 19);
     }
 
     @Override
@@ -52,9 +52,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
     }
     private void DB_CreateTables(@NonNull SQLiteDatabase db)
     {
-        db.execSQL("CREATE TABLE " + USERS_TABLE + " (Username varchar primary key not null, Password varchar not null," +
-                " First_Name varchar not null, Last_Name varchar not null, Email varchar not null, Phone_Number varchar not null);");
-
         db.execSQL("CREATE TABLE " + POLYGON_DATA_TABLE + " (PolygonID integer primary key autoincrement not null," +
                 " Polygon_Points varchar not null, Display_Format varchar not null);");
 
@@ -63,80 +60,68 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 " All_Natural integer, Special_Event integer);");
 
         db.execSQL("CREATE TABLE " + SERVICE_ADDRESSES_TABLE + " (AddressID integer primary key autoincrement not null," +
-                " Username varchar not null, Street_Address varchar not null, Apt varchar, City varchar not null," +
-                " State varchar not null, ZipCode varchar not null, PolygonID integer," +
-                " Total_Acreage double, ServiceID integer, Single_Treatment_Price double, Season_Treatment_Price double," +
-                " foreign key (Username) references " + USERS_TABLE + "(Username), foreign key (PolygonID) references " +
-                POLYGON_DATA_TABLE + "(PolygonID), foreign key (ServiceID) references " + YARD_SERVICES_TABLE + "(ServiceID));");
+                " Username varchar not null, Street_Address varchar not null, Apt varchar, City varchar not null, State varchar not null," +
+                " ZipCode varchar not null, PolygonID integer, Total_Acreage double, ServiceID integer, Single_Treatment_Price double," +
+                " Season_Treatment_Price double, foreign key (PolygonID) references " + POLYGON_DATA_TABLE + "(PolygonID)," +
+                " foreign key (ServiceID) references " + YARD_SERVICES_TABLE + "(ServiceID));");
 
         db.execSQL("CREATE TABLE " + REVIEWS_TABLE + " (ReviewID integer primary key autoincrement not null," +
-                " Username varchar not null, Star_Count float not null, Review_Text varchar not null, Review_Date varchar not null," +
-                " foreign key (Username) references " + USERS_TABLE + "(Username));");
+                " Star_Count varchar not null, Review_Text varchar, Review_Date varchar not null);");
 
         db.execSQL("CREATE TABLE " + PACKAGE_PRICES_TABLE + " (Package_Name varchar primary key not null," +
                 " Price double not null);");
+
+        db.execSQL("CREATE TABLE " + USERS_TABLE + " (Username varchar primary key not null, Password varchar not null," +
+                " First_Name varchar not null, Last_Name varchar not null, Email varchar not null, Phone_Number varchar not null," +
+                " ReviewID integer, foreign key (ReviewID) references " + REVIEWS_TABLE + "(ReviewID));");
     }
     // used to count the number of records in a given table //
-    private int DB_RecordCount(String tableName)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String rowCnt = "SELECT COUNT(*) FROM " + tableName + ";";
-        int count = 0;
-        Cursor db_rowCnt = db.rawQuery(rowCnt, null);
-        if(db_rowCnt.moveToFirst())
-        {
-            count = db_rowCnt.getInt(0);
-            db_rowCnt.close();
-            db.close();
-        }
-        return count;
-    }
     private void DB_DummyUserData()
     {
         if(DB_RecordCount(USERS_TABLE) == 0)
         {
             SQLiteDatabase db = this.getWritableDatabase();
             // insert dummy user data //
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('mEbbs123', 'MikeEbbs123!!!', 'Mike', 'Ebbs', 'MEbbs@gmail.com', '262-255-2244');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('AWhite93', 'AveWhite123!!!', 'Avery', 'White', 'AWhite93@runbox.com', '502-539-4469');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('CMay27', 'CyrMay123!!!', 'Cyrus', 'May', 'CMay27@startmail.com', '839-890-7679');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('AChambers9', 'AngChambers123!!!', 'Angela', 'Chambers', 'AChambers9@startmail.com', '929-549-8259');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('WDuncan65', 'WayDuncan123!!!', 'Waylon', 'Duncan', 'WDuncan65@zoho.com', '347-502-6370');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('CBradley68', 'CorBradley123!!!', 'Corey', 'Bradley', 'CBradley68@zoho.com', '726-995-2452');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('CAllison3', 'CasAllison123!!!', 'Cassidy', 'Allison', 'CAllison3@posteo.com', '606-368-0162');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('LPerry54', 'LogPerry123!!!', 'Logan', 'Perry', 'LPerry54@protonmail.com', '718-762-0340');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('ARodgers45', 'AdrRodgers123!!!', 'Adrian', 'Rodgers', 'ARodgers45@hushmail.com', '629-320-4790');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('AScott83', 'AxeScott123!!!', 'Axel', 'Scott', 'AScott83@mail.com', '785-364-8417');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('LNorris99', 'LogNorris123!!!', 'Logan', 'Norris', 'LNorris99@gmail.com', '469-485-4357');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('JTurner68', 'JacTurner123!!!', 'Jace', 'Turner', 'JTurner68@mailfence.com', '224-431-2903');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('SRobertson65', 'SabRobertson123!!!', 'Sabrina', 'Robertson', 'SRobertson65@runbox.com', '347-648-2164');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('TWeber55', 'TriWeber123!!!', 'Tripp', 'Weber', 'TWeber55@gmx.com', '267-686-5691');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('ISweeney88', 'IsaSweeney123!!!', 'Isabella', 'Sweeney', 'ISweeney88@fastmail.com', '839-871-3555');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('HGill71', 'HudGill123!!!', 'Hudson', 'Gill', 'HGill71@hey.com', '319-592-3310');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('OJensen40', 'OpaJensen123!!!', 'Opal', 'Jensen', 'OJensen40@icloud.com', '270-852-6013');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('ACurtis34', 'AlyCurtis123!!!', 'Alyssa', 'Curtis', 'ACurtis34@apple.com', '929-785-8468');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('ZWallace66', 'ZekWallace123!!!', 'Zeke', 'Wallace', 'ZWallace66@mailfence.com', '901-700-6705');");
-            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number) " +
-                       "VALUES ('GWallace44', 'GavWallace123!!!', 'Gavin', 'Wallace', 'GWallace44@hey.com', '845-731-0746');");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('mEbbs123', 'MikeEbbs123!!!', 'Mike', 'Ebbs', 'MEbbs@gmail.com', '262-255-2244', 1);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('AWhite93', 'AveWhite123!!!', 'Avery', 'White', 'AWhite93@runbox.com', '502-539-4469', 2);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('CMay27', 'CyrMay123!!!', 'Cyrus', 'May', 'CMay27@startmail.com', '839-890-7679', 3);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('AChambers9', 'AngChambers123!!!', 'Angela', 'Chambers', 'AChambers9@startmail.com', '929-549-8259', 4);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('WDuncan65', 'WayDuncan123!!!', 'Waylon', 'Duncan', 'WDuncan65@zoho.com', '347-502-6370', 5);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('CBradley68', 'CorBradley123!!!', 'Corey', 'Bradley', 'CBradley68@zoho.com', '726-995-2452', 6);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('CAllison3', 'CasAllison123!!!', 'Cassidy', 'Allison', 'CAllison3@posteo.com', '606-368-0162', 7);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('LPerry54', 'LogPerry123!!!', 'Logan', 'Perry', 'LPerry54@protonmail.com', '718-762-0340', 8);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('ARodgers45', 'AdrRodgers123!!!', 'Adrian', 'Rodgers', 'ARodgers45@hushmail.com', '629-320-4790', 9);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('AScott83', 'AxeScott123!!!', 'Axel', 'Scott', 'AScott83@mail.com', '785-364-8417', 10);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('LNorris99', 'LogNorris123!!!', 'Logan', 'Norris', 'LNorris99@gmail.com', '469-485-4357', 11);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('JTurner68', 'JacTurner123!!!', 'Jace', 'Turner', 'JTurner68@mailfence.com', '224-431-2903', 12);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('SRobertson65', 'SabRobertson123!!!', 'Sabrina', 'Robertson', 'SRobertson65@runbox.com', '347-648-2164', 13);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('TWeber55', 'TriWeber123!!!', 'Tripp', 'Weber', 'TWeber55@gmx.com', '267-686-5691', 14);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('ISweeney88', 'IsaSweeney123!!!', 'Isabella', 'Sweeney', 'ISweeney88@fastmail.com', '839-871-3555', 15);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('HGill71', 'HudGill123!!!', 'Hudson', 'Gill', 'HGill71@hey.com', '319-592-3310', 16);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('OJensen40', 'OpaJensen123!!!', 'Opal', 'Jensen', 'OJensen40@icloud.com', '270-852-6013', 17);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('ACurtis34', 'AlyCurtis123!!!', 'Alyssa', 'Curtis', 'ACurtis34@apple.com', '929-785-8468', 18);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('ZWallace66', 'ZekWallace123!!!', 'Zeke', 'Wallace', 'ZWallace66@mailfence.com', '901-700-6705', 19);");
+            db.execSQL("INSERT INTO " + USERS_TABLE + " (Username, Password, First_Name, Last_Name, Email, Phone_Number, ReviewID) " +
+                       "VALUES ('GWallace44', 'GavWallace123!!!', 'Gavin', 'Wallace', 'GWallace44@hey.com', '845-731-0746', 20);");
             db.close();
 
         }
@@ -168,48 +153,57 @@ public class DatabaseHelper extends SQLiteOpenHelper
         if(DB_RecordCount(REVIEWS_TABLE) == 0)
         {
             SQLiteDatabase db = this.getWritableDatabase();
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                       "VALUES ('mEbbs123', 4.5, 'Not a bug in sight for weeks', '06-14-2023');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('AWhite93', 3.5, 'Exceptional service! The pest control team did an incredible job eliminating mosquitoes" +
-                    " and ticks from our yard. We''ve noticed a huge improvement—no more bites or worries! Highly recommend!', '07-10-2022');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('CMay27', 4.0, 'Amazing job by the pest control team! Our yard is now free from mosquitoes and ticks, making" +
-                    " outdoor time enjoyable again. Couldn''t be happier with the results!', '06-20-2023');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('AChambers9', 4.5, 'Thrilled with the service! Not a single tick or mosquito in sight. " +
-                    "It''s been weeks, and our yard is still pest-free. Highly recommend to anyone dealing with bugs.', '05-18-2023');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('WDuncan65', 2.0, 'Saw a reduction in pests initially, but within a few weeks, mosquitoes returned. Service " +
-                    "was decent, but I expected a longer-lasting effect.', '03-12-2022');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('CBradley68', 4.0, 'Happy with the results! The mosquitoes are almost gone, and we haven''t seen a tick since. " +
-                    "Worth the investment for anyone struggling with these pests.', '09-30-2022');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('CAllison3', 3.5, 'Good initial results, though a few bugs are starting to show up again. Overall, much better " +
-                    "than before, but might need a follow-up treatment.', '10-04-2022');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('LPerry54', 5.0, 'We have been using Mosquito Squad for two years now. They do an excellent job. Trustworthy, " +
-                    "great customer service and fast efficient service. Will definitely use this service again.', '11-22-2023');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('ARodgers45', 4.0, 'Effective service. Haven''t noticed any ticks or mosquitoes since the treatment. Very happy " +
-                    "with how it''s working so far.', '08-15-2023');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('AScott83', 5.0, 'Thank you Mosquito Squad, without your service we wouldn’t be able to enjoy our yard. This is our 3rd " +
-                    "year using your service and we will be a retuning customer next year.', '07-04-2022');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('LNorris99', 4.0, 'Great results! We''ve seen a huge improvement, with hardly any pests left. Considering regular " +
-                    "treatments to keep it this way.', '05-09-2023');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('JTurner68', 4.5, 'Fantastic! Ticks and mosquitoes are gone as promised. The treatment exceeded our expectations, " +
-                    "and we plan to continue with it.', '04-22-2023');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('SRobertson65', 2.5, 'Effective initially, but pests slowly started coming back. Improvement was noticeable but expected " +
-                    "a bit more lasting impact.', '02-10-2022');");
-            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Username, Star_Count, Review_Text, Review_Date) " +
-                    "VALUES ('TWeber55', 1.5, 'Unfortunately, the service didn''t work well for us. We still have mosquitoes and ticks in our yard. " +
-                    "Very disappointed given the cost of the treatment.', '06-05-2023');");
-
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('4.0', 'Not a bug in sight for weeks', '2023-06-14');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('3.0', 'Exceptional service! The pest control team did an incredible job eliminating mosquitoes" +
+                    " and ticks from our yard. We''ve noticed a huge improvement—no more bites or worries! Highly recommend!', '2022-07-10');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('2.0', 'Not worth the price', '2018-07-13');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('4.0', 'Amazing job by the pest control team! Our yard is now free from mosquitoes and ticks, making" +
+                    " outdoor time enjoyable again. Couldn''t be happier with the results!', '2024-06-20');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('4.0', 'Thrilled with the service! Not a single tick or mosquito in sight. " +
+                    "It''s been weeks, and our yard is still pest-free. Highly recommend to anyone dealing with bugs.', '2023-05-18');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('3.0', 'Some bugs but better than before.', '2021-06-20');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('2.0', 'Saw a reduction in pests initially, but within a few weeks, mosquitoes returned. Service " +
+                    "was decent, but I expected a longer-lasting effect.', '2022-03-12');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('4.0', 'Happy with the results! The mosquitoes are almost gone, and we haven''t seen a tick since. " +
+                    "Worth the investment for anyone struggling with these pests.', '2022-09-30');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('3.0', 'Good initial results, though a few bugs are starting to show up again. Overall, much better " +
+                    "than before, but might need a follow-up treatment.', '2022-10-04');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('5.0', 'We have been using Mosquito Squad for two years now. They do an excellent job. Trustworthy, " +
+                    "great customer service and fast efficient service. Will definitely use this service again.', '2023-11-22');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('4.0', 'Effective service. Haven''t noticed any ticks or mosquitoes since the treatment. Very happy " +
+                    "with how it''s working so far.', '2023-08-15');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('5.0', 'Thank you Mosquito Squad, without your service we wouldn''t be able to enjoy our yard. This is our 3rd " +
+                    "year using your service and we will be a retuning customer next year.', '2022-07-04');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('2.0', 'Could''ve done better', '2019-05-02');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('4.0', 'Great results! We''ve seen a huge improvement, with hardly any pests left. Considering regular " +
+                    "treatments to keep it this way.', '2023-05-09');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('4.0', null, '2023-04-22');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('2.0', 'Effective initially, but pests slowly started coming back. Improvement was noticeable but expected " +
+                    "a bit more lasting impact.', '2022-02-10');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('1.0', 'We still have mosquitoes and ticks in our yard. Very disappointed.', '2023-06-05');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('5.0', 'They did a great job!!!', '2021-08-12');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('5.0',null, '2020-07-11');");
+            db.execSQL("INSERT INTO " + REVIEWS_TABLE + " (Star_Count, Review_Text, Review_Date) " +
+                    "VALUES ('5.0', 'No bugs to be found.', '2020-09-06');");
             db.close();
         }
     }
@@ -227,7 +221,21 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Special_Event', 30.00);"); // add the barrier treatment price to this later in the code
         }
     }
-    public boolean DB_UsernameExists(String u)
+    public int DB_RecordCount(String tableName)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String rowCnt = "SELECT COUNT(*) FROM " + tableName + ";";
+        int count = 0;
+        Cursor db_rowCnt = db.rawQuery(rowCnt, null);
+        if(db_rowCnt.moveToFirst())
+        {
+            count = db_rowCnt.getInt(0);
+            db_rowCnt.close();
+            db.close();
+        }
+        return count;
+    }
+    public boolean DB_UsernameAlreadyExists(String u)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         String checkForUsername = "SELECT username FROM " + USERS_TABLE + " WHERE username = '" + u + "';";
@@ -240,21 +248,22 @@ public class DatabaseHelper extends SQLiteOpenHelper
         uexists_cursor.close();
         return false;
     }
-    public boolean DB_UserLoginGood(String uname, String pass)
+    public boolean DB_CheckingForGoodUserLogin(String uname, String pass)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         String getUserAcctData = "SELECT * FROM " + USERS_TABLE + " WHERE Username = '" + uname + "';";
-        String getUserPassword = "SELECT Password FROM " + USERS_TABLE + " WHERE Username = '" + uname + "';";
+//        String getUserPassword = "SELECT Password FROM " + USERS_TABLE + " WHERE Username = '" + uname + "';";
         String savedPassword = "";
-        Cursor getUserPassCursor = db.rawQuery(getUserPassword, null);
+//        Cursor getUserPassCursor = db.rawQuery(getUserPassword, null);
         Cursor getUserAcctCursor = db.rawQuery(getUserAcctData, null);
         if(getUserAcctCursor.moveToFirst())
         {
-            if(getUserPassCursor.moveToFirst())
-            {
-                savedPassword = getUserPassCursor.getString(0);
-                Log.d("good password", savedPassword);
-            }
+            savedPassword = getUserAcctCursor.getString(1);
+//            if(getUserPassCursor.moveToFirst())
+//            {
+//                savedPassword = getUserPassCursor.getString(0);
+//                Log.d("good password", savedPassword);
+//            }
             if(pass.equals(savedPassword))
             {
                 User userData = new User(getUserAcctCursor.getString(0),
@@ -262,19 +271,21 @@ public class DatabaseHelper extends SQLiteOpenHelper
                         getUserAcctCursor.getString(2),
                         getUserAcctCursor.getString(3),
                         getUserAcctCursor.getString(4),
-                        getUserAcctCursor.getString(5));
+                        getUserAcctCursor.getString(5),
+                        getUserAcctCursor.getInt(6));
                 UserSessionData.SetLoggedInUser(userData);
                 DB_GetUserServiceAddresses();
+                DB_GetLoggedInUserReview();
                 Log.d("saved password", "pass = savedpass");
                 return true;
             }
         }
-        getUserPassCursor.close();
+//        getUserPassCursor.close();
         getUserAcctCursor.close();
         db.close();
         return false;
     }
-    public void DB_GetUserServiceAddresses()
+    public void DB_GetUserServiceAddresses() // might change this later //
     {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<ServiceAddress> userAddresses = new ArrayList<>();
@@ -307,22 +318,27 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
 //        return userAddresses;
     }
-    public String DB_GetUserData(String uname)
+    public User DB_GetUserFromReviewID(int reviewID) // might delete this
     {
         SQLiteDatabase db = this.getReadableDatabase();
         User db_tempUser = new User();
-        String getUserData = "SELECT First_Name, Last_Name FROM " + USERS_TABLE + " WHERE Username = '" + uname + "';";
-        String fname = "";
-        String lname = "";
+        String getUserData = "SELECT * FROM " + USERS_TABLE + " WHERE ReviewID = '" + reviewID + "';";
         Cursor userData = db.rawQuery(getUserData, null);
         if(userData.moveToFirst())
         {
-            fname = userData.getString(0);
-            lname = userData.getString(1);
+//            Log.d("moved to first", "moved to first");
+            db_tempUser.setUser_username(userData.getString(0));
+            db_tempUser.setUser_password(userData.getString(1));
+            db_tempUser.setUser_fname(userData.getString(2));
+            db_tempUser.setUser_lname(userData.getString(3));
+            db_tempUser.setUser_email(userData.getString(4));
+            db_tempUser.setUser_phoneNumber(userData.getString(5));
+            db_tempUser.setUser_reviewID(userData.getInt(6));
         }
         userData.close();
         db.close();
-        return fname + " " + lname.charAt(0) + ".";
+
+        return db_tempUser;
     }
     public void DB_AddNewUser(User user)
     {
@@ -337,7 +353,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.insert(USERS_TABLE, null, addUser);
         db.close();
     }
-    public void DB_UpdateUserData(User user)
+    public void DB_UpdateLoggedInUserData(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues updateUser = new ContentValues();
@@ -349,7 +365,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
 //        UserSessionData.SetLoggedInUser(user); // used to make sure new data has been push to SessionData // might not need later
     }
-    public void DB_SaveNewUserPassword(User user)
+    public void DB_SaveNewLoggedInUserPassword(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues updatePass = new ContentValues();
@@ -357,18 +373,18 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.update(USERS_TABLE, updatePass, "Username = ?", new String[]{user.getUser_username()});
         db.close();
     }
-    public void DB_DeleteUserAccount(User user)
+    public void DB_DeleteLoggedInUserAccount(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + USERS_TABLE + " WHERE Username='" + user.getUser_username() + "';");
-        UserSessionData.SetLoggedInUser(null);
+//        UserSessionData.SetLoggedInUser(null);
         db.close();
     }
-    public ArrayList<UserReview> DB_GetListOfReviews()
+    public ArrayList<UserReview> DB_GetListOfReviews(String sortStatement, String order, String aORd)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<UserReview> db_listOfReviews = new ArrayList<>();
-        String getReviewList = "SELECT * FROM " + REVIEWS_TABLE;
+        String getReviewList = "SELECT * FROM " + REVIEWS_TABLE + sortStatement + order + aORd;
         Cursor reviewList = db.rawQuery(getReviewList, null);
         if(reviewList.moveToFirst())
         {
@@ -376,14 +392,124 @@ public class DatabaseHelper extends SQLiteOpenHelper
             {
                 db_listOfReviews.add(new UserReview(reviewList.getInt(0),
                                                     reviewList.getString(1),
-                                                    reviewList.getFloat(2),
-                                                    reviewList.getString(3),
-                                                    reviewList.getString(4)));
+                                                    reviewList.getString(2),
+                                                    reviewList.getString(3)));
             }
             while(reviewList.moveToNext());
         }
         reviewList.close();
         db.close();
         return db_listOfReviews;
+    }
+    public void DB_DeleteUserReview(int reviewID, String uname)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues deleteFromUser = new ContentValues();
+        String rID = String.valueOf(reviewID);
+        deleteFromUser.putNull("ReviewID");
+        db.update(USERS_TABLE, deleteFromUser, "Username = ?", new String[]{uname});
+        db.delete(REVIEWS_TABLE, "ReviewID = ?", new String[]{rID});
+        UserSessionData.SetLoggedInUserReview(null);
+        UserSessionData.GetLoggedInUser().setUser_reviewID(0);
+        db.close();
+    }
+    public void DB_AddNewUserReview(UserReview ur, String uname)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues addUserReview = new ContentValues();
+        addUserReview.put("Star_Count", ur.getUrv_starCount());
+        addUserReview.put("Review_Text", ur.getUrv_reviewText());
+        addUserReview.put("Review_Date", ur.getUrv_reviewDate());
+        Log.d("star", ur.getUrv_starCount() + "");
+        Log.d("date", ur.getUrv_reviewDate());
+        if(ur.getUrv_reviewText() != null)
+        {
+            Log.d("review text", ur.getUrv_reviewText());
+        }
+        db.insert(REVIEWS_TABLE, null, addUserReview);
+        DB_AddReviewIdToUserData(uname);
+        DB_GetLoggedInUserReview();
+        Log.d("AddNewUserReview", uname);
+        db.close();
+    }
+    public void DB_AddReviewIdToUserData(String uname)
+    {
+        Log.d("addReviewIdToUserData", uname);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectLastReviewID = "SELECT ReviewID FROM " + REVIEWS_TABLE + " ORDER BY ReviewID DESC LIMIT 1;";
+        Cursor getReviewID = db.rawQuery(selectLastReviewID, null);
+        ContentValues addReviewIDToUser = new ContentValues();
+        int reviewId = 0;
+        if(getReviewID.moveToFirst())
+        {
+            reviewId = getReviewID.getInt(0);
+        }
+        addReviewIDToUser.put("ReviewID", reviewId);
+        getReviewID.close();
+        db.update(USERS_TABLE, addReviewIDToUser, "Username = ?", new String[]{uname});
+        UserSessionData.GetLoggedInUser().setUser_reviewID(reviewId);
+        db.close();
+    }
+    public void DB_GetLoggedInUserReview()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int reviewID = UserSessionData.GetLoggedInUser().getUser_reviewID();
+        Log.d("db_getloggeduserreview", String.valueOf(reviewID));
+        UserReview db_userReview = new UserReview();
+        String selectReviewID = "SELECT * FROM " + REVIEWS_TABLE + " WHERE ReviewID = '" + reviewID + "';";
+        Cursor userReview = db.rawQuery(selectReviewID, null);
+        if(userReview.moveToFirst())
+        {
+            db_userReview.setUrv_reviewID(userReview.getInt(0));
+            db_userReview.setUrv_starCount(userReview.getString(1));
+            if(userReview.getString(2) == null)
+            {
+                db_userReview.setUrv_reviewText(null);
+            }
+            else
+            {
+                db_userReview.setUrv_reviewText(userReview.getString(2));
+            }
+            db_userReview.setUrv_reviewDate(userReview.getString(3));
+        }
+        else
+        {
+            db_userReview = null;
+        }
+        UserSessionData.SetLoggedInUserReview(db_userReview);
+        userReview.close();
+        db.close();
+    }
+    public void DB_UpdateLoggedInUserReview(UserReview ur)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues updateUserReview = new ContentValues();
+        updateUserReview.put("Star_Count", ur.getUrv_starCount());
+        if(ur.getUrv_reviewText() != null)
+        {
+            updateUserReview.put("Review_Text", ur.getUrv_reviewText());
+        }
+        db.update(REVIEWS_TABLE, updateUserReview, "ReviewID = ?", new String[]{String.valueOf(ur.getUrv_reviewID())});
+        db.close();
+    }
+    public float DB_GetRatingTotalSum()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String ratingTotalSum = "SELECT Star_Count From " + REVIEWS_TABLE;
+        String tempStarCount;
+        float totalSum = 0;
+        Cursor db_sumCursor = db.rawQuery(ratingTotalSum, null);
+        if(db_sumCursor.moveToFirst())
+        {
+            do
+            {
+                tempStarCount = db_sumCursor.getString(0);
+                totalSum += Float.parseFloat(tempStarCount);
+            }
+            while(db_sumCursor.moveToNext());
+        }
+        db_sumCursor.close();
+        db.close();
+        return totalSum;
     }
 }

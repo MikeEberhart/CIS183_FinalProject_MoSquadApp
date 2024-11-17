@@ -7,24 +7,40 @@ import java.util.ArrayList;
 public class UserSessionData
 {
     private static User loggedInUser;
+    private static UserReview currentUsersReview; // might need this to be an array //
     private static ArrayList<ServiceAddress> userAddressData;
     private static int userAddressCount;
+    private static boolean isPassedFromEditReview;
 
-
+    // GETTERS //
     public static User GetLoggedInUser()
     {
         return loggedInUser;
     }
+    public static boolean GetIsPassedFromEditReview()
+    {
+        return isPassedFromEditReview;
+    }
+    public static UserReview GetLoggedInUserReview()
+    {
+        return currentUsersReview;
+    }
+    public static ArrayList<ServiceAddress> GetUserAddressData()
+    {
+        return userAddressData;
+    }
+    // SETTERS //
     public static void SetLoggedInUser(User u)
     {
         loggedInUser = u;
     }
-
-
-    // should this be here? Or in the database class as a function to get each address with said username//
-    public static ArrayList<ServiceAddress> GetUserAddressData()
+    public static void SetIsPassedFromEditReview(boolean b)
     {
-        return userAddressData;
+        isPassedFromEditReview = b;
+    }
+    public static void SetLoggedInUserReview(UserReview ur)
+    {
+        currentUsersReview = ur;
     }
     public static void SetUserAddressData(ArrayList<ServiceAddress> addressData)
     {
@@ -32,6 +48,7 @@ public class UserSessionData
 
     }
 
+    // not sure about the addressCount setter/getters here //
     public static int GetUserAddressCount()
     {
         return userAddressCount;

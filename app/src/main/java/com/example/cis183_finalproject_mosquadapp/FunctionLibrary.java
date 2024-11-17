@@ -12,16 +12,15 @@ import java.util.regex.Pattern;
 public class FunctionLibrary
 {
     private static final String ALLOWED_USERNAME_CHARS = "^[a-zA-Z0-9_.-]{12,}$";
-    private static final String ALLOWED_PASSWORD_CHARS = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_\\-=+{}\\[\\]|;:\"'<>,.?/~]).{12,}$";
+    private static final String ALLOWED_PASSWORD_CHARS = "^(?=.+[a-z])(?=.+[A-Z])(?=.+[0-9])(?=.+[!@#$%^&*()_\\-=+{}\\[\\]|;:\"'<>,.?/~]).{12,}$";
     private static final String ALLOWED_NAME_CHARS = "^[a-zA-Z\\s]+$";
-    private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z]([a-zA-Z0-9_.-]*[a-zA-Z0-9])@([a-zA-Z]*[a-zA-Z.]*[a-zA-Z])(\\.com|\\.gov|\\.edu)$";
+    private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z]([a-zA-Z0-9_.-]+[a-zA-Z0-9])@([a-zA-Z]+[a-zA-Z.]+[a-zA-Z])(\\.com|\\.gov|\\.edu)$";
     private static final String ALLOWED_PHONE_NUMBERS = "^[2-9]{3}-[2-9]{3}-[0-9]{4}$";
 
     public FunctionLibrary()
     {
 
     }
-
     public boolean FL_UsernameInputValidation(TextView tv, CharSequence cs)
     {
         Pattern goodChars = Pattern.compile(ALLOWED_USERNAME_CHARS);

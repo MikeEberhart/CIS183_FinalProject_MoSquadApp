@@ -1,29 +1,40 @@
 package com.example.cis183_finalproject_mosquadapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ReviewListAdapter extends BaseAdapter
 {
+    Intent rla_leaveReviewIntent;
     Context rla_passedContext;
     ArrayList<UserReview> rla_listOfReviews;
     RatingBar rb_jReviewCell_starCount;
+    RatingBar rb_jReviewCell_averageRating;
     TextView tv_jReviewCell_nameDisplay;
     TextView tv_jReviewCell_reviewDate;
     TextView tv_jReviewCell_reviewText;
+    ImageView iv_jReviewCell_deleteReview;
+    ImageView iv_jReviewCell_editReview;
     DatabaseHelper rla_dbHelper;
 
-    public ReviewListAdapter(Context c, ArrayList<UserReview> list)
+    public ReviewListAdapter(Context c, ArrayList<UserReview> list, RatingBar rb)
     {
         rla_passedContext = c;
         rla_listOfReviews = list;
+        rb_jReviewCell_averageRating = rb;
+//        Log.d("listOfReviews", String.valueOf(rla_listOfReviews.get(0).getUrv_reviewID()));
     }
 
     @Override
@@ -49,11 +60,26 @@ public class ReviewListAdapter extends BaseAdapter
             LayoutInflater listInflater = (LayoutInflater) rla_passedContext.getSystemService(UserReviewsActivity.LAYOUT_INFLATER_SERVICE);
             view = listInflater.inflate(R.layout.listview_review_cell, null);
         }
-        UserReview rla_userReview = rla_listOfReviews.get(pos);
         rla_dbHelper = new DatabaseHelper(rla_passedContext);
-        String flName = rla_dbHelper.DB_GetUserData(rla_userReview.getUrv_username());
+        UserReview rla_userReview = rla_listOfReviews.get(pos);
+//        Log.d("user review", String.valueOf(rla_userReview.getUrv_starCount()));
+        User selectedUser = rla_dbHelper.DB_GetUserFromReviewID(rla_userReview.getUrv_reviewID());
+//        Log.d("user id", String.valueOf(selectedUser.getUser_reviewID()));
+        User currentUser = UserSessionData.GetLoggedInUser();
+        String flName = selectedUser.getUser_fname() + " " + selectedUser.getUser_lname().charAt(0) + ".";
         RLA_ListOfViews(view);
-        rb_jReviewCell_starCount.setRating(rla_userReview.getUrv_starCount());
+        if(selectedUser.getUser_username().equals(currentUser.getUser_username()))
+        {
+            iv_jReviewCell_deleteReview.setVisibility(View.VISIBLE);
+            iv_jReviewCell_editReview.setVisibility(View.VISIBLE);
+            RLA_OnClickListeners(selectedUser, rla_userReview);
+        }
+        else
+        {
+            iv_jReviewCell_deleteReview.setVisibility(View.INVISIBLE);
+            iv_jReviewCell_editReview.setVisibility(View.INVISIBLE);
+        }
+        rb_jReviewCell_starCount.setRating(Float.parseFloat(rla_userReview.getUrv_starCount()));
         tv_jReviewCell_nameDisplay.setText(flName);
         tv_jReviewCell_reviewDate.setText(rla_userReview.getUrv_reviewDate());
         tv_jReviewCell_reviewText.setText(rla_userReview.getUrv_reviewText());
@@ -65,6 +91,39 @@ public class ReviewListAdapter extends BaseAdapter
         tv_jReviewCell_nameDisplay = v.findViewById(R.id.tv_vReviewCell_nameDisplay);
         tv_jReviewCell_reviewDate = v.findViewById(R.id.tv_vReviewCell_reviewDate);
         tv_jReviewCell_reviewText = v.findViewById(R.id.tv_vReviewCell_reviewText);
+        iv_jReviewCell_deleteReview = v.findViewById(R.id.iv_vReviewCell_deleteReview);
+        iv_jReviewCell_editReview = v.findViewById(R.id.iv_vReviewCell_editReview);
     }
-
+    private void RLA_OnClickListeners(User currentUser, UserReview ur)
+    {
+        iv_jReviewCell_deleteReview.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                rla_dbHelper.DB_DeleteUserReview(currentUser.getUser_reviewID(), currentUser.getUser_username());
+                rla_listOfReviews.remove(ur);
+                UserSessionData.SetLoggedInUserReview(null);
+                UR_SettingAverageReview();
+                notifyDataSetChanged();
+            }
+        });
+        iv_jReviewCell_editReview.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                rla_leaveReviewIntent = new Intent(rla_passedContext, LeaveReviewActivity.class);
+                UserSessionData.SetIsPassedFromEditReview(true);
+                rla_passedContext.startActivity(rla_leaveReviewIntent);
+            }
+        });
+    }
+    private void UR_SettingAverageReview()
+    {
+        float tempTotal = rla_dbHelper.DB_GetRatingTotalSum();
+        float tempReviewCnt = rla_dbHelper.DB_RecordCount("Reviews");
+        float average = tempTotal / tempReviewCnt;
+        rb_jReviewCell_averageRating.setRating(average);
+    }
 }

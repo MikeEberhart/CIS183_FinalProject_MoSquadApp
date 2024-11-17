@@ -21,6 +21,8 @@ public class WelcomeUserActivity extends AppCompatActivity
     Intent wu_loginIntent;
     Intent wu_userAcctIntent;
     Intent wu_userReviewsIntent;
+    Intent wu_packageDetailsIntent;
+    Intent wu_enterAddressIntent;
     TextView tv_jWelcomeUser_userFname;
     TextView tv_jWelcomeUser_noSavedEstimates;
     ListView lv_jWelcomeUser_addressList;
@@ -33,7 +35,7 @@ public class WelcomeUserActivity extends AppCompatActivity
     Button btn_jWelcomeUser_newEstimate;
     Button btn_jWelcomeUser_packageDetails;
     AddressListAdapter wu_addressListAdapter;
-    private User wu_currentUser;
+    User wu_currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,25 +44,26 @@ public class WelcomeUserActivity extends AppCompatActivity
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_welcome_user);
 
+        WU_ListOfViews();
         WU_InitData();
         WU_OnClickListeners();
     }
 
     private void WU_InitData()
     {
-
-        WU_ListOfViews();
         wu_loginIntent = new Intent(this, LoginActivity.class);
         wu_userAcctIntent = new Intent(this, UserAccountActivity.class);
         wu_userReviewsIntent = new Intent(this, UserReviewsActivity.class);
+        wu_enterAddressIntent = new Intent(this, EnterAddressActivity.class);
+        wu_packageDetailsIntent = new Intent(this, PackageDetailsActivity.class);
         wu_currentUser = UserSessionData.GetLoggedInUser();
         String welcomeMessage = "Welcome " + wu_currentUser.getUser_fname();
         tv_jWelcomeUser_userFname.setText(welcomeMessage);
         if(UserSessionData.GetUserAddressCount() != 0)
         {
             tv_jWelcomeUser_noSavedEstimates.setVisibility(View.INVISIBLE);
-            wu_addressListAdapter = new AddressListAdapter(this, UserSessionData.GetUserAddressData());
-            lv_jWelcomeUser_addressList.setAdapter(wu_addressListAdapter);
+            wu_addressListAdapter = new AddressListAdapter(this, UserSessionData.GetUserAddressData()); // need to double check if this will be ok when deleting addresses
+            lv_jWelcomeUser_addressList.setAdapter(wu_addressListAdapter);                                // if so then maybe could be use something like this with the other listviews
         }
         else
         {
@@ -74,9 +77,6 @@ public class WelcomeUserActivity extends AppCompatActivity
         tv_jWelcomeUser_noSavedEstimates = findViewById(R.id.tv_vWelcomeUser_noSavedEstimates);
         lv_jWelcomeUser_addressList      = findViewById(R.id.lv_vWelcomeUser_addressList);
         btn_jWelcomeUser_logout          = findViewById(R.id.btn_vWelcomeUser_logout);
-        btn_jWelcomeUser_deleteAddress   = findViewById(R.id.btn_vWelcomeUser_deleteAddress);
-        btn_jWelcomeUser_updateAddress   = findViewById(R.id.btn_vWelcomeUser_updateAddress);
-        btn_jWelcomeUser_updateEstimate  = findViewById(R.id.btn_vWelcomeUser_updateEstimate);
         btn_jWelcomeUser_reviews         = findViewById(R.id.btn_vWelcomeUser_reviews);
         btn_jWelcomeUser_userAccount     = findViewById(R.id.btn_vWelcomeUser_userAccount);
         btn_jWelcomeUser_newEstimate     = findViewById(R.id.btn_vWelcomeUser_newEstimate);
@@ -90,33 +90,7 @@ public class WelcomeUserActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                UserSessionData.SetLoggedInUser(null);
-                UserSessionData.SetUserAddressData(null);
                 startActivity(wu_loginIntent);
-            }
-        });
-        btn_jWelcomeUser_deleteAddress.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-            }
-        });
-        btn_jWelcomeUser_updateAddress.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-            }
-        });
-        btn_jWelcomeUser_updateEstimate.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
             }
         });
         btn_jWelcomeUser_reviews.setOnClickListener(new View.OnClickListener()
@@ -132,7 +106,7 @@ public class WelcomeUserActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
+                startActivity(wu_enterAddressIntent);
             }
         });
         btn_jWelcomeUser_userAccount.setOnClickListener(new View.OnClickListener()
@@ -148,7 +122,7 @@ public class WelcomeUserActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
+                startActivity(wu_packageDetailsIntent);
             }
         });
     }

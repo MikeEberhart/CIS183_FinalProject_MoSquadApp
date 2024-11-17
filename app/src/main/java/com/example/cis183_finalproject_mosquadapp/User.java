@@ -8,12 +8,13 @@ public class User
     private String user_lname;
     private String user_email;
     private String user_phoneNumber;
+    private int user_reviewID;
 
     public User()
     {
 
     }
-    public User(String u, String p, String f, String l, String e, String pn)
+    public User(String u, String p, String f, String l, String e, String pn, int rID)
     {
         user_username = u;
         user_password = p;
@@ -21,6 +22,7 @@ public class User
         user_lname = l;
         user_email = e;
         user_phoneNumber = pn;
+        user_reviewID = rID;
     }
 
     // GETTERS //
@@ -48,6 +50,10 @@ public class User
     {
         return user_phoneNumber;
     }
+    public int getUser_reviewID()
+    {
+        return user_reviewID;
+    }
 
     // SETTERS //
     public void setUser_username(String user_username)
@@ -73,5 +79,9 @@ public class User
     public void setUser_phoneNumber(String user_phoneNumber)
     {
         this.user_phoneNumber = user_phoneNumber;
+    }
+    public void setUser_reviewID(int user_reviewID)
+    {
+        this.user_reviewID = user_reviewID;
     }
 }

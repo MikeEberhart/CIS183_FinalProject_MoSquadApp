@@ -117,7 +117,7 @@ public class ChangePasswordActivity extends AppCompatActivity
                     {
                         cp_currentUser.setUser_password(cp_newPass);
                         Log.d("saving new pass", cp_currentUser.getUser_password());
-                        cp_dbHelper.DB_SaveNewUserPassword(cp_currentUser);
+                        cp_dbHelper.DB_SaveNewLoggedInUserPassword(cp_currentUser);
                         startActivity(cp_userAcctIntent);
                     }
                 }

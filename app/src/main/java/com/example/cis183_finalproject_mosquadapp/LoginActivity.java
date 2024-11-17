@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity
     Button btn_jLogin_login;
     Button btn_jLogin_createAccount;
     Button btn_jSkipLogin;
+    Button btn_jSkipLoginTwo;
     DatabaseHelper jLogin_dbHelper;
 
 
@@ -47,6 +48,8 @@ public class LoginActivity extends AppCompatActivity
 
     private void LA_InitData()
     {
+//        UserSessionData.SetLoggedInUser(null);
+//        UserSessionData.SetUserAddressData(null);
         la_createAccountIntent = new Intent(this, CreateAccountActivity.class);
         la_welcomeUserIntent   = new Intent(this, WelcomeUserActivity.class);
         jLogin_dbHelper = new DatabaseHelper(this);
@@ -63,6 +66,7 @@ public class LoginActivity extends AppCompatActivity
         btn_jLogin_login           = findViewById(R.id.btn_vLogin_login);
         btn_jLogin_createAccount   = findViewById(R.id.btn_vLogin_createAccount);
         btn_jSkipLogin             = findViewById(R.id.btn_skipLogin);
+        btn_jSkipLoginTwo          = findViewById(R.id.btn_skipLoginTwo);
     }
 
     private void LA_OnClickListeners()
@@ -74,10 +78,10 @@ public class LoginActivity extends AppCompatActivity
             {
                 String uname = et_jLogin_username.getText().toString();
                 String pass = et_jLogin_password.getText().toString();
-                if(jLogin_dbHelper.DB_UsernameExists(uname))
+                if(jLogin_dbHelper.DB_UsernameAlreadyExists(uname))
                 {
                     tv_jLogin_usernameError.setVisibility(View.INVISIBLE);
-                    if(jLogin_dbHelper.DB_UserLoginGood(uname, pass))
+                    if(jLogin_dbHelper.DB_CheckingForGoodUserLogin(uname, pass))
                     {
                         getTv_jLogin_passwordError.setVisibility(View.INVISIBLE);
                         Log.d("inside btn click", "inside btn click");
@@ -108,7 +112,19 @@ public class LoginActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if(jLogin_dbHelper.DB_UserLoginGood("mEbbs123", "MikeEbbs123!!!"))
+                if(jLogin_dbHelper.DB_CheckingForGoodUserLogin("mEbbs123", "MikeEbbs123!!!"))
+                {
+                    startActivity(la_welcomeUserIntent);
+                    Log.d("login skipped", "login skipped");
+                }
+            }
+        });
+        btn_jSkipLoginTwo.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(jLogin_dbHelper.DB_CheckingForGoodUserLogin("TestTest1212", "TestTest12!@"))
                 {
                     startActivity(la_welcomeUserIntent);
                     Log.d("login skipped", "login skipped");

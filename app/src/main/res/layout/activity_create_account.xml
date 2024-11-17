@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/cl_vCreateAcct_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -94,6 +94,7 @@
         android:id="@+id/et_vCreateAcct_phoneNumber"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginBottom="35dp"
         android:background="@drawable/blk_border_with_radius"
         android:ems="10"
         android:inputType="text"
@@ -101,9 +102,11 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_vCreateAcct_back"
         app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_email"
         app:layout_constraintStart_toStartOf="@+id/et_vCreateAcct_email"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vCreateAcct_phoneDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_vCreateAcct_phoneDisplay"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_vCreateAcct_usernameDisplay"
@@ -222,41 +225,39 @@
 
     <Button
         android:id="@+id/btn_vCreateAcct_createAccount"
-        android:layout_width="148dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/mosquad_green"
-        android:paddingLeft="4dp"
-        android:paddingTop="4dp"
-        android:paddingRight="4dp"
-        android:paddingBottom="4dp"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
         android:text="Create Account"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_phoneNumber"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/et_vCreateAcct_phoneNumber"
-        app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_phoneNumber" />
+        app:layout_constraintStart_toEndOf="@+id/btn_vCreateAcct_back" />
 
     <Button
         android:id="@+id/btn_vCreateAcct_back"
-        android:layout_width="148dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/mosquad_green"
-        android:paddingLeft="4dp"
-        android:paddingTop="4dp"
-        android:paddingRight="4dp"
-        android:paddingBottom="4dp"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
         android:text="Back"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/et_vCreateAcct_phoneNumber"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/et_vCreateAcct_phoneNumber"
-        app:layout_constraintTop_toBottomOf="@+id/et_vCreateAcct_phoneNumber" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vCreateAcct_createAccount"
+        app:layout_constraintStart_toStartOf="@+id/et_vCreateAcct_phoneNumber" />
 
     <TextView
         android:id="@+id/textView2"
