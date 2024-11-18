@@ -27,9 +27,6 @@ public class WelcomeUserActivity extends AppCompatActivity
     TextView tv_jWelcomeUser_noSavedEstimates;
     ListView lv_jWelcomeUser_addressList;
     Button btn_jWelcomeUser_logout;
-    Button btn_jWelcomeUser_deleteAddress;
-    Button btn_jWelcomeUser_updateAddress;
-    Button btn_jWelcomeUser_updateEstimate;
     Button btn_jWelcomeUser_reviews;
     Button btn_jWelcomeUser_userAccount;
     Button btn_jWelcomeUser_newEstimate;

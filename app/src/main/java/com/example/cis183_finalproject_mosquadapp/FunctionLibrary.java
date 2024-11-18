@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // used to house all the function that will be used across multiple activities //
+// and a few other error checking functions //
 public class FunctionLibrary
 {
     private static final String ALLOWED_USERNAME_CHARS = "^[a-zA-Z0-9_.-]{12,}$";
@@ -16,6 +17,11 @@ public class FunctionLibrary
     private static final String ALLOWED_NAME_CHARS = "^[a-zA-Z\\s]+$";
     private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z]([a-zA-Z0-9_.-]+[a-zA-Z0-9])@([a-zA-Z]+[a-zA-Z.]+[a-zA-Z])(\\.com|\\.gov|\\.edu)$";
     private static final String ALLOWED_PHONE_NUMBERS = "^[2-9]{3}-[2-9]{3}-[0-9]{4}$";
+    private static final String ALLOWED_STREET_CHARS = "^[a-zA-Z0-9\\s\\-.,/'&]+$";
+    private static final String ALLOWED_APT_CHARS = "^[a-zA-Z0-9\\s\\-.,/'&]*$"
+            ;
+    private static final String ALLOWED_CITY_CHARS = "^[a-zA-Z\\s\\-.']+$";
+    private static final String ALLOWED_ZIP_CHARS = "^[0-9]{5}$";
 
     public FunctionLibrary()
     {
@@ -98,6 +104,70 @@ public class FunctionLibrary
         {
             tv.setVisibility(View.VISIBLE);
             tv.setText(R.string.phone_error_message);
+        }
+        return tempBool;
+    }
+    public boolean FL_StreetAddressValidation(TextView tv, CharSequence cs)
+    {
+        Pattern goodChars = Pattern.compile(ALLOWED_STREET_CHARS);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean tempBool = checkingChars.find();
+        if(tempBool)
+        {
+            tv.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(R.string.street_address_error_message);
+        }
+        return tempBool;
+    }
+    public boolean FL_AptAddressValidation(TextView tv, CharSequence cs)
+    {
+        Pattern goodChars = Pattern.compile(ALLOWED_APT_CHARS);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean tempBool = checkingChars.find();
+        if(tempBool)
+        {
+            tv.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(R.string.street_address_error_message);
+        }
+        return tempBool;
+    }
+    public boolean FL_CityValidation(TextView tv, CharSequence cs)
+    {
+        Pattern goodChars = Pattern.compile(ALLOWED_CITY_CHARS);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean tempBool = checkingChars.find();
+        if(tempBool)
+        {
+            tv.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(R.string.city_error_message);
+        }
+        return tempBool;
+    }
+    public boolean FL_ZipCodeValidation(TextView tv, CharSequence cs)
+    {
+        Pattern goodChars = Pattern.compile(ALLOWED_ZIP_CHARS);
+        Matcher checkingChars = goodChars.matcher(cs);
+        boolean tempBool = checkingChars.find();
+        if(tempBool)
+        {
+            tv.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText("");
         }
         return tempBool;
     }

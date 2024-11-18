@@ -9,6 +9,24 @@
     tools:context=".PackageDetailsActivity">
 
     <Button
+        android:id="@+id/btn_vPackageDetails_newEstimate"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="2dp"
+        android:paddingTop="0dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="0dp"
+        android:text="New Estimate"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_vPackageDetails_home"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="@+id/scrollView2" />
+
+    <Button
         android:id="@+id/btn_vPackageDetails_home"
         android:layout_width="52dp"
         android:layout_height="60dp"
@@ -59,9 +77,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/blk_border_with_radius"
-        app:layout_constraintBottom_toTopOf="@+id/btn_vPackageDetails_home"
+        app:layout_constraintBottom_toTopOf="@+id/btn_vPackageDetails_newEstimate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_vPackageDetails_headerText">
@@ -71,106 +89,462 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView10"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_vPackageDetails_barrierTreatmentHolder"
                 android:layout_width="match_parent"
-                android:layout_height="266dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/mosquad_tech" />
+                android:layout_height="match_parent"
+                android:background="@drawable/blk_border_with_radius">
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Standard Barrier Treatment"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/textView38"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
 
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="What is Mosquito Barrier Treatment?"
-                android:textAlignment="center"
-                android:textColor="@color/mosquad_green"
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Standard Barrier Treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/blk_border_with_radius"
-                android:text="Traditional mosquito barrier treatment is our primary mosquito control technique. With specialized equipment, we spray a proprietary blend registered by the Environmental Protection Agency that meets both local and federal regulations. Our unrivaled treatment helps control and repels up to 90 percent of mosquitoes on contact and remains effective for up to three weeks after application. Before treating your property, our highly-trained mosquito technicians will first examine your yard’s unique layout and personalize a plan for its specific parameters. We’ll inspect standing water, vegetation, log piles, tarps, shady spots, and other conditions. This ensures we can help control mosquitoes where they breed, feed, and harbor."
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="What is Mosquito Barrier Treatment?"
+                    android:textAlignment="center"
+                    android:textColor="@color/mosquad_green"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
-            <ImageView
-                android:id="@+id/imageView13"
-                android:layout_width="match_parent"
-                android:layout_height="265dp"
-                app:srcCompat="@drawable/fly_control_pic" />
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Traditional mosquito barrier treatment is our primary mosquito control technique. With specialized equipment, we spray a proprietary blend registered by the Environmental Protection Agency that meets both local and federal regulations. Our unrivaled treatment helps control and repels up to 90 percent of mosquitoes on contact and remains effective for up to three weeks after application. Before treating your property, our highly-trained mosquito technicians will first examine your yard’s unique layout and personalize a plan for its specific parameters. We’ll inspect standing water, vegetation, log piles, tarps, shady spots, and other conditions. This ensures we can help control mosquitoes where they breed, feed, and harbor."
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Squad Fly Control"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/textView37"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blk_border_square"
+                    android:text="Standard Barrier Treatment Pricing: $59.00 for the first 1/4 acre with $4 for every 1/10 acre after"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Professional Gnat and Fly Management"
-                android:textAlignment="center"
-                android:textColor="@color/mosquad_green"
-                android:textSize="18sp" />
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="177dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/mosquito_tick_pic" />
 
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/blk_border_with_radius"
-                android:text="From large filth flies to small and pesky gnats, flies are more than an annoyance; they also pose a risk to public health.  Flies are attracted to waste and may carry germs throughout your yard and home.  They can quickly spread diseases when landing on new surfaces as they regurgitate and excrete liquids to make room for more food.  The Squad Fly Control package is designed to manage fly, no-see-um, and gnat populations outdoors, helping prevent them from traveling indoors."
-                android:textAlignment="center"
-                android:textColor="@color/black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/imageView14"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_vPackageDetails_flyControlHolder"
                 android:layout_width="match_parent"
-                android:layout_height="177dp"
-                app:srcCompat="@drawable/spider_pic" />
+                android:layout_height="match_parent"
+                android:background="@drawable/blk_border_with_radius">
 
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Squad Home Shield"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
+                <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="258dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/fly_control_pic" />
 
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Help Deter Insects and Arachnids from Entering Your Home"
-                android:textAlignment="center"
-                android:textColor="@color/mosquad_green"
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Squad Fly Control"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView13" />
 
-            <TextView
-                android:id="@+id/textView24"
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Professional Gnat and Fly Management"
+                    android:textAlignment="center"
+                    android:textColor="@color/mosquad_green"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="From large filth flies to small and pesky gnats, flies are more than an annoyance; they also pose a risk to public health.  Flies are attracted to waste and may carry germs throughout your yard and home.  They can quickly spread diseases when landing on new surfaces as they regurgitate and excrete liquids to make room for more food.  The Squad Fly Control package is designed to manage fly, no-see-um, and gnat populations outdoors, helping prevent them from traveling indoors."
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                <TextView
+                    android:id="@+id/textView40"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blk_border_square"
+                    android:text="Squad Fly Control Pricing: $35 per treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_vPackageDetails_homeShieldHolder"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/blk_border_with_radius"
-                android:text="Squad Home Shield helps deter and controls pests including ants, spiders, cockroaches, and scorpions to help prevent infestations from the outdoors.  Customized by location, this all-in-one service can include treatment plans specifically for you – from scorpion control for our customers in the south and west to specialized bait approaches for ants across the nation.  The Squad Home Shield package is your go-to service to help prevent potential indoor infestations and manage existing pest problems.  For the ultimate prevention, we recommend customers contact your local Mosquito Squad to stay informed on intruders in your area and how we can shield your home!"
-                android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:layout_height="match_parent"
+                android:background="@drawable/blk_border_with_radius">
+
+                <TextView
+                    android:id="@+id/textView41"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blk_border_square"
+                    android:text="Squad Home Shield Pricing: $95 per treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Squad Home Shield helps deter and controls pests including ants, spiders, cockroaches, and scorpions to help prevent infestations from the outdoors.  Customized by location, this all-in-one service can include treatment plans specifically for you – from scorpion control for our customers in the south and west to specialized bait approaches for ants across the nation."
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Help Deter Insects and Arachnids from Entering Your Home"
+                    android:textAlignment="center"
+                    android:textColor="@color/mosquad_green"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Squad Home Shield"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView14" />
+
+                <ImageView
+                    android:id="@+id/imageView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="177dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/spider_pic" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_vPackageDetails_invaderGuardHolder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/blk_border_with_radius">
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Squad Invader Guard"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Invasive Insect Pest Control"
+                    android:textAlignment="center"
+                    android:textColor="@color/mosquad_green"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="If you have stink bugs, Asian lady beetles, spotted lanternflies, or elm seed bugs on your property, you have invasive insects!  Invasive pests can wreak havoc on your property and negatively impact native plants, insects, and animals.  The Squad Invader Guard package is a special treatment designed to effectively manage these invaders."
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+                <TextView
+                    android:id="@+id/textView42"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blk_border_square"
+                    android:text="Squad Invader Guard Pricing: $30 per treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="268dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/invader_guard_pic" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_vPackageDetails_yardDefenderHolder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/blk_border_with_radius">
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Squad Yard Defender"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Manage Stinging and Biting Pests Outside"
+                    android:textAlignment="center"
+                    android:textColor="@color/mosquad_green"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="At Mosquito Squad, we're dedicated to helping your yard remain your sanctuary without the annoyance of unwanted pests.  Our all-in-one Yard Defender treatment targets a range of common outdoor pests, including ticks, fleas, and mound-building ants that sting.  The Squad Yard Defender package was created to focus on insects other than mosquitoes that can cause pain and transmit harmful diseases."
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+                <TextView
+                    android:id="@+id/textView43"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blk_border_square"
+                    android:text="Squad Yard Defender Pricing: $35 per treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="238dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/flea_ant_pic" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_vPackageDetails_allNaturlHolder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/blk_border_with_radius">
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="238dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/natural_treatment_pic" />
+
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="All Natural Mosquito Treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="How Our Natural Mosquito Treatment\nWorks for Your Yard"
+                    android:textAlignment="center"
+                    android:textColor="@color/mosquad_green"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+                <TextView
+                    android:id="@+id/textView33"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mosquito Squad’s natural mosquito treatment eliminates mosquitoes in 24 hours or less and establishes a robust defense against new infestations.  The natural product we use is water-based, contains essential oils, and is free of synthetic insecticides.  The essential oils in our formula have a natural fragrance.  The aroma significantly fades within a few hours, but it will continue to defend against mosquitoes and ticks for up to 21-days!  After the natural mosquito treatment has been allowed to dry, you and your pets can enjoy your yard again!  Our treatment is environmentally friendly and gentle on plants, flowers, and foliage. Our solution also significantly mitigates the likelihood of allergic reactions, compared to alternative harsher formulas. Natural mosquito control is a smart choice if you frequently get skin reactions, swelling, and rashes from synthetic chemicals."
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+                <TextView
+                    android:id="@+id/textView44"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blk_border_square"
+                    android:text="All Natural Treatment Pricing: $59.00 for the first 1/4 acre\nwith $4 for every 1/10 acre after"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView33" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_vPackageDetails_eventTreatmentHolder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/blk_border_with_radius">
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="224dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/special_event_spray" />
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Special Event Treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+                <TextView
+                    android:id="@+id/textView35"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Outdoor Party Mosquito Control,\nTick Control, and More"
+                    android:textAlignment="center"
+                    android:textColor="@color/mosquad_green"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+                <TextView
+                    android:id="@+id/textView36"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Are you planning an outdoor wedding, graduation party or other event? Don’t let buzzing, biting bugs ruin the day. Mosquito Squad special event spray treatments keep mosquitoes, ticks, fleas, wasps, and more away from your event so you and your guests can enjoy the time without an itch!"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView35" />
+
+                <TextView
+                    android:id="@+id/textView45"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blk_border_square"
+                    android:text="Special Event Treatment Pricing: $59.00 for the first 1/4 acre with $4 for every 1/10 acre after. Plus an added $30 for the added Yard Defender Treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView36" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>

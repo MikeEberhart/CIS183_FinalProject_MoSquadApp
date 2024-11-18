@@ -15,4 +15,10 @@
     <string name="phone_number_blank">Must Enter a Phone Number</string>
     <string name="old_pass_dont_match">Password does not match old password</string>
     <string name="new_pass_matches_old">Cannot reuse this password</string>
+    <string name="street_address_error_message">Invalid Address - Only [a-z][A-Z][-.,\'&amp;] Allowed</string>
+    <string name="city_error_message">Invalid City Name - Only [a-z][A-Z][-.\'] Allowed</string>
+    <string name="zip_code_error_message">Invalid ZipCode</string>
+    <string name="street_address_blank">Must Enter An Address</string>
+    <string name="city_blank">Must Enter A City</string>
+    <string name="zip_code_blank">Must Enter A Zip Code</string>
 </resources>

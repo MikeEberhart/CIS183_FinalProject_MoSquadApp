@@ -5,6 +5,284 @@
     android:id="@+id/cl_vPackageDetails_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".EnterAddressActivity">
 
+    <Button
+        android:id="@+id/btn_vEnterAddress_continue"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="2dp"
+        android:paddingTop="0dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="0dp"
+        android:text="Continue"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_city" />
+
+    <EditText
+        android:id="@+id/et_vEnterAddress_aptOther"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/blk_border_with_radius"
+        android:ems="10"
+        android:inputType="text"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_streetAddress"
+        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_streetAddress"
+        app:layout_constraintTop_toBottomOf="@+id/et_vEnterAddress_streetAddress" />
+
+    <TextView
+        android:id="@+id/tv_vEnterAddress_apOtherError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="*Invalid Username*"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vEnterAddress_aptOther"
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_aptOther"
+        app:layout_constraintStart_toEndOf="@+id/tv_vEnterAddress_streetAddrDisplay5"
+        app:layout_constraintTop_toTopOf="@+id/tv_vEnterAddress_streetAddrDisplay5" />
+
+    <TextView
+        android:id="@+id/tv_vEnterAddress_streetAddrDisplay5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apt/Bldg/Other:"
+        android:textColor="@color/black"
+        app:autoSizeMaxTextSize="20dp"
+        app:autoSizeMinTextSize="10dp"
+        app:autoSizeStepGranularity="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_vEnterAddress_aptOther"
+        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_aptOther" />
+
+    <EditText
+        android:id="@+id/et_vEnterAddress_city"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/blk_border_with_radius"
+        android:ems="10"
+        android:inputType="text"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_aptOther"
+        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_aptOther"
+        app:layout_constraintTop_toBottomOf="@+id/et_vEnterAddress_aptOther" />
+
+    <TextView
+        android:id="@+id/tv_vEnterAddress_streetAddrDisplay3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="City:"
+        android:textColor="@color/black"
+        app:autoSizeMaxTextSize="20dp"
+        app:autoSizeMinTextSize="10dp"
+        app:autoSizeStepGranularity="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_vEnterAddress_city"
+        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_city" />
+
+    <TextView
+        android:id="@+id/tv_vEnterAddress_cityError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="*Invalid Username*"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vEnterAddress_city"
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_city"
+        app:layout_constraintStart_toEndOf="@+id/tv_vEnterAddress_streetAddrDisplay3"
+        app:layout_constraintTop_toTopOf="@+id/tv_vEnterAddress_streetAddrDisplay3" />
+
+    <EditText
+        android:id="@+id/et_vEnterAddress_zipCode"
+        android:layout_width="84dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/blk_border_with_radius"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="5"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_city"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_city"
+        app:layout_constraintTop_toBottomOf="@+id/et_vEnterAddress_city" />
+
+    <TextView
+        android:id="@+id/tv_vEnterAddress_streetAddrDisplay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zip Code:"
+        android:textColor="@color/black"
+        app:autoSizeMaxTextSize="20dp"
+        app:autoSizeMinTextSize="10dp"
+        app:autoSizeStepGranularity="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_vEnterAddress_zipCode"
+        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_zipCode" />
+
+    <TextView
+        android:id="@+id/tv_vEnterAddress_zipCodeError"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/tv_vEnterAddress_streetAddrDisplay2"
+        app:layout_constraintEnd_toStartOf="@+id/textView39"
+        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_zipCode" />
+
+    <EditText
+        android:id="@+id/et_vEnterAddress_streetAddress"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/blk_border_with_radius"
+        android:ems="10"
+        android:inputType="text"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vEnterAddress_headerText" />
+
+    <TextView
+        android:id="@+id/tv_vEnterAddress_streetAddrDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Street Address:"
+        android:textColor="@color/black"
+        app:autoSizeMaxTextSize="20dp"
+        app:autoSizeMinTextSize="10dp"
+        app:autoSizeStepGranularity="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_vEnterAddress_streetAddress"
+        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_streetAddress" />
+
+    <TextView
+        android:id="@+id/tv_vEnterAddress_streetAddressError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="*Invalid Username*"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/et_vEnterAddress_streetAddress"
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_streetAddress"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_vEnterAddress_streetAddrDisplay"
+        app:layout_constraintTop_toTopOf="@+id/tv_vEnterAddress_streetAddrDisplay"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btn_vEnterAddress_home"
+        android:layout_width="52dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="5dp"
+        android:paddingTop="4dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="4dp"
+        android:textAlignment="center"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/white_home_icon"
+        app:iconSize="42dp"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vEnterAddress_continue"
+        app:layout_constraintStart_toEndOf="@+id/btn_vEnterAddress_saveAddress" />
+
+    <Button
+        android:id="@+id/btn_vEnterAddress_saveAddress"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="2dp"
+        android:paddingTop="0dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="0dp"
+        android:text="Save Address"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_city" />
+
+    <TextView
+        android:id="@+id/tv_vEnterAddress_headerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:text="Estimate Address"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+        app:layout_constraintEnd_toEndOf="@+id/imageView11"
+        app:layout_constraintStart_toStartOf="@+id/imageView11" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="wrap_content"
+        android:layout_height="175dp"
+        android:layout_marginTop="16dp"
+        android:elevation="0dp"
+        android:translationZ="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mosquad_banner" />
+
+    <Spinner
+        android:id="@+id/sp_vEnterAddress_states"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vEnterAddress_zipCode"
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_city"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/et_vEnterAddress_zipCode"
+        app:layout_constraintTop_toTopOf="@+id/et_vEnterAddress_zipCode" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="State:"
+        app:layout_constraintBottom_toTopOf="@+id/sp_vEnterAddress_states"
+        app:layout_constraintStart_toStartOf="@+id/sp_vEnterAddress_states" />
+
+    <TextView
+        android:id="@+id/tv_vEnterAddress_stateError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/sp_vEnterAddress_states"
+        app:layout_constraintEnd_toEndOf="@+id/sp_vEnterAddress_states"
+        app:layout_constraintStart_toEndOf="@+id/textView39"
+        app:layout_constraintTop_toTopOf="@+id/textView39" />
 </androidx.constraintlayout.widget.ConstraintLayout>

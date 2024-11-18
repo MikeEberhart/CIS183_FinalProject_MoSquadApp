@@ -512,4 +512,21 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
         return totalSum;
     }
+    public void DB_AddingNewAddress(ServiceAddress sa)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues addNewAddress = new ContentValues();
+        addNewAddress.put("Username", UserSessionData.GetLoggedInUser().getUser_username());
+        addNewAddress.put("Street_Address", sa.getSa_streetAddress());
+        if(sa.getSa_apt() != null)
+        {
+            addNewAddress.put("Apt", sa.getSa_apt());
+        }
+        addNewAddress.put("City", sa.getSa_city());
+        addNewAddress.put("State", sa.getSa_state());
+        addNewAddress.put("ZipCode", sa.getSa_zipCode());
+        db.insert(SERVICE_ADDRESSES_TABLE,null,addNewAddress);
+        db.close();
+        Log.d("DB_AddingNewAddress", "DB_AddingNewAddress");
+    }
 }
