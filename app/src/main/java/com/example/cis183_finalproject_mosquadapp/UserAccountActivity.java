@@ -134,7 +134,7 @@ public class UserAccountActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                ua_dbHelper.DB_DeleteLoggedInUserAccount(ua_currentUser);
+                ua_dbHelper.DB_DeleteUserAccount(ua_currentUser);
                 startActivity(ua_loginIntent);
             }
         });
@@ -223,7 +223,7 @@ public class UserAccountActivity extends AppCompatActivity
         ua_currentUser.setUser_lname(et_jUserAcct_lname.getText().toString());
         ua_currentUser.setUser_email(et_jUserAcct_email.getText().toString());
         ua_currentUser.setUser_phoneNumber(et_jUserAcct_phoneNum.getText().toString());
-        ua_dbHelper.DB_UpdateLoggedInUserData(ua_currentUser);
+        ua_dbHelper.DB_UpdateUserData(ua_currentUser);
         Log.d("user data", ua_currentUser.getUser_fname() + " - " + ua_currentUser.getUser_lname() + " - " +
                 ua_currentUser.getUser_email() + " - " + ua_currentUser.getUser_phoneNumber());
     }

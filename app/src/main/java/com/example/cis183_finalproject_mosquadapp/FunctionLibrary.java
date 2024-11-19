@@ -18,8 +18,7 @@ public class FunctionLibrary
     private static final String ALLOWED_EMAIL_CHARS = "^[a-zA-Z]([a-zA-Z0-9_.-]+[a-zA-Z0-9])@([a-zA-Z]+[a-zA-Z.]+[a-zA-Z])(\\.com|\\.gov|\\.edu)$";
     private static final String ALLOWED_PHONE_NUMBERS = "^[2-9]{3}-[2-9]{3}-[0-9]{4}$";
     private static final String ALLOWED_STREET_CHARS = "^[a-zA-Z0-9\\s\\-.,/'&]+$";
-    private static final String ALLOWED_APT_CHARS = "^[a-zA-Z0-9\\s\\-.,/'&]*$"
-            ;
+    private static final String ALLOWED_APT_CHARS = "^[a-zA-Z0-9\\s\\-.,/'&]*$";
     private static final String ALLOWED_CITY_CHARS = "^[a-zA-Z\\s\\-.']+$";
     private static final String ALLOWED_ZIP_CHARS = "^[0-9]{5}$";
 
@@ -177,7 +176,6 @@ public class FunctionLibrary
         {
             tv.setVisibility(View.VISIBLE);
             tv.setText(s);
-            Log.d("is empty input check", et.toString());
             return true;
         }
         tv.setVisibility(View.INVISIBLE);
@@ -189,15 +187,11 @@ public class FunctionLibrary
         for (boolean bool : b)
         {
             cnt++;
-            Log.d("start of loop", bool + "");
             if(!bool)
             {
-                Log.d("input is false", bool + " - " + cnt);
-
                 return false;
             }
         }
-        Log.d("input is true", true + " - " + cnt);
         return true;
     }
 

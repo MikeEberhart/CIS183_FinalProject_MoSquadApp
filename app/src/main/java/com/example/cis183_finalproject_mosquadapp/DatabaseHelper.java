@@ -275,8 +275,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                         getUserAcctCursor.getInt(6));
                 UserSessionData.SetLoggedInUser(userData);
                 DB_GetUserServiceAddresses();
-                DB_GetLoggedInUserReview();
-                Log.d("saved password", "pass = savedpass");
+                DB_GetUserReview();
                 return true;
             }
         }
@@ -290,8 +289,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<ServiceAddress> userAddresses = new ArrayList<>();
         String currentUsername = UserSessionData.GetLoggedInUser().getUser_username();
-        String getUserAddress = "SELECT * FROM " + SERVICE_ADDRESSES_TABLE + " WHERE Username = '" + currentUsername + "';";
-        Cursor userAddressCursor = db.rawQuery(getUserAddress, null);
+//        String getUserAddress = "SELECT * FROM " + SERVICE_ADDRESSES_TABLE + " WHERE Username = '" + currentUsername + "';";
+        String getUserAddress = "SELECT * FROM " + SERVICE_ADDRESSES_TABLE + " WHERE Username = ?";
+        // need to start using the new String[] method more to pass variables to help against sql injection //
+        Cursor userAddressCursor = db.rawQuery(getUserAddress, new String[]{currentUsername});//db.rawQuery(getUserAddress, null);
+
         if(userAddressCursor.moveToFirst())
         {
             do
@@ -300,15 +302,15 @@ public class DatabaseHelper extends SQLiteOpenHelper
                         userAddressCursor.getInt(0),       // addressID
                         userAddressCursor.getString(1),    // username
                         userAddressCursor.getString(2),    // street address
-                        userAddressCursor.getString(3),    // apt
+                        userAddressCursor.getString(3),    // apt           // can be null
                         userAddressCursor.getString(4),    // city
                         userAddressCursor.getString(5),    // state
                         userAddressCursor.getString(6),    // zipcode
-                        userAddressCursor.getInt(7),       // polygonID
-                        userAddressCursor.getDouble(8),    // total acreage
-                        userAddressCursor.getInt(9),       // serviceId
-                        userAddressCursor.getDouble(10),   // singleT
-                        userAddressCursor.getDouble(11))); // seasonT
+                        userAddressCursor.getInt(7),       // polygonID     // can be null
+                        userAddressCursor.getDouble(8),    // total acreage // can be null
+                        userAddressCursor.getInt(9),       // serviceId     // can be null
+                        userAddressCursor.getDouble(10),   // singleT       // can be null
+                        userAddressCursor.getDouble(11))); // seasonT       // can be null
             }
             while(userAddressCursor.moveToNext());
         }
@@ -353,7 +355,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.insert(USERS_TABLE, null, addUser);
         db.close();
     }
-    public void DB_UpdateLoggedInUserData(User user)
+    public void DB_UpdateUserData(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues updateUser = new ContentValues();
@@ -365,7 +367,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
 //        UserSessionData.SetLoggedInUser(user); // used to make sure new data has been push to SessionData // might not need later
     }
-    public void DB_SaveNewLoggedInUserPassword(User user)
+    public void DB_SaveNewUserPassword(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues updatePass = new ContentValues();
@@ -373,7 +375,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.update(USERS_TABLE, updatePass, "Username = ?", new String[]{user.getUser_username()});
         db.close();
     }
-    public void DB_DeleteLoggedInUserAccount(User user)
+    public void DB_DeleteUserAccount(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + USERS_TABLE + " WHERE Username='" + user.getUser_username() + "';");
@@ -420,21 +422,17 @@ public class DatabaseHelper extends SQLiteOpenHelper
         addUserReview.put("Star_Count", ur.getUrv_starCount());
         addUserReview.put("Review_Text", ur.getUrv_reviewText());
         addUserReview.put("Review_Date", ur.getUrv_reviewDate());
-        Log.d("star", ur.getUrv_starCount() + "");
-        Log.d("date", ur.getUrv_reviewDate());
         if(ur.getUrv_reviewText() != null)
         {
             Log.d("review text", ur.getUrv_reviewText());
         }
         db.insert(REVIEWS_TABLE, null, addUserReview);
         DB_AddReviewIdToUserData(uname);
-        DB_GetLoggedInUserReview();
-        Log.d("AddNewUserReview", uname);
+        DB_GetUserReview();
         db.close();
     }
     public void DB_AddReviewIdToUserData(String uname)
     {
-        Log.d("addReviewIdToUserData", uname);
         SQLiteDatabase db = this.getWritableDatabase();
         String selectLastReviewID = "SELECT ReviewID FROM " + REVIEWS_TABLE + " ORDER BY ReviewID DESC LIMIT 1;";
         Cursor getReviewID = db.rawQuery(selectLastReviewID, null);
@@ -450,11 +448,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
         UserSessionData.GetLoggedInUser().setUser_reviewID(reviewId);
         db.close();
     }
-    public void DB_GetLoggedInUserReview()
+    public void DB_GetUserReview()
     {
         SQLiteDatabase db = this.getReadableDatabase();
         int reviewID = UserSessionData.GetLoggedInUser().getUser_reviewID();
-        Log.d("db_getloggeduserreview", String.valueOf(reviewID));
         UserReview db_userReview = new UserReview();
         String selectReviewID = "SELECT * FROM " + REVIEWS_TABLE + " WHERE ReviewID = '" + reviewID + "';";
         Cursor userReview = db.rawQuery(selectReviewID, null);
@@ -480,7 +477,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         userReview.close();
         db.close();
     }
-    public void DB_UpdateLoggedInUserReview(UserReview ur)
+    public void DB_UpdateUserReview(UserReview ur)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues updateUserReview = new ContentValues();
@@ -512,7 +509,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
         return totalSum;
     }
-    public void DB_AddingNewAddress(ServiceAddress sa)
+    public void DB_AddNewUserAddress(ServiceAddress sa)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues addNewAddress = new ContentValues();
@@ -527,6 +524,31 @@ public class DatabaseHelper extends SQLiteOpenHelper
         addNewAddress.put("ZipCode", sa.getSa_zipCode());
         db.insert(SERVICE_ADDRESSES_TABLE,null,addNewAddress);
         db.close();
-        Log.d("DB_AddingNewAddress", "DB_AddingNewAddress");
+        DB_GetUserServiceAddresses();
+    }
+    public void DB_UpdateUserAddress(ServiceAddress sa)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues updatedAddress = new ContentValues();
+        updatedAddress.put("Username", UserSessionData.GetLoggedInUser().getUser_username());
+        updatedAddress.put("Street_Address", sa.getSa_streetAddress());
+        if(sa.getSa_apt() != null)
+        {
+            updatedAddress.put("Apt", sa.getSa_apt());
+        }
+        updatedAddress.put("City", sa.getSa_city());
+        updatedAddress.put("State", sa.getSa_state());
+        updatedAddress.put("ZipCode", sa.getSa_zipCode());
+        db.update(SERVICE_ADDRESSES_TABLE, updatedAddress, "AddressID = ?", new String[]{String.valueOf(sa.getSa_addressID())});
+        db.close();
+        DB_GetUserServiceAddresses();
+    }
+    public void DB_DeleteUserAddress(int addressID)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String aID = String.valueOf(addressID);
+        db.delete(SERVICE_ADDRESSES_TABLE,"AddressID = ?", new String[]{aID});
+        db.close();
+        DB_GetUserServiceAddresses();
     }
 }

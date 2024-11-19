@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResult;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,16 +42,9 @@ public class LeaveReviewActivity extends AppCompatActivity
         LR_ListOfViews();
         LR_InitData();
         LR_OnClickListeners();
-        if(UserSessionData.GetIsPassedFromEditReview()) {
-            lr_userReview = UserSessionData.GetLoggedInUserReview();
-            rb_jLeaveReview_starCount.setRating(Float.parseFloat(lr_userReview.getUrv_starCount()));
-            if (lr_userReview.getUrv_reviewText() != null)
-            {
-                lr_firstRun = false;
-                et_jLeaveReview_reviewText.setText(lr_userReview.getUrv_reviewText());
-                et_jLeaveReview_reviewText.setGravity(Gravity.TOP);
-                et_jLeaveReview_reviewText.setGravity(Gravity.START);
-            }
+        if(UserSessionData.GetIsPassedFromEditReview())
+        {
+            LR_LoadUserReview();
         }
     }
     private void LR_InitData()
@@ -75,7 +63,6 @@ public class LeaveReviewActivity extends AppCompatActivity
         btn_jLeaveReview_postReview = findViewById(R.id.btn_vLeaveReview_postReview);
         tv_jLeaveReview_zeroStarsError = findViewById(R.id.tv_vLeaveReview_zeroStarsError);
     }
-
     private void LR_OnClickListeners()
     {
         btn_jLeaveReview_back.setOnClickListener(new View.OnClickListener()
@@ -123,7 +110,8 @@ public class LeaveReviewActivity extends AppCompatActivity
                 }
             }
         });
-        et_jLeaveReview_reviewText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        et_jLeaveReview_reviewText.setOnFocusChangeListener(new View.OnFocusChangeListener()
+        {
             @Override
             public void onFocusChange(View v, boolean hasFocus)
             {
@@ -136,6 +124,18 @@ public class LeaveReviewActivity extends AppCompatActivity
                 }
             }
         });
+    }
+    private void LR_LoadUserReview()
+    {
+        lr_userReview = UserSessionData.GetLoggedInUserReview();
+        rb_jLeaveReview_starCount.setRating(Float.parseFloat(lr_userReview.getUrv_starCount()));
+        if (lr_userReview.getUrv_reviewText() != null)
+        {
+            lr_firstRun = false;
+            et_jLeaveReview_reviewText.setText(lr_userReview.getUrv_reviewText());
+            et_jLeaveReview_reviewText.setGravity(Gravity.TOP);
+            et_jLeaveReview_reviewText.setGravity(Gravity.START);
+        }
     }
     private void LR_AddNewUserReview()
     {
@@ -177,6 +177,6 @@ public class LeaveReviewActivity extends AppCompatActivity
             lr_userReview.setUrv_starCount(String.valueOf(rb_jLeaveReview_starCount.getRating()));
             lr_userReview.setUrv_reviewText(reviewText);
         }
-        lr_dbHelper.DB_UpdateLoggedInUserReview(lr_userReview);
+        lr_dbHelper.DB_UpdateUserReview(lr_userReview);
     }
 }

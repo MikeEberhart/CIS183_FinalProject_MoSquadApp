@@ -54,12 +54,13 @@ public class WelcomeUserActivity extends AppCompatActivity
         wu_enterAddressIntent = new Intent(this, EnterAddressActivity.class);
         wu_packageDetailsIntent = new Intent(this, PackageDetailsActivity.class);
         wu_currentUser = UserSessionData.GetLoggedInUser();
+        UserSessionData.SetIsPassedFromWelcomeUser(false);
         String welcomeMessage = "Welcome " + wu_currentUser.getUser_fname();
         tv_jWelcomeUser_userFname.setText(welcomeMessage);
         if(UserSessionData.GetUserAddressCount() != 0)
         {
             tv_jWelcomeUser_noSavedEstimates.setVisibility(View.INVISIBLE);
-            wu_addressListAdapter = new AddressListAdapter(this, UserSessionData.GetUserAddressData()); // need to double check if this will be ok when deleting addresses
+            wu_addressListAdapter = new AddressListAdapter(this, UserSessionData.GetUserAddressData(), tv_jWelcomeUser_noSavedEstimates); // need to double check if this will be ok when deleting addresses
             lv_jWelcomeUser_addressList.setAdapter(wu_addressListAdapter);                                // if so then maybe could be use something like this with the other listviews
         }
         else

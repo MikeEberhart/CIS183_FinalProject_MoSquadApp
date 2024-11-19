@@ -51,7 +51,7 @@ public class EnterAddressActivity extends AppCompatActivity
     DatabaseHelper ea_dbHelper;
     FunctionLibrary ea_funcLib;
     ArrayAdapter<String> ea_listOfStatesAdapter;
-    ServiceAddress ea_newServiceAddress;
+    ServiceAddress ea_userServiceAddress;
     String ea_tempStateName;
     private boolean[] ea_inputIsGood;
 
@@ -68,6 +68,10 @@ public class EnterAddressActivity extends AppCompatActivity
         EA_InitData();
         EA_OnClickListeners();
         EA_TextChangeEventListeners();
+        if(UserSessionData.GetIsPassedFromWelcomeUser())
+        {
+            EA_LoadUserAddressData();
+        }
     }
     private void EA_InitData()
     {
@@ -102,11 +106,26 @@ public class EnterAddressActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if(!EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood))
+                if(et_jEnterAddress_aptOther.getText().toString().isEmpty())
                 {
-                    Log.d("btn_saveAddress", "btn_saveAddress");
-                    EA_SaveNewAddress();
+                    ea_inputIsGood[1] = true;
+                }
+                if(UserSessionData.GetIsPassedFromWelcomeUser())
+                {
+                    if(!EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood))
+                    {
+                        EA_UpdateUserAddress();
+                        UserSessionData.SetIsPassedFromWelcomeUser(false);
+                    }
+                }
+                else
+                {
+                    if(!EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood))
+                    {
+                        EA_SaveNewAddress();
+                        UserSessionData.SetIsPassedFromWelcomeUser(false);
 //                    startActivity(ea_welcomeUserIntent);
+                    }
                 }
             }
         });
@@ -115,6 +134,7 @@ public class EnterAddressActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                UserSessionData.SetIsPassedFromWelcomeUser(false);
                 startActivity(ea_welcomeUserIntent);
             }
         });
@@ -168,15 +188,7 @@ public class EnterAddressActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                if(!et_jEnterAddress_aptOther.getText().toString().isBlank())
-                {
-                    ea_inputIsGood[1] = ea_funcLib.FL_AptAddressValidation(tv_jEnterAddress_aptOtherError, s);
-                }
-                else
-                {
-                    ea_inputIsGood[1] = true;
-                }
-
+                ea_inputIsGood[1] = ea_funcLib.FL_AptAddressValidation(tv_jEnterAddress_aptOtherError, s);
             }
             @Override
             public void afterTextChanged(Editable s)
@@ -223,26 +235,63 @@ public class EnterAddressActivity extends AppCompatActivity
 //        ea_emptyInput[1] = ea_funcLib.FL_IsInputEmptyCheck(et_jEnterAddress_aptOther, tv_jEnterAddress_aptOtherError, getString(R.string.street_address_blank));
         ea_emptyInput[1] = ea_funcLib.FL_IsInputEmptyCheck(et_jEnterAddress_city, tv_jEnterAddress_cityError, getString(R.string.city_blank));
         ea_emptyInput[2] = ea_funcLib.FL_IsInputEmptyCheck(et_jEnterAddress_zipCode, tv_jEnterAddress_zipCodeError, getString(R.string.zip_code_blank));
+        for(boolean b : ea_emptyInput)
+        {
+            Log.d("for loop in input is good", String.valueOf(b));
+        }
         return ea_funcLib.FL_InputIsGood(ea_emptyInput);
     }
     private void EA_SaveNewAddress()
     {
         Log.d("EA_SaveNewAddress", "EA_SaveNewAddress");
-        ea_newServiceAddress = new ServiceAddress();
-        ea_newServiceAddress.setSa_streetAddress(et_jEnterAddress_streetAddress.getText().toString());
+        ea_userServiceAddress = new ServiceAddress();
+        ea_userServiceAddress.setSa_streetAddress(et_jEnterAddress_streetAddress.getText().toString());
         if(!et_jEnterAddress_aptOther.getText().toString().isEmpty())
         {
-            ea_newServiceAddress.setSa_apt(et_jEnterAddress_aptOther.getText().toString());
+            ea_userServiceAddress.setSa_apt(et_jEnterAddress_aptOther.getText().toString());
         }
         else
         {
-            ea_newServiceAddress.setSa_apt(null);
+            ea_userServiceAddress.setSa_apt(null);
         }
-        ea_newServiceAddress.setSa_city(et_jEnterAddress_city.getText().toString());
-        ea_newServiceAddress.setSa_zipCode(et_jEnterAddress_zipCode.getText().toString());
-        ea_newServiceAddress.setSa_state(ea_tempStateName);
-        ea_dbHelper.DB_AddingNewAddress(ea_newServiceAddress);
+        ea_userServiceAddress.setSa_city(et_jEnterAddress_city.getText().toString());
+        ea_userServiceAddress.setSa_zipCode(et_jEnterAddress_zipCode.getText().toString());
+        ea_userServiceAddress.setSa_state(ea_tempStateName);
+        ea_dbHelper.DB_AddNewUserAddress(ea_userServiceAddress);
 
     }
-
+    private void EA_UpdateUserAddress()
+    {
+        ea_userServiceAddress.setSa_streetAddress(et_jEnterAddress_streetAddress.getText().toString());
+        if(!et_jEnterAddress_aptOther.getText().toString().isEmpty())
+        {
+            ea_userServiceAddress.setSa_apt(et_jEnterAddress_aptOther.getText().toString());
+        }
+        else
+        {
+            ea_userServiceAddress.setSa_apt(null);
+        }
+        ea_userServiceAddress.setSa_city(et_jEnterAddress_city.getText().toString());
+        ea_userServiceAddress.setSa_zipCode(et_jEnterAddress_zipCode.getText().toString());
+        ea_userServiceAddress.setSa_state(ea_tempStateName);
+        ea_dbHelper.DB_UpdateUserAddress(ea_userServiceAddress);
+    }
+    private void EA_LoadUserAddressData()
+    {
+        ea_userServiceAddress = UserSessionData.GetPassedServiceAddress();
+        et_jEnterAddress_streetAddress.setText(ea_userServiceAddress.getSa_streetAddress());
+        if(ea_userServiceAddress.getSa_apt() != null)
+        {
+            et_jEnterAddress_aptOther.setText(ea_userServiceAddress.getSa_apt());
+        }
+        et_jEnterAddress_city.setText(ea_userServiceAddress.getSa_city());
+        et_jEnterAddress_zipCode.setText(ea_userServiceAddress.getSa_zipCode());
+        for(int i = 0; i < ea_statesArray.length; i++)
+        {
+            if(ea_statesArray[i].substring(0,2).equals(ea_userServiceAddress.getSa_state()))
+            {
+                sp_jEnterAddress_states.setSelection(i);
+            }
+        }
+    }
 }

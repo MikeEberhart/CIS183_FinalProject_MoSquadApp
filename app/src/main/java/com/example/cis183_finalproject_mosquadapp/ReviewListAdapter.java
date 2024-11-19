@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ReviewListAdapter extends BaseAdapter
 {
-    Intent rla_leaveReviewIntent;
+//    Intent rla_leaveReviewIntent;
     Context rla_passedContext;
     ArrayList<UserReview> rla_listOfReviews;
     RatingBar rb_jReviewCell_starCount;
@@ -104,7 +104,7 @@ public class ReviewListAdapter extends BaseAdapter
                 rla_dbHelper.DB_DeleteUserReview(currentUser.getUser_reviewID(), currentUser.getUser_username());
                 rla_listOfReviews.remove(ur);
                 UserSessionData.SetLoggedInUserReview(null);
-                UR_SettingAverageReview();
+                RLA_SettingAverageReview();
                 notifyDataSetChanged();
             }
         });
@@ -113,13 +113,13 @@ public class ReviewListAdapter extends BaseAdapter
             @Override
             public void onClick(View v)
             {
-                rla_leaveReviewIntent = new Intent(rla_passedContext, LeaveReviewActivity.class);
+                Intent rla_leaveReviewIntent = new Intent(rla_passedContext, LeaveReviewActivity.class);
                 UserSessionData.SetIsPassedFromEditReview(true);
                 rla_passedContext.startActivity(rla_leaveReviewIntent);
             }
         });
     }
-    private void UR_SettingAverageReview()
+    private void RLA_SettingAverageReview()
     {
         float tempTotal = rla_dbHelper.DB_GetRatingTotalSum();
         float tempReviewCnt = rla_dbHelper.DB_RecordCount("Reviews");
