@@ -230,10 +230,10 @@ public class UserAccountActivity extends AppCompatActivity
     private boolean UA_InputIsEmptyCheck()
     {
         boolean[] ua_emptyTextBox = new boolean[4];
-        ua_emptyTextBox[0] = ua_funcLib.FL_IsInputEmptyCheck(et_jUserAcct_fname, tv_jUserAcct_fnameError, getString(R.string.first_name_blank));
-        ua_emptyTextBox[1] = ua_funcLib.FL_IsInputEmptyCheck(et_jUserAcct_lname, tv_jUserAcct_lnameError, getString(R.string.last_name_blank));
-        ua_emptyTextBox[2] = ua_funcLib.FL_IsInputEmptyCheck(et_jUserAcct_email, tv_jUserAcct_emailError, getString(R.string.email_blank));
-        ua_emptyTextBox[3] = ua_funcLib.FL_IsInputEmptyCheck(et_jUserAcct_phoneNum, tv_jUserAcct_phoneNumError, getString(R.string.phone_number_blank));
+        ua_emptyTextBox[0] = ua_funcLib.FL_IsEmptyCheck(et_jUserAcct_fname, tv_jUserAcct_fnameError, getString(R.string.first_name_blank));
+        ua_emptyTextBox[1] = ua_funcLib.FL_IsEmptyCheck(et_jUserAcct_lname, tv_jUserAcct_lnameError, getString(R.string.last_name_blank));
+        ua_emptyTextBox[2] = ua_funcLib.FL_IsEmptyCheck(et_jUserAcct_email, tv_jUserAcct_emailError, getString(R.string.email_blank));
+        ua_emptyTextBox[3] = ua_funcLib.FL_IsEmptyCheck(et_jUserAcct_phoneNum, tv_jUserAcct_phoneNumError, getString(R.string.phone_number_blank));
         return ua_funcLib.FL_InputIsGood(ua_emptyTextBox);
     }
 }

@@ -179,9 +179,9 @@ public class ChangePasswordActivity extends AppCompatActivity
     private boolean CP_InputIsEmptyCheck()
     {
         boolean[] cp_emptyInput = new boolean[3];
-        cp_emptyInput[0] = cp_funcLib.FL_IsInputEmptyCheck(et_jChangePass_oldPass, tv_jChangePass_oldPassError, getString(R.string.password_blank));
-        cp_emptyInput[1] = cp_funcLib.FL_IsInputEmptyCheck(et_jChangePass_newPass, tv_jChangePass_newPassError, getString(R.string.password_blank));
-        cp_emptyInput[2] = cp_funcLib.FL_IsInputEmptyCheck(et_jChangePass_confirmPass, tv_jChangePass_confirmPassError, getString(R.string.password_blank));
+        cp_emptyInput[0] = cp_funcLib.FL_IsEmptyCheck(et_jChangePass_oldPass, tv_jChangePass_oldPassError, getString(R.string.password_blank));
+        cp_emptyInput[1] = cp_funcLib.FL_IsEmptyCheck(et_jChangePass_newPass, tv_jChangePass_newPassError, getString(R.string.password_blank));
+        cp_emptyInput[2] = cp_funcLib.FL_IsEmptyCheck(et_jChangePass_confirmPass, tv_jChangePass_confirmPassError, getString(R.string.password_blank));
         return cp_funcLib.FL_InputIsGood(cp_emptyInput);
     }
 }

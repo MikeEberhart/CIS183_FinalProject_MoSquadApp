@@ -1,6 +1,5 @@
 package com.example.cis183_finalproject_mosquadapp;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -170,7 +169,7 @@ public class FunctionLibrary
         }
         return tempBool;
     }
-    public boolean FL_IsInputEmptyCheck(EditText et, TextView tv, String s)
+    public boolean FL_IsEmptyCheck(EditText et, TextView tv, String s)
     {
         if(et.getText().toString().isEmpty())
         {

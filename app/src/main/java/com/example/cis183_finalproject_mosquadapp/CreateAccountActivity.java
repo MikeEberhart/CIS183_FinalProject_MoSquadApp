@@ -272,13 +272,13 @@ public class CreateAccountActivity extends AppCompatActivity
     private boolean CA_InputIsEmptyCheck()
     {
         boolean[] ca_emptyInput = new boolean[7];
-        ca_emptyInput[0] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_username, tv_jCreateAcct_usernameError, getString(R.string.username_blank));
-        ca_emptyInput[1] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_password, tv_jCreateAcct_passwordError, getString(R.string.password_blank));
-        ca_emptyInput[2] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_confirmpass, tv_jCreateAcct_confirmPassError, getString(R.string.password_blank));
-        ca_emptyInput[3] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_fname, tv_jCreateAcct_fnameError, getString(R.string.first_name_blank));
-        ca_emptyInput[4] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_lname, tv_jCreateAcct_lnameError, getString(R.string.last_name_blank));
-        ca_emptyInput[5] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_email, tv_jCreateAcct_emailError, getString(R.string.email_blank));
-        ca_emptyInput[6] = ca_funcLib.FL_IsInputEmptyCheck(et_jCreateAcct_phoneNumber, tv_jCreateAcct_phoneNumError, getString(R.string.phone_number_blank));
+        ca_emptyInput[0] = ca_funcLib.FL_IsEmptyCheck(et_jCreateAcct_username, tv_jCreateAcct_usernameError, getString(R.string.username_blank));
+        ca_emptyInput[1] = ca_funcLib.FL_IsEmptyCheck(et_jCreateAcct_password, tv_jCreateAcct_passwordError, getString(R.string.password_blank));
+        ca_emptyInput[2] = ca_funcLib.FL_IsEmptyCheck(et_jCreateAcct_confirmpass, tv_jCreateAcct_confirmPassError, getString(R.string.password_blank));
+        ca_emptyInput[3] = ca_funcLib.FL_IsEmptyCheck(et_jCreateAcct_fname, tv_jCreateAcct_fnameError, getString(R.string.first_name_blank));
+        ca_emptyInput[4] = ca_funcLib.FL_IsEmptyCheck(et_jCreateAcct_lname, tv_jCreateAcct_lnameError, getString(R.string.last_name_blank));
+        ca_emptyInput[5] = ca_funcLib.FL_IsEmptyCheck(et_jCreateAcct_email, tv_jCreateAcct_emailError, getString(R.string.email_blank));
+        ca_emptyInput[6] = ca_funcLib.FL_IsEmptyCheck(et_jCreateAcct_phoneNumber, tv_jCreateAcct_phoneNumError, getString(R.string.phone_number_blank));
         return ca_funcLib.FL_InputIsGood(ca_emptyInput);
     }
     private void CA_SaveNewUser()

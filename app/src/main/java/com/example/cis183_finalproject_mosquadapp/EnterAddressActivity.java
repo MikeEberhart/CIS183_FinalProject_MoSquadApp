@@ -45,9 +45,9 @@ public class EnterAddressActivity extends AppCompatActivity
     EditText et_jEnterAddress_city;
     EditText et_jEnterAddress_zipCode;
     Spinner sp_jEnterAddress_states;
-    Button btn_jEnterAddress_saveAddress;
+    Button btn_jEnterAddress_saveAndContinue;
     Button btn_jEnterAddress_home;
-    Button btn_jEnterAddress_continue;
+    Button btn_jEnterAddress_back;
     DatabaseHelper ea_dbHelper;
     FunctionLibrary ea_funcLib;
     ArrayAdapter<String> ea_listOfStatesAdapter;
@@ -71,6 +71,7 @@ public class EnterAddressActivity extends AppCompatActivity
         if(UserSessionData.GetIsPassedFromWelcomeUser())
         {
             EA_LoadUserAddressData();
+            btn_jEnterAddress_saveAndContinue.setText("Save");
         }
     }
     private void EA_InitData()
@@ -78,30 +79,31 @@ public class EnterAddressActivity extends AppCompatActivity
         ea_funcLib = new FunctionLibrary();
         ea_dbHelper = new DatabaseHelper(this);
         ea_welcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
+        // PropertyMapActivity new Intent here //
         ea_listOfStatesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ea_statesArray);
         sp_jEnterAddress_states.setAdapter(ea_listOfStatesAdapter);
         ea_inputIsGood = new boolean[4];
     }
     private void EA_ListOfViews()
     {
-        tv_jEnterAddress_headerText = findViewById(R.id.tv_vEnterAddress_headerText);
+        tv_jEnterAddress_headerText         = findViewById(R.id.tv_vEnterAddress_headerText);
         tv_jEnterAddress_streetAddressError = findViewById(R.id.tv_vEnterAddress_streetAddressError);
-        tv_jEnterAddress_aptOtherError = findViewById(R.id.tv_vEnterAddress_apOtherError);
-        tv_jEnterAddress_cityError = findViewById(R.id.tv_vEnterAddress_cityError);
-        tv_jEnterAddress_zipCodeError = findViewById(R.id.tv_vEnterAddress_zipCodeError);
-        tv_jEnterAddress_stateError = findViewById(R.id.tv_vEnterAddress_stateError);
-        et_jEnterAddress_streetAddress = findViewById(R.id.et_vEnterAddress_streetAddress);
-        et_jEnterAddress_aptOther = findViewById(R.id.et_vEnterAddress_aptOther);
-        et_jEnterAddress_city = findViewById(R.id.et_vEnterAddress_city);
-        et_jEnterAddress_zipCode = findViewById(R.id.et_vEnterAddress_zipCode);
-        sp_jEnterAddress_states = findViewById(R.id.sp_vEnterAddress_states);
-        btn_jEnterAddress_saveAddress = findViewById(R.id.btn_vEnterAddress_saveAddress);
-        btn_jEnterAddress_home = findViewById(R.id.btn_vEnterAddress_home);
-        btn_jEnterAddress_continue = findViewById(R.id.btn_vEnterAddress_continue);
+        tv_jEnterAddress_aptOtherError      = findViewById(R.id.tv_vEnterAddress_apOtherError);
+        tv_jEnterAddress_cityError          = findViewById(R.id.tv_vEnterAddress_cityError);
+        tv_jEnterAddress_zipCodeError       = findViewById(R.id.tv_vEnterAddress_zipCodeError);
+        tv_jEnterAddress_stateError         = findViewById(R.id.tv_vEnterAddress_stateError);
+        et_jEnterAddress_streetAddress      = findViewById(R.id.et_vEnterAddress_streetAddress);
+        et_jEnterAddress_aptOther           = findViewById(R.id.et_vEnterAddress_aptOther);
+        et_jEnterAddress_city               = findViewById(R.id.et_vEnterAddress_city);
+        et_jEnterAddress_zipCode            = findViewById(R.id.et_vEnterAddress_zipCode);
+        sp_jEnterAddress_states             = findViewById(R.id.sp_vEnterAddress_states);
+        btn_jEnterAddress_back              = findViewById(R.id.btn_vEnterAddress_back);
+        btn_jEnterAddress_home              = findViewById(R.id.btn_vEnterAddress_home);
+        btn_jEnterAddress_saveAndContinue   = findViewById(R.id.btn_vEnterAddress_saveAndContinue);
     }
     private void EA_OnClickListeners()
     {
-        btn_jEnterAddress_saveAddress.setOnClickListener(new View.OnClickListener()
+        btn_jEnterAddress_saveAndContinue.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -116,6 +118,7 @@ public class EnterAddressActivity extends AppCompatActivity
                     {
                         EA_UpdateUserAddress();
                         UserSessionData.SetIsPassedFromWelcomeUser(false);
+                        startActivity(ea_welcomeUserIntent);
                     }
                 }
                 else
@@ -124,7 +127,7 @@ public class EnterAddressActivity extends AppCompatActivity
                     {
                         EA_SaveNewAddress();
                         UserSessionData.SetIsPassedFromWelcomeUser(false);
-//                    startActivity(ea_welcomeUserIntent);
+//                    startActivity(PropertyMapActivity);
                     }
                 }
             }
@@ -138,7 +141,7 @@ public class EnterAddressActivity extends AppCompatActivity
                 startActivity(ea_welcomeUserIntent);
             }
         });
-        btn_jEnterAddress_continue.setOnClickListener(new View.OnClickListener()
+        btn_jEnterAddress_back.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -231,10 +234,10 @@ public class EnterAddressActivity extends AppCompatActivity
     private boolean EA_InputIsEmptyCheck()
     {
         boolean[] ea_emptyInput = new boolean[3];
-        ea_emptyInput[0] = ea_funcLib.FL_IsInputEmptyCheck(et_jEnterAddress_streetAddress, tv_jEnterAddress_streetAddressError, getString(R.string.street_address_blank));
-//        ea_emptyInput[1] = ea_funcLib.FL_IsInputEmptyCheck(et_jEnterAddress_aptOther, tv_jEnterAddress_aptOtherError, getString(R.string.street_address_blank));
-        ea_emptyInput[1] = ea_funcLib.FL_IsInputEmptyCheck(et_jEnterAddress_city, tv_jEnterAddress_cityError, getString(R.string.city_blank));
-        ea_emptyInput[2] = ea_funcLib.FL_IsInputEmptyCheck(et_jEnterAddress_zipCode, tv_jEnterAddress_zipCodeError, getString(R.string.zip_code_blank));
+        ea_emptyInput[0] = ea_funcLib.FL_IsEmptyCheck(et_jEnterAddress_streetAddress, tv_jEnterAddress_streetAddressError, getString(R.string.street_address_blank));
+//        ea_emptyInput[1] = ea_funcLib.FL_IsEmptyCheck(et_jEnterAddress_aptOther, tv_jEnterAddress_aptOtherError, getString(R.string.street_address_blank));
+        ea_emptyInput[1] = ea_funcLib.FL_IsEmptyCheck(et_jEnterAddress_city, tv_jEnterAddress_cityError, getString(R.string.city_blank));
+        ea_emptyInput[2] = ea_funcLib.FL_IsEmptyCheck(et_jEnterAddress_zipCode, tv_jEnterAddress_zipCodeError, getString(R.string.zip_code_blank));
         for(boolean b : ea_emptyInput)
         {
             Log.d("for loop in input is good", String.valueOf(b));
