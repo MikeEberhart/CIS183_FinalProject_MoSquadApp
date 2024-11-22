@@ -17,4 +17,170 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mosquad_banner" />
+
+
+    <Button
+        android:id="@+id/btn_vPropertyMap_saveAndContinue"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="2dp"
+        android:paddingTop="0dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="0dp"
+        android:text="Save and Continue"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btn_vPropertyMap_back"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
+        android:text="Back"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_vPropertyMap_home"
+        android:layout_width="52dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="5dp"
+        android:paddingTop="4dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="4dp"
+        android:textAlignment="center"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/white_home_icon"
+        app:iconSize="42dp"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vPropertyMap_saveAndContinue"
+        app:layout_constraintStart_toEndOf="@+id/btn_vPropertyMap_back" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/blk_border_with_radius"
+        app:layout_constraintBottom_toTopOf="@+id/btn_vPropertyMap_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_vUserAcct_userAcctBanner2"
+        app:layout_constraintVertical_bias="0.485">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_vPropertyMap_mapTypeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                app:backgroundTint="@color/mosquad_green"
+                app:fabCustomSize="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/folding_map_icon" />
+
+            <fragment
+                android:id="@+id/mFrag_vPropertyMap_mapView"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:context=".PropertyMapActivity" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_vPropertyMap_undoLast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                app:backgroundTint="@color/mosquad_green"
+                app:fabCustomSize="40dp"
+                app:layout_constraintBottom_toTopOf="@+id/fab_vPropertyMap_mapTypeSwitch"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/undo_icon_white" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_vPropertyMap_resetAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                app:backgroundTint="@color/mosquad_green"
+                app:fabCustomSize="40dp"
+                app:layout_constraintBottom_toTopOf="@+id/fab_vPropertyMap_undoLast"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/reset_icon_white" />
+
+            <FrameLayout
+                android:layout_width="147dp"
+                android:layout_height="30dp"
+                android:background="@drawable/blk_border_top_radius"
+                app:layout_constraintBottom_toBottomOf="@+id/mFrag_vPropertyMap_mapView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/tv_vPropertyMap_totalAcreage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.0 acres"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView46"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView46"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Area:"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_vPropertyMap_totalAcreage"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

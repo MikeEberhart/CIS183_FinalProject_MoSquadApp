@@ -33,7 +33,7 @@ public class EnterAddressActivity extends AppCompatActivity
 //            "OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"};
 
     Intent ea_welcomeUserIntent;
-//    Intent ea_ // will be used for the estimate intent
+    Intent ea_propertyMapIntent;
     TextView tv_jEnterAddress_headerText;
     TextView tv_jEnterAddress_streetAddressError;
     TextView tv_jEnterAddress_aptOtherError;
@@ -79,7 +79,7 @@ public class EnterAddressActivity extends AppCompatActivity
         ea_funcLib = new FunctionLibrary();
         ea_dbHelper = new DatabaseHelper(this);
         ea_welcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
-        // PropertyMapActivity new Intent here //
+        ea_propertyMapIntent = new Intent(this, PropertyMapActivity.class);
         ea_listOfStatesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ea_statesArray);
         sp_jEnterAddress_states.setAdapter(ea_listOfStatesAdapter);
         ea_inputIsGood = new boolean[4];
@@ -127,7 +127,7 @@ public class EnterAddressActivity extends AppCompatActivity
                     {
                         EA_SaveNewAddress();
                         UserSessionData.SetIsPassedFromWelcomeUser(false);
-//                    startActivity(PropertyMapActivity);
+                        startActivity(ea_propertyMapIntent);
                     }
                 }
             }

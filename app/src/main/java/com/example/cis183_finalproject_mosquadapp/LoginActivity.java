@@ -1,6 +1,9 @@
 package com.example.cis183_finalproject_mosquadapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class LoginActivity extends AppCompatActivity
 {
@@ -38,24 +42,12 @@ public class LoginActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-
         LA_ListOfViews();
         LA_InitData();
         LA_OnClickListeners();
         LA_TextChangeEventListeners();
-
+        LA_AskingForPermissions();
     }
-
-    private void LA_InitData()
-    {
-//        UserSessionData.SetLoggedInUser(null);
-//        UserSessionData.SetUserAddressData(null);
-        la_createAccountIntent = new Intent(this, CreateAccountActivity.class);
-        la_welcomeUserIntent   = new Intent(this, WelcomeUserActivity.class);
-        jLogin_dbHelper = new DatabaseHelper(this);
-        jLogin_dbHelper.DB_PopulateDummyData();
-    }
-
     private void LA_ListOfViews()
     {
         iv_jLogin_bannerPic        = findViewById(R.id.iv_vLogin_bannerPic);
@@ -68,7 +60,15 @@ public class LoginActivity extends AppCompatActivity
         btn_jSkipLogin             = findViewById(R.id.btn_skipLogin);
         btn_jSkipLoginTwo          = findViewById(R.id.btn_skipLoginTwo);
     }
-
+    private void LA_InitData()
+    {
+//        UserSessionData.SetLoggedInUser(null);
+//        UserSessionData.SetUserAddressData(null);
+        la_createAccountIntent = new Intent(this, CreateAccountActivity.class);
+        la_welcomeUserIntent   = new Intent(this, WelcomeUserActivity.class);
+        jLogin_dbHelper = new DatabaseHelper(this);
+        jLogin_dbHelper.DB_PopulateDummyData();
+    }
     private void LA_OnClickListeners()
     {
         btn_jLogin_login.setOnClickListener(new View.OnClickListener()
@@ -132,7 +132,6 @@ public class LoginActivity extends AppCompatActivity
             }
         });
     }
-
     private void LA_TextChangeEventListeners()
     {
         et_jLogin_username.addTextChangedListener(new TextWatcher()
@@ -171,6 +170,20 @@ public class LoginActivity extends AppCompatActivity
 
             }
         });
+    }
+    private void LA_AskingForPermissions()
+    {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        {
+            if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            }
+            if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+            }
+        }
     }
     // make this into its own base adapter instead of using this to show error message //
     private void MessingWithToast()
