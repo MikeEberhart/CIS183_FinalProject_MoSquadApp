@@ -134,6 +134,39 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
                     " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
                     " VALUES (1,0,0,0,0,0,0);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (1,0,1,0,0,0,0);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (1,1,0,0,0,0,0);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (1,0,0,1,0,0,0);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (0,0,0,0,0,1,0);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (1,0,0,0,0,0,0);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (1,0,1,0,0,0,0);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (1,0,0,0,0,0,0);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (0,0,0,0,0,0,1);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (1,0,0,0,0,0,0);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (1,0,0,0,0,0,0);");
+            db.execSQL("INSERT INTO " + YARD_SERVICES_TABLE +
+                    " (Barrier_Treatment, Fly_Control, Home_Shield, Invader_Guard, Yard_Defender, All_Natural, Special_Event)" +
+                    " VALUES (1,0,1,0,0,0,0);");
             db.close();
         }
     }
@@ -143,8 +176,41 @@ public class DatabaseHelper extends SQLiteOpenHelper
         {
             SQLiteDatabase db = this.getWritableDatabase();
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
-                       " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                       "VALUES ('mEbbs123', '13101  Wanty Rd', null, 'Milan', 'MI', '48160', null, null, 1, 123.323, 1223.233);");
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('mEbbs123', '13101  Wanty Rd', null, 'Milan', 'MI', '48160', null, 2.0, 1, 139.00, 973.00);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('mEbbs123', '236 Austin Ct', null, 'Newport', 'MI', '48166', null, 0.25, 2, 154.00, 1078.00);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('AWhite93', '971 Lotus Dr', null, 'Erie', 'MI', '48133', null, 0.5, 3, 114.00, 798.00);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('CMay27', '517 Kilberry', null, 'Temperance', 'MI', '48182', null, 0.25, 4, 89.00, 623.00);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('AChambers9', '5204 State Line Rd', null, 'Ottawa Lake', 'MI', '49267', null, 1, 5, 99.00, 693.00);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('WDuncan65', '11660 Plank Rd', null, 'Milan', 'MI', '48160', null, 1, 6, 99.00, 693.00);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('CBradley68', '9150 Doty Rd', null, 'Maybee', 'MI', '48159', null, 1, 7, 194.00, 1358.00);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('CAllison3', '9014 Sumpter Rd', null, 'Maybee', 'MI', '48159', null, 1, 8, 99.00, 693.00);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('LPerry54', '8828 Sumpter Rd', null, 'Maybee', 'MI', '48159', null, 1, 9, 129.00, null);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('ARodgers45', '9160 Steffas Rd', null, 'Maybee', 'MI', '48159', null, 1.5, 10, 119.00, 833.00);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('AScott83', '1018 Steiner Rd', null, 'Monroe', 'MI', '48162', null, 2, 11, 139.00, 973.00);");
+            db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
+                    " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
+                    "VALUES ('AScott83', '7820 Reinhardt Rd', null, 'Carleton', 'MI', '48117', null, 0.5, 12, 174.00, 1218.00);");
             db.close();
         }
     }
@@ -219,6 +285,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Yard_Defender', 30.00);");
             db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('All_Natural', 59.00);"); // scales like barrier treatment
             db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Special_Event', 30.00);"); // add the barrier treatment price to this later in the code
+            db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Per_Tenth', 4.00)");
         }
     }
     public int DB_RecordCount(String tableName)
