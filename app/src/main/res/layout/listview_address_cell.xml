@@ -8,6 +8,18 @@
     android:background="@drawable/blk_border_square">
 
     <ImageView
+        android:id="@+id/iv_vAddressCell_estOverview"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/image_btn_layout"
+        android:backgroundTint="@color/mosquad_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_vAddressCell_deleteEstimate"
+        app:srcCompat="@drawable/details_icon" />
+
+    <ImageView
         android:id="@+id/iv_vAddressCell_deleteEstimate"
         android:layout_width="24dp"
         android:layout_height="24dp"
@@ -38,6 +50,7 @@
         app:iconSize="16dp"
         app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/btn_vAddressCell_editAddress"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="@+id/btn_vAddressCell_editAddress"
         app:layout_constraintTop_toBottomOf="@+id/btn_vAddressCell_editAddress" />
 
@@ -45,9 +58,8 @@
         android:id="@+id/btn_vAddressCell_editAddress"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/mosquad_green"
         android:gravity="center"
         android:paddingLeft="8dp"
@@ -61,9 +73,8 @@
         app:icon="@drawable/white_edit_acct_icon"
         app:iconSize="16dp"
         app:iconTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_vAddressCell_editEstimate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vAddressCell_streetAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_vAddressCell_estOverview" />
 
     <TextView
         android:id="@+id/textView3"

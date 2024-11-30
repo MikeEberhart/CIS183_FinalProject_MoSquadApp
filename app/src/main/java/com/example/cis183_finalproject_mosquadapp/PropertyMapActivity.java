@@ -50,7 +50,7 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
 {
     Intent pm_enterAddressIntent;
     Intent pm_welcomeUserIntent;
-    Intent pm_packageSelectionIntent;
+    Intent pm_selectPackageIntent;
     DatabaseHelper pm_dbHelper;
     DecimalFormat pm_dFormat;
     GoogleMap map_jPropertyMap_gMap;
@@ -59,9 +59,12 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
     Button btn_jPropertyMap_home;
     Button btn_jPropertyMap_back;
     TextView tv_jPropertyMap_totalAcreage;
+    TextView tv_jPropertyMap_errorText;
     FloatingActionButton fab_jPropertyMap_mapTypeSwich;
     FloatingActionButton fab_jPropertyMap_undoLast;
     FloatingActionButton fab_jPropertyMap_resetAll;
+    UserPolygon pm_polyData;
+    ServiceAddress pm_passedServiceAddress;
     ArrayList<LatLng> pm_listOfLatLngs;
     List<LatLng> pm_polygonListOfPoints;
     ArrayList<Marker> pm_userListOfMarkers;
@@ -73,9 +76,10 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
     Location pm_userLocation;
     CameraPosition pm_userCamPos;
     private int pm_markerCount = 0;
+    double pm_totalAcreage = 0;
     // still messing with these //
-    JSONArray listOfPoints;
-    private int pm_tCount = 0;
+//    JSONArray listOfPoints;
+//    private int pm_tCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -87,7 +91,6 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
         PM_ListOfViews();
         PM_InitData();
         PM_OnClickListeners();
-
     }
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap)
@@ -96,7 +99,10 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
         map_jPropertyMap_gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         PM_SettingMapLocation();
         PM_MapOnClickListeners();
-
+        if(UserSessionData.GetIsPassedFromWelcomeUser())
+        {
+            PM_LoadPolygonData();
+        }
     }
     private void PM_ListOfViews()
     {
@@ -105,6 +111,7 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
         btn_jPropertyMap_home            = findViewById(R.id.btn_vPropertyMap_home);
         btn_jPropertyMap_back            = findViewById(R.id.btn_vPropertyMap_back);
         tv_jPropertyMap_totalAcreage     = findViewById(R.id.tv_vPropertyMap_totalAcreage);
+        tv_jPropertyMap_errorText        = findViewById(R.id.tv_vPropertyMap_errorText);
         fab_jPropertyMap_mapTypeSwich    = findViewById(R.id.fab_vPropertyMap_mapTypeSwitch);
         fab_jPropertyMap_undoLast        = findViewById(R.id.fab_vPropertyMap_undoLast);
         fab_jPropertyMap_resetAll        = findViewById(R.id.fab_vPropertyMap_resetAll);
@@ -115,9 +122,10 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
     }
     private void PM_InitData()
     {
-        pm_enterAddressIntent = new Intent(this, EnterAddressActivity.class);
-        pm_welcomeUserIntent  = new Intent(this, WelcomeUserActivity.class);
-        pm_dbHelper = new DatabaseHelper(this);
+        pm_enterAddressIntent  = new Intent(this, EnterAddressActivity.class);
+        pm_welcomeUserIntent   = new Intent(this, WelcomeUserActivity.class);
+        pm_selectPackageIntent = new Intent(this, SelectPackageActivity.class);
+        pm_dbHelper            = new DatabaseHelper(this);
     }
     private void PM_OnClickListeners()
     {
@@ -126,7 +134,22 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View v)
             {
-//                startActivity(pm_packageSelectionIntent);
+                if(pm_userPolygon == null)
+                {
+                    tv_jPropertyMap_errorText.setVisibility(View.VISIBLE);
+                    tv_jPropertyMap_errorText.setText("Must Select Area For Estimate");
+                }
+                else if(pm_listOfLatLngs.size() <= 2)
+                {
+                    tv_jPropertyMap_errorText.setVisibility(View.VISIBLE);
+                    tv_jPropertyMap_errorText.setText("Selected Area Must Contain At Least 3 Points");
+                }
+                else
+                {
+                    tv_jPropertyMap_errorText.setVisibility(View.INVISIBLE);
+                    PM_SavePolygonData();
+                    startActivity(pm_selectPackageIntent); // change later to packageSelectionIntent
+                }
             }
         });
         btn_jPropertyMap_home.setOnClickListener(new View.OnClickListener()
@@ -142,59 +165,17 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View v)
             {
-                startActivity(pm_enterAddressIntent);
+                if(UserSessionData.GetIsPassedFromWelcomeUser())
+                {
+                    startActivity(pm_welcomeUserIntent);
+                }
+                else
+                {
+                    startActivity(pm_enterAddressIntent);
+                }
+
             }
         });
-    }
-    private void PM_CreatePolygon(LatLng latLng)
-    {
-        if(pm_userPolygon == null)
-        {
-            pm_userPointMarkerOption = new MarkerOptions();
-            pm_userListOfMarkers     = new ArrayList<>();
-            pm_userPolygonOptions    = new PolygonOptions();
-            pm_listOfLatLngs         = new ArrayList<>();
-            pm_listOfLatLngs.add(latLng);
-            pm_userPolygonOptions.fillColor(Color.argb(120,170,174,55));
-            pm_userPolygonOptions.strokeColor(Color.rgb(255,0,0));
-            pm_userPolygonOptions.strokeWidth(10);
-            pm_userPolygonOptions.strokeJointType(JointType.ROUND);
-            pm_userPolygonOptions.add(latLng);
-            pm_userPointMarkerOption.position(latLng);
-            pm_userPointMarkerOption.draggable(true);
-            pm_userPolygon = map_jPropertyMap_gMap.addPolygon(pm_userPolygonOptions);
-            pm_userPointMarker = map_jPropertyMap_gMap.addMarker(pm_userPointMarkerOption);
-
-            if(pm_userPointMarker != null)
-            {
-                pm_userPointMarker.setTag(pm_markerCount);
-            }
-            pm_userListOfMarkers.add(pm_userPointMarker);
-        }
-        else
-        {
-            pm_polygonListOfPoints = pm_userPolygon.getPoints();
-            pm_polygonListOfPoints.add(latLng);
-            if(pm_polygonListOfPoints.size() > 2)
-            {
-                // used to remove the center or "hidden" point
-                // every time a point is placed a second point is automatically made in the same place as the
-                // first original point. This causes the polygon to be cut into triangular pieces //
-                // doing this removes that "hidden" point so the polygon can look normal //
-                pm_polygonListOfPoints.remove(pm_polygonListOfPoints.size() - 2);
-            }
-            pm_listOfLatLngs.add(latLng);
-            pm_userPointMarkerOption.position(latLng);
-            pm_userPointMarker = map_jPropertyMap_gMap.addMarker(pm_userPointMarkerOption);
-            if(pm_userPointMarker != null)
-            {
-                pm_userPointMarker.setTag(pm_markerCount);
-            }
-            pm_userListOfMarkers.add(pm_userPointMarker);
-            pm_userPolygon.setPoints(pm_polygonListOfPoints);
-        }
-        pm_markerCount++;
-        PM_SetTotalAcreage();
     }
     @SuppressLint("PotentialBehaviorOverride")
     private void PM_MapOnClickListeners()
@@ -204,7 +185,6 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onMapClick(@NonNull LatLng latLng)
             {
-                Log.d("my latlng", String.valueOf(latLng));
                 PM_CreatePolygon(latLng);
             }
         });
@@ -250,7 +230,7 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
                     pm_userListOfMarkers = null;
                     pm_listOfLatLngs = null;
                     pm_markerCount = 0;
-                    tv_jPropertyMap_totalAcreage.setText("0.00");
+                    tv_jPropertyMap_totalAcreage.setText(R.string.total_acreage_default);
                 }
             }
         });
@@ -259,7 +239,7 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View v)
             {
-                tv_jPropertyMap_totalAcreage.setText("0.00");
+                tv_jPropertyMap_totalAcreage.setText(R.string.total_acreage_default);
                 map_jPropertyMap_gMap.clear();
                 pm_userPolygon = null;
                 pm_userPointMarker = null;
@@ -296,6 +276,58 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
         });
 
     }
+    private void PM_CreatePolygon(LatLng latLng)
+    {
+        Log.d("LatLng", String.valueOf(latLng));
+        if(pm_userPolygon == null)
+        {
+            Log.d("LatLng", "userPolygon is null");
+            pm_userPointMarkerOption = new MarkerOptions();
+            pm_userListOfMarkers     = new ArrayList<>();
+            pm_userPolygonOptions    = new PolygonOptions();
+            pm_listOfLatLngs         = new ArrayList<>();
+            pm_listOfLatLngs.add(latLng);
+            pm_userPolygonOptions.fillColor(Color.argb(120,170,174,55));
+            pm_userPolygonOptions.strokeColor(Color.rgb(255,0,0));
+            pm_userPolygonOptions.strokeWidth(10);
+            pm_userPolygonOptions.strokeJointType(JointType.ROUND);
+            pm_userPolygonOptions.add(latLng);
+            pm_userPointMarkerOption.position(latLng);
+            pm_userPointMarkerOption.draggable(true);
+            pm_userPolygon = map_jPropertyMap_gMap.addPolygon(pm_userPolygonOptions);
+            pm_userPointMarker = map_jPropertyMap_gMap.addMarker(pm_userPointMarkerOption);
+            if(pm_userPointMarker != null)
+            {
+                pm_userPointMarker.setTag(pm_markerCount);
+            }
+            pm_userListOfMarkers.add(pm_userPointMarker);
+        }
+        else
+        {
+            Log.d("LatLng", "userPolygon is not null");
+            pm_polygonListOfPoints = pm_userPolygon.getPoints();
+            pm_polygonListOfPoints.add(latLng);
+            if(pm_polygonListOfPoints.size() > 2)
+            {
+                // used to remove the center or "hidden" point
+                // every time a point is placed a second point is automatically made in the same place as the
+                // first original point. This causes the polygon to be cut into triangular pieces //
+                // doing this removes that "hidden" point so the polygon can look normal //
+                pm_polygonListOfPoints.remove(pm_polygonListOfPoints.size() - 2);
+            }
+            pm_listOfLatLngs.add(latLng);
+            pm_userPointMarkerOption.position(latLng);
+            pm_userPointMarker = map_jPropertyMap_gMap.addMarker(pm_userPointMarkerOption);
+            if(pm_userPointMarker != null)
+            {
+                pm_userPointMarker.setTag(pm_markerCount);
+            }
+            pm_userListOfMarkers.add(pm_userPointMarker);
+            pm_userPolygon.setPoints(pm_polygonListOfPoints);
+        }
+        pm_markerCount++;
+        PM_SetTotalAcreage();
+    }
     private void PM_SettingMapLocation()
     {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
@@ -320,37 +352,70 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
     }
     private void PM_SetTotalAcreage()
     {
-        double pm_totalAcreage = (SphericalUtil.computeArea(pm_listOfLatLngs) / 4046.86);
+        pm_totalAcreage = (SphericalUtil.computeArea(pm_listOfLatLngs) / 4046.86);
         pm_dFormat      = new DecimalFormat("0.00");
         tv_jPropertyMap_totalAcreage.setText(pm_dFormat.format(pm_totalAcreage));
     }
-    private void Testing(LatLng ltlg)
+    private void PM_LoadPolygonData()
     {
-//        LatLng tempLatLng = pm_listOfLatLngs
-//        ArrayList<JSONObject> point = new ArrayList<>();
-
-//        JSONObject pointSd = new JSONObject();
-
-//        for (LatLng latlng : pm_polygonListOfPoints)
-//        {
-        JSONObject pointSd = new JSONObject();
-        try {
-            pointSd.put("id", pm_tCount);
-            pointSd.put("lat", ltlg.latitude);
-            pointSd.put("lng", ltlg.longitude);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+        LatLng tempLatLngs;
+        pm_passedServiceAddress = UserSessionData.GetPassedServiceAddress();
+        Log.d("pm_passedServiceAddress", String.valueOf(pm_passedServiceAddress.getSa_addressID()));
+        Log.d("pm_passedServiceAddress", String.valueOf(pm_passedServiceAddress.getSa_polygonID()));
+        pm_polyData = pm_dbHelper.DB_GetUserPolygonData(pm_passedServiceAddress.getSa_polygonID());
+        if(pm_polyData != null)
+        {
+            Log.d("LoadPolygonData", pm_polyData.toString());
+            String[] lats = pm_polyData.getUp_polygonLats().split(",");
+            String[] lngs = pm_polyData.getUp_polygonLngs().split(",");
+            for(int i = 0; i < lats.length; i++)
+            {
+                tempLatLngs = new LatLng(Double.parseDouble(lats[i]), Double.parseDouble(lngs[i]));
+                PM_CreatePolygon(tempLatLngs);
+            }
         }
-        listOfPoints.put(pointSd);
-        try {
-            Log.d("JSON", listOfPoints.getJSONObject(pm_tCount).getInt("id") + " - " + listOfPoints.getJSONObject(pm_tCount).getDouble("lat") + " - " + listOfPoints.getJSONObject(pm_tCount).getDouble("lng"));
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        pm_tCount++;
-
     }
-
-
-
+    private void PM_SavePolygonData()
+    {
+        UserPolygon pm_tempPolyData = new UserPolygon();
+        String tempLats = "";
+        String tempLngs = "";
+        if(pm_listOfLatLngs != null)
+        {
+            for (int i = 0; i < pm_listOfLatLngs.size(); i++)
+            {
+                tempLats += String.valueOf(pm_listOfLatLngs.get(i).latitude);
+                tempLngs += String.valueOf(pm_listOfLatLngs.get(i).longitude);
+                if (i != pm_listOfLatLngs.size() - 1)
+                {
+                    tempLats += ",";
+                    tempLngs += ",";
+                }
+            }
+            pm_tempPolyData.setUp_polygonLats(tempLats);
+            pm_tempPolyData.setUp_polygonLngs(tempLngs);
+        }
+        if(UserSessionData.GetIsPassedFromWelcomeUser())
+        {
+            Log.d("if IsPassedFromWelcomeUser", "IsPassed");
+            if(pm_polyData != null)
+            {
+                Log.d("if IsPassedFromWelcomeUser", "IsNotNull");
+                pm_dbHelper.DB_UpdateUserPolygon(pm_tempPolyData, pm_passedServiceAddress.getSa_polygonID());
+                pm_dbHelper.DB_UpdateTotalAcreage(pm_passedServiceAddress.getSa_addressID(),Double.parseDouble(pm_dFormat.format(pm_totalAcreage)));
+            }
+            else
+            {
+                Log.d("if IsPassedFromWelcomeUser", "IsNull");
+                pm_dbHelper.DB_AddUserPolygon(pm_tempPolyData, pm_passedServiceAddress.getSa_addressID());
+                pm_dbHelper.DB_UpdateTotalAcreage(pm_passedServiceAddress.getSa_addressID(), Double.parseDouble(pm_dFormat.format(pm_totalAcreage)));
+            }
+        }
+        else
+        {
+            Log.d("if IsPassedFromWelcomeUser", "NotPassed");
+            pm_dbHelper.DB_AddUserPolygon(pm_tempPolyData, pm_dbHelper.DB_GetNewestAddress().getSa_addressID());
+            pm_dbHelper.DB_UpdateTotalAcreage(pm_dbHelper.DB_GetNewestAddress().getSa_addressID(), Double.parseDouble(pm_dFormat.format(pm_totalAcreage)));
+        }
+    }
 }

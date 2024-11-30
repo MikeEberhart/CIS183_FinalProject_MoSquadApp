@@ -15,9 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CIS183_FinalProject_MoSquadApp"
         tools:targetApi="31">
+        <activity
+            android:name=".EstimateOverviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SelectPackageActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCpCwryoMJfJ3xIMwo_HGmH7Ic2RhotKAU" />
+
         <activity
             android:name=".PropertyMapActivity"
             android:exported="false" />

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ public class WelcomeUserActivity extends AppCompatActivity
     Intent wu_userReviewsIntent;
     Intent wu_packageDetailsIntent;
     Intent wu_enterAddressIntent;
+    Intent wu_estimateOverview;
     TextView tv_jWelcomeUser_userFname;
     TextView tv_jWelcomeUser_noSavedEstimates;
     ListView lv_jWelcomeUser_addressList;
@@ -45,14 +47,14 @@ public class WelcomeUserActivity extends AppCompatActivity
         WU_InitData();
         WU_OnClickListeners();
     }
-
     private void WU_InitData()
     {
-        wu_loginIntent = new Intent(this, LoginActivity.class);
-        wu_userAcctIntent = new Intent(this, UserAccountActivity.class);
-        wu_userReviewsIntent = new Intent(this, UserReviewsActivity.class);
-        wu_enterAddressIntent = new Intent(this, EnterAddressActivity.class);
+        wu_loginIntent          = new Intent(this, LoginActivity.class);
+        wu_userAcctIntent       = new Intent(this, UserAccountActivity.class);
+        wu_userReviewsIntent    = new Intent(this, UserReviewsActivity.class);
+        wu_enterAddressIntent   = new Intent(this, EnterAddressActivity.class);
         wu_packageDetailsIntent = new Intent(this, PackageDetailsActivity.class);
+        wu_estimateOverview     = new Intent(this, EstimateOverviewActivity.class);
         wu_currentUser = UserSessionData.GetLoggedInUser();
         UserSessionData.SetIsPassedFromWelcomeUser(false);
         String welcomeMessage = "Welcome " + wu_currentUser.getUser_fname();
@@ -68,7 +70,6 @@ public class WelcomeUserActivity extends AppCompatActivity
             tv_jWelcomeUser_noSavedEstimates.setVisibility(View.VISIBLE);
         }
     }
-
     private void WU_ListOfViews()
     {
         tv_jWelcomeUser_userFname        = findViewById(R.id.tv_vWelcomeUser_userFname);
@@ -80,7 +81,6 @@ public class WelcomeUserActivity extends AppCompatActivity
         btn_jWelcomeUser_newEstimate     = findViewById(R.id.btn_vWelcomeUser_newEstimate);
         btn_jWelcomeUser_packageDetails  = findViewById(R.id.btn_vWelcomeUser_packageDetails);
     }
-
     private void WU_OnClickListeners()
     {
         btn_jWelcomeUser_logout.setOnClickListener(new View.OnClickListener()
@@ -121,6 +121,23 @@ public class WelcomeUserActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 startActivity(wu_packageDetailsIntent);
+            }
+        });
+//        lv_jWelcomeUser_addressList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+//        {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+//            {
+//                startActivity(wu_estimateOverview);
+//            }
+//        });
+        lv_jWelcomeUser_addressList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                startActivity(wu_estimateOverview);
+                return false;
             }
         });
     }

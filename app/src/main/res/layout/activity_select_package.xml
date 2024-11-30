@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".SelectPackageActivity">
+
+    <Button
+        android:id="@+id/btn_vSelectPackage_saveAndContinue"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="2dp"
+        android:paddingTop="0dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="0dp"
+        android:text="Save and Continue"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_vSelectPackage_home"
+        app:layout_constraintEnd_toEndOf="@+id/sView_vSelectPackage_packageSelection"
+        app:layout_constraintStart_toEndOf="@+id/btn_vSelectPackage_home"
+        app:layout_constraintTop_toTopOf="@+id/btn_vSelectPackage_home" />
+
+    <Button
+        android:id="@+id/btn_vSelectPackage_back"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
+        android:text="Back"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_vSelectPackage_home"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vSelectPackage_home"
+        app:layout_constraintStart_toStartOf="@+id/sView_vSelectPackage_packageSelection"
+        app:layout_constraintTop_toTopOf="@+id/btn_vSelectPackage_home" />
+
+    <Button
+        android:id="@+id/btn_vSelectPackage_home"
+        android:layout_width="52dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/mosquad_green"
+        android:paddingLeft="5dp"
+        android:paddingTop="4dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="4dp"
+        android:textAlignment="center"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/white_home_icon"
+        app:iconSize="42dp"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vSelectPackage_saveAndContinue"
+        app:layout_constraintStart_toEndOf="@+id/btn_vSelectPackage_back" />
+
+    <TextView
+        android:id="@+id/tv_vSelectPackage_headerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:text="Select Package(s)"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_vSelectPackage_userAcctBanner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_vSelectPackage_userAcctBanner" />
+
+    <ImageView
+        android:id="@+id/iv_vSelectPackage_userAcctBanner"
+        android:layout_width="0dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mosquad_banner" />
+
+    <ScrollView
+        android:id="@+id/sView_vSelectPackage_packageSelection"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/blk_border_with_radius"
+        app:layout_constraintBottom_toTopOf="@+id/btn_vSelectPackage_saveAndContinue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_vSelectPackage_userAcctBanner">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_vSelectPackage_mainTPackages"
+                android:layout_width="match_parent"
+                android:layout_height="223dp"
+                android:background="@drawable/blk_border_with_radius">
+
+                <TextView
+                    android:id="@+id/textView84"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/blk_underline"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+                <TextView
+                    android:id="@+id/textView51"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blk_border_square"
+                    android:gravity="center"
+                    android:text="Main Treatment Packages"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView55"
+                    android:layout_width="62dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="Package Name"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView51" />
+
+                <TextView
+                    android:id="@+id/textView56"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Price"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/textView84"
+                    app:layout_constraintEnd_toStartOf="@+id/textView57"
+                    app:layout_constraintStart_toEndOf="@+id/textView55"
+                    app:layout_constraintTop_toBottomOf="@+id/textView51" />
+
+                <TextView
+                    android:id="@+id/textView57"
+                    android:layout_width="69dp"
+                    android:layout_height="36dp"
+                    android:gravity="center"
+                    android:text="Select Package"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView51" />
+
+                <TextView
+                    android:id="@+id/textView60"
+                    android:layout_width="88dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="Special Event Treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView58" />
+
+                <TextView
+                    android:id="@+id/textView53"
+                    android:layout_width="88dp"
+                    android:layout_height="36dp"
+                    android:gravity="center"
+                    android:text="Standard Barrier Treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView84" />
+
+                <TextView
+                    android:id="@+id/textView54"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="$59.00 for the first 1/4 acre. $10 every 1/4 after that."
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView53"
+                    app:layout_constraintEnd_toStartOf="@+id/cBox_vSelectPackage_barrierTreatment"
+                    app:layout_constraintStart_toEndOf="@+id/textView53"
+                    app:layout_constraintTop_toTopOf="@+id/textView53" />
+
+                <CheckBox
+                    android:id="@+id/cBox_vSelectPackage_barrierTreatment"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="1dp"
+                    android:buttonTint="@color/mosquad_green"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView54"
+                    app:layout_constraintEnd_toEndOf="@+id/textView57"
+                    app:layout_constraintStart_toStartOf="@+id/textView57"
+                    app:layout_constraintTop_toTopOf="@+id/textView54" />
+
+                <TextView
+                    android:id="@+id/textView69"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/blk_underline"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@+id/textView59"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias=".5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView54" />
+
+                <TextView
+                    android:id="@+id/textView58"
+                    android:layout_width="88dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="All Natural Treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView53"
+                    app:layout_constraintTop_toBottomOf="@+id/textView53" />
+
+                <TextView
+                    android:id="@+id/textView59"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="$59.00 for the first 1/4 acre. $10 every 1/4 after that."
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView58"
+                    app:layout_constraintEnd_toStartOf="@+id/cBox_vSelectPackage_allNatural"
+                    app:layout_constraintHorizontal_bias=".5"
+                    app:layout_constraintStart_toEndOf="@+id/textView58"
+                    app:layout_constraintTop_toTopOf="@+id/textView58" />
+
+                <CheckBox
+                    android:id="@+id/cBox_vSelectPackage_allNatural"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="1dp"
+                    android:buttonTint="@color/mosquad_green"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView59"
+                    app:layout_constraintEnd_toEndOf="@+id/cBox_vSelectPackage_barrierTreatment"
+                    app:layout_constraintStart_toEndOf="@+id/textView54"
+                    app:layout_constraintTop_toTopOf="@+id/textView59" />
+
+                <TextView
+                    android:id="@+id/textView72"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/blk_underline"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@+id/textView61"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView58" />
+
+                <TextView
+                    android:id="@+id/textView61"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="$59.00 for the first 1/4 acre. $10 every 1/4 after that. Plus $30 for added Yard Defender Treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView60"
+                    app:layout_constraintEnd_toStartOf="@+id/cBox_vSelectPackage_specialEvent"
+                    app:layout_constraintStart_toEndOf="@+id/textView60"
+                    app:layout_constraintTop_toTopOf="@+id/textView60" />
+
+                <CheckBox
+                    android:id="@+id/cBox_vSelectPackage_specialEvent"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:buttonTint="@color/mosquad_green"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView61"
+                    app:layout_constraintEnd_toEndOf="@+id/cBox_vSelectPackage_allNatural"
+                    app:layout_constraintStart_toEndOf="@+id/textView59"
+                    app:layout_constraintStart_toStartOf="@+id/cBox_vSelectPackage_allNatural"
+                    app:layout_constraintTop_toTopOf="@+id/textView61" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="253dp"
+                android:background="@drawable/blk_border_with_radius">
+
+                <TextView
+                    android:id="@+id/textView73"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blk_border_square"
+                    android:gravity="center"
+                    android:text="Add-on Treatment Packages"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView76"
+                    android:layout_width="69dp"
+                    android:layout_height="36dp"
+                    android:gravity="center"
+                    android:text="Select Package"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
+                <TextView
+                    android:id="@+id/textView74"
+                    android:layout_width="62dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center"
+                    android:text="Package Name"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
+                <TextView
+                    android:id="@+id/textView75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Price"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/textView87"
+                    app:layout_constraintEnd_toStartOf="@+id/textView76"
+                    app:layout_constraintStart_toEndOf="@+id/textView74"
+                    app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
+                <TextView
+                    android:id="@+id/textView87"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/blk_underline"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView74" />
+
+                <TextView
+                    android:id="@+id/textView82"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:gravity="center"
+                    android:text="$35.00 per treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView83"
+                    app:layout_constraintEnd_toStartOf="@+id/cBox_vSelectPackage_yardDefender"
+                    app:layout_constraintStart_toEndOf="@+id/textView83"
+                    app:layout_constraintTop_toTopOf="@+id/textView83" />
+
+                <CheckBox
+                    android:id="@+id/cBox_vSelectPackage_homeShield"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:buttonTint="@color/mosquad_green"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView774"
+                    app:layout_constraintEnd_toEndOf="@+id/textView76"
+                    app:layout_constraintStart_toStartOf="@+id/textView76"
+                    app:layout_constraintTop_toTopOf="@+id/textView774" />
+
+                <TextView
+                    android:id="@+id/textView774"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:gravity="center"
+                    android:text="$95.00 per treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView78"
+                    app:layout_constraintEnd_toStartOf="@+id/cBox_vSelectPackage_homeShield"
+                    app:layout_constraintStart_toEndOf="@+id/textView78"
+                    app:layout_constraintTop_toTopOf="@+id/textView78" />
+
+                <TextView
+                    android:id="@+id/textView78"
+                    android:layout_width="88dp"
+                    android:layout_height="36dp"
+                    android:gravity="center"
+                    android:text="Squad Home Shield"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView87" />
+
+                <TextView
+                    android:id="@+id/textView71"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/blk_underline"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@+id/textView79"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView774" />
+
+                <CheckBox
+                    android:id="@+id/cBox_vSelectPackage_flyControl"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:buttonTint="@color/mosquad_green"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView79"
+                    app:layout_constraintEnd_toEndOf="@+id/cBox_vSelectPackage_homeShield"
+                    app:layout_constraintStart_toStartOf="@+id/cBox_vSelectPackage_homeShield"
+                    app:layout_constraintTop_toTopOf="@+id/textView79" />
+
+                <TextView
+                    android:id="@+id/textView79"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:gravity="center"
+                    android:text="$35.00 per treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView80"
+                    app:layout_constraintEnd_toStartOf="@+id/cBox_vSelectPackage_flyControl"
+                    app:layout_constraintStart_toEndOf="@+id/textView80"
+                    app:layout_constraintTop_toTopOf="@+id/textView80" />
+
+                <TextView
+                    android:id="@+id/textView80"
+                    android:layout_width="88dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Squad Fly\nControl"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView78" />
+
+                <TextView
+                    android:id="@+id/textView70"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/blk_underline"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@+id/textView77"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView79" />
+
+                <CheckBox
+                    android:id="@+id/cBox_vSelectPackage_invaderGuard"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:buttonTint="@color/mosquad_green"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView77"
+                    app:layout_constraintEnd_toEndOf="@+id/cBox_vSelectPackage_flyControl"
+                    app:layout_constraintStart_toStartOf="@+id/cBox_vSelectPackage_flyControl"
+                    app:layout_constraintTop_toTopOf="@+id/textView77" />
+
+                <TextView
+                    android:id="@+id/textView77"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:gravity="center"
+                    android:text="$30.00 per treatment"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView782"
+                    app:layout_constraintEnd_toStartOf="@+id/cBox_vSelectPackage_invaderGuard"
+                    app:layout_constraintStart_toEndOf="@+id/textView782"
+                    app:layout_constraintTop_toTopOf="@+id/textView782" />
+
+                <TextView
+                    android:id="@+id/textView782"
+                    android:layout_width="88dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Squad Invader Guard"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView80" />
+
+                <TextView
+                    android:id="@+id/textView81"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/blk_underline"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@+id/textView82"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView77" />
+
+                <CheckBox
+                    android:id="@+id/cBox_vSelectPackage_yardDefender"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:buttonTint="@color/mosquad_green"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView82"
+                    app:layout_constraintEnd_toEndOf="@+id/cBox_vSelectPackage_invaderGuard"
+                    app:layout_constraintStart_toStartOf="@+id/cBox_vSelectPackage_invaderGuard"
+                    app:layout_constraintTop_toTopOf="@+id/textView82" />
+
+                <TextView
+                    android:id="@+id/textView83"
+                    android:layout_width="88dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Squad Yard Defender"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView782" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_vSelectPackage_errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/design_default_color_error"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/sView_vSelectPackage_packageSelection"
+        app:layout_constraintStart_toStartOf="@+id/sView_vSelectPackage_packageSelection"
+        app:layout_constraintTop_toBottomOf="@+id/sView_vSelectPackage_packageSelection" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

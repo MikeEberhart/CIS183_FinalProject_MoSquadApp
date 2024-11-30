@@ -12,7 +12,7 @@
         android:id="@+id/btn_vEnterAddress_saveAndContinue"
         android:layout_width="120dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="16dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="2dp"
         android:paddingTop="0dp"
@@ -22,8 +22,9 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_city" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_vEnterAddress_home"
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_city"
+        app:layout_constraintStart_toEndOf="@+id/btn_vEnterAddress_home" />
 
     <EditText
         android:id="@+id/et_vEnterAddress_aptOther"
@@ -220,7 +221,7 @@
         android:id="@+id/btn_vEnterAddress_back"
         android:layout_width="120dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="2dp"
         android:paddingTop="0dp"
@@ -229,8 +230,10 @@
         android:text="Back"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:visibility="invisible"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_vEnterAddress_home"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vEnterAddress_home"
         app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_city" />
 
     <TextView

@@ -20,6 +20,7 @@ public class AddressListAdapter extends BaseAdapter {
     ArrayList<ServiceAddress> ala_listOfAddresses;
     Intent ala_enterAddressIntent;
     Intent ala_propertyMapIntent;
+    Intent ala_estOverviewIntent;
     TextView tv_jAddressCell_streetAddress;
     TextView tv_jAddressCell_aptAddress;
     TextView tv_jAddressCell_city;
@@ -32,6 +33,7 @@ public class AddressListAdapter extends BaseAdapter {
     Button btn_jAddressCell_editEstimate;
     Button btn_jAddressCell_editAddress;
     ImageView iv_jAddressCell_deleteEstimate;
+    ImageView iv_jAddressCell_estOverview;
     DatabaseHelper ala_dbHelper;
     ServiceAddress ala_address;
     String ala_singlePrice;
@@ -74,7 +76,7 @@ public class AddressListAdapter extends BaseAdapter {
         ALA_ListOfViews(view);
         ALA_InitData(i);
         ALA_OnClickListeners(ala_address);
-        ALA_SetTextViewData();
+        ALA_SetTextViewData(ala_address);
         return view;
     }
 
@@ -89,6 +91,7 @@ public class AddressListAdapter extends BaseAdapter {
         tv_jAddressCell_singleTreatment = v.findViewById(R.id.tv_vAddressCell_singleTreatment);
         tv_jAddressCell_seasonTreatment = v.findViewById(R.id.tv_vAddressCell_seasonTreatment);
         iv_jAddressCell_deleteEstimate  = v.findViewById(R.id.iv_vAddressCell_deleteEstimate);
+        iv_jAddressCell_estOverview     = v.findViewById(R.id.iv_vAddressCell_estOverview);
         btn_jAddressCell_editEstimate   = v.findViewById(R.id.btn_vAddressCell_editEstimate);
         btn_jAddressCell_editAddress    = v.findViewById(R.id.btn_vAddressCell_editAddress);
     }
@@ -97,6 +100,7 @@ public class AddressListAdapter extends BaseAdapter {
         ala_dbHelper           = new DatabaseHelper(ala_passedContext);
         ala_enterAddressIntent = new Intent(ala_passedContext, EnterAddressActivity.class);
         ala_propertyMapIntent  = new Intent(ala_passedContext, PropertyMapActivity.class);
+        ala_estOverviewIntent  = new Intent(ala_passedContext, EstimateOverviewActivity.class);
         ala_address            = ala_listOfAddresses.get(i);
         ala_dFormat            = new DecimalFormat("0.00");
         ala_singlePrice        = "$ " + ala_dFormat.format(ala_address.getSa_singleTreatment());
@@ -122,11 +126,21 @@ public class AddressListAdapter extends BaseAdapter {
                 }
             }
         });
+        iv_jAddressCell_estOverview.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                ala_passedContext.startActivity(ala_estOverviewIntent);
+            }
+        });
         btn_jAddressCell_editEstimate.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                UserSessionData.SetIsPassedFromWelcomeUser(true);
+                UserSessionData.SetPassedServiceAddress(sa);
                 ala_passedContext.startActivity(ala_propertyMapIntent);
             }
         });
@@ -137,27 +151,26 @@ public class AddressListAdapter extends BaseAdapter {
             {
                 UserSessionData.SetIsPassedFromWelcomeUser(true);
                 UserSessionData.SetPassedServiceAddress(sa);
-
                 ala_passedContext.startActivity(ala_enterAddressIntent);
             }
         });
     }
-    private void ALA_SetTextViewData()
+    private void ALA_SetTextViewData(ServiceAddress sa)
     {
-        tv_jAddressCell_streetAddress.setText(ala_address.getSa_streetAddress());
-        tv_jAddressCell_city.setText(ala_address.getSa_city());
-        tv_jAddressCell_state.setText(ala_address.getSa_state());
-        tv_jAddressCell_zipCode.setText(ala_address.getSa_zipCode());
-        tv_jAddressCell_acreage.setText(String.valueOf(ala_address.getSa_totalAcreage()));
+        tv_jAddressCell_streetAddress.setText(sa.getSa_streetAddress());
+        tv_jAddressCell_city.setText(sa.getSa_city());
+        tv_jAddressCell_state.setText(sa.getSa_state());
+        tv_jAddressCell_zipCode.setText(sa.getSa_zipCode());
+        tv_jAddressCell_acreage.setText(String.valueOf(sa.getSa_totalAcreage()));
         tv_jAddressCell_singleTreatment.setText(ala_singlePrice);
         tv_jAddressCell_seasonTreatment.setText(ala_seasonPrice);
-        if (ala_address.getSa_apt() == null)
+        if (sa.getSa_apt() != null)
         {
-            tv_jAddressCell_aptAddress.setText("N/A");
+            tv_jAddressCell_aptAddress.setText(sa.getSa_apt());
         }
-        else
+        if(sa.getSa_totalAcreage() != 0)
         {
-            tv_jAddressCell_aptAddress.setText(ala_address.getSa_apt());
+            tv_jAddressCell_acreage.setText(String.valueOf(sa.getSa_totalAcreage()));
         }
     }
 }

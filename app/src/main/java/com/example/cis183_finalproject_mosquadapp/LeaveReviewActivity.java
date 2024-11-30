@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-@SuppressLint("NewApi")
+//@SuppressLint("NewApi")
 public class LeaveReviewActivity extends AppCompatActivity
 {
     Intent lr_userReviewIntent;
@@ -140,7 +140,7 @@ public class LeaveReviewActivity extends AppCompatActivity
     private void LR_AddNewUserReview()
     {
         Log.d("current user", UserSessionData.GetLoggedInUser().getUser_username());
-        User uname = UserSessionData.GetLoggedInUser();
+//        User uname = UserSessionData.GetLoggedInUser();
         String reviewText;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String date = df.format(new Date());
@@ -161,12 +161,12 @@ public class LeaveReviewActivity extends AppCompatActivity
             lr_currentUserReview.setUrv_reviewText(reviewText);
             lr_currentUserReview.setUrv_reviewDate(date);
         }
-        lr_dbHelper.DB_AddNewUserReview(lr_currentUserReview, uname.getUser_username());
+        lr_dbHelper.DB_AddNewUserReview(lr_currentUserReview); //, uname.getUser_username());
     }
     private void LR_UpdateUserReview()
     {
         String reviewText;
-        if(et_jLeaveReview_reviewText.getText().toString().isEmpty() || et_jLeaveReview_reviewText.getText().toString().equals("*Optional*"))
+        if(et_jLeaveReview_reviewText.getText().toString().isEmpty())// || et_jLeaveReview_reviewText.getText().toString().equals("*Optional*"))
         {
             lr_userReview.setUrv_starCount(String.valueOf(rb_jLeaveReview_starCount.getRating()));
             lr_userReview.setUrv_reviewText(null);

@@ -246,8 +246,8 @@ public class EnterAddressActivity extends AppCompatActivity
     }
     private void EA_SaveNewAddress()
     {
-        Log.d("EA_SaveNewAddress", "EA_SaveNewAddress");
         ea_userServiceAddress = new ServiceAddress();
+        ea_userServiceAddress.setSa_username(UserSessionData.GetLoggedInUser().getUser_username());
         ea_userServiceAddress.setSa_streetAddress(et_jEnterAddress_streetAddress.getText().toString());
         if(!et_jEnterAddress_aptOther.getText().toString().isEmpty())
         {
@@ -261,6 +261,7 @@ public class EnterAddressActivity extends AppCompatActivity
         ea_userServiceAddress.setSa_zipCode(et_jEnterAddress_zipCode.getText().toString());
         ea_userServiceAddress.setSa_state(ea_tempStateName);
         ea_dbHelper.DB_AddNewUserAddress(ea_userServiceAddress);
+        Log.d("EA_SaveNewAddress", String.valueOf(ea_userServiceAddress.getSa_addressID()));
 
     }
     private void EA_UpdateUserAddress()

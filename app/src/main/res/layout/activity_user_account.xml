@@ -12,6 +12,7 @@
         android:id="@+id/btn_vUserAcct_home"
         android:layout_width="52dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="5dp"
         android:paddingTop="4dp"
@@ -22,10 +23,9 @@
         app:icon="@drawable/white_home_icon"
         app:iconSize="42dp"
         app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_vUserAcct_changePass"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_vUserAcct_deleteAcct"
-        app:layout_constraintStart_toEndOf="@+id/btn_vUserAcct_changePass"
-        app:layout_constraintTop_toTopOf="@+id/btn_vUserAcct_deleteAcct" />
+        app:layout_constraintStart_toEndOf="@+id/btn_vUserAcct_changePass" />
 
     <EditText
         android:id="@+id/et_vUserAcct_fname"
@@ -234,7 +234,7 @@
         android:id="@+id/btn_vUserAcct_changePass"
         android:layout_width="120dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="2dp"
         android:paddingTop="2dp"
@@ -244,7 +244,8 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_vUserAcct_home"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vUserAcct_home"
         app:layout_constraintStart_toStartOf="@+id/btn_vUserAcct_editAcct" />
 
     <Button
@@ -300,7 +301,7 @@
         android:id="@+id/btn_vUserAcct_deleteAcct"
         android:layout_width="120dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="16dp"
         android:backgroundTint="@color/mosquad_green"
         android:paddingLeft="2dp"
         android:paddingTop="2dp"
@@ -310,8 +311,9 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btn_vUserAcct_saveAcct" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_vUserAcct_home"
+        app:layout_constraintEnd_toEndOf="@+id/btn_vUserAcct_saveAcct"
+        app:layout_constraintStart_toEndOf="@+id/btn_vUserAcct_home" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
