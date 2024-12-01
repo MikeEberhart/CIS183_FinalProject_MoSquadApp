@@ -75,14 +75,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/blk_border_with_radius"
         app:layout_constraintBottom_toTopOf="@+id/btn_vPackageDetails_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView48">
+        app:layout_constraintTop_toBottomOf="@+id/textView88">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,9 +92,11 @@
                 android:id="@+id/textView38"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/blk_border_square"
+                android:backgroundTint="@color/mosquad_green"
                 android:text="Main Treatment Packages"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -290,17 +291,32 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.571"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView36" />
+
+                <TextView
+                    android:id="@+id/textView89"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*Event Treatments are considered SINGLE TREATMENTS*"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_error"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView45"
+                    app:layout_constraintTop_toBottomOf="@+id/textView45" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textView47"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/blk_border_square"
+                android:backgroundTint="@color/mosquad_green"
                 android:text="Add-on Treatment Packages"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -570,12 +586,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/blk_border_with_radius"
-        android:text="A Treatment consist of one of the 3 Main Treatment Packages listed below with the option for Add-on Treatment Packages. Please note the Add-ons Treatment Packages are not stand alone packages and must be paired with a Main Treatment Package."
+        android:text="A treatment consist of one of the 3 Main treatment Packages listed below with the option for Add-on treatment Packages. Please note the Add-ons treatment Packages are not stand alone packages and must be paired with a Main treatment Package."
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/scrollView2"
         app:layout_constraintStart_toStartOf="@+id/scrollView2"
         app:layout_constraintTop_toBottomOf="@+id/tv_vPackageDetails_headerText" />
+
+    <TextView
+        android:id="@+id/textView88"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blk_border_with_radius"
+        android:text="Single treatments and Seasonal treatments are available. Seasonal includes 8 treatments for the price of 7."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView48"
+        app:layout_constraintStart_toStartOf="@+id/textView48"
+        app:layout_constraintTop_toBottomOf="@+id/textView48" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

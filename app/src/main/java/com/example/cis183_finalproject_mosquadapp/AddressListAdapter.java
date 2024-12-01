@@ -113,7 +113,7 @@ public class AddressListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v)
             {
-                ala_dbHelper.DB_DeleteUserAddress(sa.getSa_addressID());
+                ala_dbHelper.DB_DeleteUserAddress(sa);
                 ala_listOfAddresses.remove(sa);
                 notifyDataSetChanged();
                 if(UserSessionData.GetUserAddressCount() == 0)
@@ -131,6 +131,8 @@ public class AddressListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v)
             {
+                UserSessionData.SetIsPassedFromWelcomeUser(true);
+                UserSessionData.SetPassedServiceAddress(sa);
                 ala_passedContext.startActivity(ala_estOverviewIntent);
             }
         });

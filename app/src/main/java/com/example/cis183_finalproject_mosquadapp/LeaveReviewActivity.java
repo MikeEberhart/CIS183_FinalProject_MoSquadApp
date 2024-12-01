@@ -1,6 +1,5 @@
 package com.example.cis183_finalproject_mosquadapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -161,7 +160,7 @@ public class LeaveReviewActivity extends AppCompatActivity
             lr_currentUserReview.setUrv_reviewText(reviewText);
             lr_currentUserReview.setUrv_reviewDate(date);
         }
-        lr_dbHelper.DB_AddNewUserReview(lr_currentUserReview); //, uname.getUser_username());
+        lr_dbHelper.DB_AddNewReview(lr_currentUserReview); //, uname.getUser_username());
     }
     private void LR_UpdateUserReview()
     {

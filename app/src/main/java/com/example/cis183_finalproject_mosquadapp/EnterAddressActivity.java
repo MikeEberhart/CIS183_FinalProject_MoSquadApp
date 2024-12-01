@@ -117,7 +117,7 @@ public class EnterAddressActivity extends AppCompatActivity
                     if(!EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood))
                     {
                         EA_UpdateUserAddress();
-                        UserSessionData.SetIsPassedFromWelcomeUser(false);
+//                        UserSessionData.SetIsPassedFromWelcomeUser(false);
                         startActivity(ea_welcomeUserIntent);
                     }
                 }
@@ -126,7 +126,7 @@ public class EnterAddressActivity extends AppCompatActivity
                     if(!EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood))
                     {
                         EA_SaveNewAddress();
-                        UserSessionData.SetIsPassedFromWelcomeUser(false);
+//                        UserSessionData.SetIsPassedFromWelcomeUser(false);
                         startActivity(ea_propertyMapIntent);
                     }
                 }
@@ -137,7 +137,7 @@ public class EnterAddressActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                UserSessionData.SetIsPassedFromWelcomeUser(false);
+//                UserSessionData.SetIsPassedFromWelcomeUser(false);
                 startActivity(ea_welcomeUserIntent);
             }
         });

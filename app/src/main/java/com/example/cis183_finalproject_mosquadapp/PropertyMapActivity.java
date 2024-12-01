@@ -23,7 +23,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
@@ -31,14 +30,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.maps.android.SphericalUtil;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -239,6 +232,8 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View v)
             {
+                // maybe add the DB_DeletePolygonData() function here //
+                // would have to rework the save functions if so //
                 tv_jPropertyMap_totalAcreage.setText(R.string.total_acreage_default);
                 map_jPropertyMap_gMap.clear();
                 pm_userPolygon = null;
@@ -362,7 +357,7 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
         pm_passedServiceAddress = UserSessionData.GetPassedServiceAddress();
         Log.d("pm_passedServiceAddress", String.valueOf(pm_passedServiceAddress.getSa_addressID()));
         Log.d("pm_passedServiceAddress", String.valueOf(pm_passedServiceAddress.getSa_polygonID()));
-        pm_polyData = pm_dbHelper.DB_GetUserPolygonData(pm_passedServiceAddress.getSa_polygonID());
+        pm_polyData = pm_dbHelper.DB_GetUserPolygonData(String.valueOf(pm_passedServiceAddress.getSa_polygonID()));
         if(pm_polyData != null)
         {
             Log.d("LoadPolygonData", pm_polyData.toString());
@@ -397,25 +392,26 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
         }
         if(UserSessionData.GetIsPassedFromWelcomeUser())
         {
+//            ServiceAddress sa = UserSessionData.GetPassedServiceAddress();
             Log.d("if IsPassedFromWelcomeUser", "IsPassed");
             if(pm_polyData != null)
             {
                 Log.d("if IsPassedFromWelcomeUser", "IsNotNull");
-                pm_dbHelper.DB_UpdateUserPolygon(pm_tempPolyData, pm_passedServiceAddress.getSa_polygonID());
-                pm_dbHelper.DB_UpdateTotalAcreage(pm_passedServiceAddress.getSa_addressID(),Double.parseDouble(pm_dFormat.format(pm_totalAcreage)));
+                pm_dbHelper.DB_UpdatePolygonData(pm_tempPolyData);
+                pm_dbHelper.DB_UpdateTotalAcreage(Double.parseDouble(pm_dFormat.format(pm_totalAcreage)));
             }
             else
             {
                 Log.d("if IsPassedFromWelcomeUser", "IsNull");
-                pm_dbHelper.DB_AddUserPolygon(pm_tempPolyData, pm_passedServiceAddress.getSa_addressID());
-                pm_dbHelper.DB_UpdateTotalAcreage(pm_passedServiceAddress.getSa_addressID(), Double.parseDouble(pm_dFormat.format(pm_totalAcreage)));
+                pm_dbHelper.DB_AddNewPolygon(pm_tempPolyData);
+                pm_dbHelper.DB_UpdateTotalAcreage(Double.parseDouble(pm_dFormat.format(pm_totalAcreage)));
             }
         }
         else
         {
             Log.d("if IsPassedFromWelcomeUser", "NotPassed");
-            pm_dbHelper.DB_AddUserPolygon(pm_tempPolyData, pm_dbHelper.DB_GetNewestAddress().getSa_addressID());
-            pm_dbHelper.DB_UpdateTotalAcreage(pm_dbHelper.DB_GetNewestAddress().getSa_addressID(), Double.parseDouble(pm_dFormat.format(pm_totalAcreage)));
+            pm_dbHelper.DB_AddNewPolygon(pm_tempPolyData);
+            pm_dbHelper.DB_UpdateTotalAcreage(Double.parseDouble(pm_dFormat.format(pm_totalAcreage)));
         }
     }
 }

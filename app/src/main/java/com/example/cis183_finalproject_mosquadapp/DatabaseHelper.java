@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper
@@ -23,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context c)
     {
-        super(c, DATABASE_NAME, null, 22);
+        super(c, DATABASE_NAME, null, 23);
     }
 
     @Override
@@ -57,8 +55,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 " Polygon_Latitudes text not null, Polygon_Longitudes text not null);");
 
         db.execSQL("CREATE TABLE " + YARD_SERVICES_TABLE + " (ServiceID integer primary key autoincrement not null," +
-                " Barrier_Treatment integer, Fly_Control integer, Home_Shield integer, Invader_Guard integer, Yard_Defender integer," +
-                " All_Natural integer, Special_Event integer);");
+                " Barrier_Treatment integer, All_Natural integer, Special_Event integer, Home_Shield integer, Fly_Control integer," +
+                " Invader_Guard integer, Yard_Defender integer);");
 
         db.execSQL("CREATE TABLE " + SERVICE_ADDRESSES_TABLE + " (AddressID integer primary key autoincrement not null," +
                 " Username varchar not null, Street_Address varchar not null, Apt varchar, City varchar not null, State varchar not null," +
@@ -317,8 +315,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public boolean DB_UsernameAlreadyExists(String u)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String checkForUsername = "SELECT username FROM " + USERS_TABLE + " WHERE username = '" + u + "';";
-        Cursor uexists_cursor = db.rawQuery(checkForUsername, null);
+        String checkForUsername = "SELECT username FROM " + USERS_TABLE + " WHERE username = ?";
+        Cursor uexists_cursor = db.rawQuery(checkForUsername, new String[]{u});
         if(uexists_cursor.moveToFirst())
         {
             uexists_cursor.close();
@@ -330,19 +328,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public boolean DB_CheckingForGoodUserLogin(String uname, String pass)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String getUserAcctData = "SELECT * FROM " + USERS_TABLE + " WHERE Username = '" + uname + "';";
-//        String getUserPassword = "SELECT Password FROM " + USERS_TABLE + " WHERE Username = '" + uname + "';";
+        String getUserAcctData = "SELECT * FROM " + USERS_TABLE + " WHERE Username = ?";
         String savedPassword = "";
-//        Cursor getUserPassCursor = db.rawQuery(getUserPassword, null);
-        Cursor getUserAcctCursor = db.rawQuery(getUserAcctData, null);
+        Cursor getUserAcctCursor = db.rawQuery(getUserAcctData, new String[]{uname});
         if(getUserAcctCursor.moveToFirst())
         {
             savedPassword = getUserAcctCursor.getString(1);
-//            if(getUserPassCursor.moveToFirst())
-//            {
-//                savedPassword = getUserPassCursor.getString(0);
-//                Log.d("good password", savedPassword);
-//            }
             if(pass.equals(savedPassword))
             {
                 User userData = new User(getUserAcctCursor.getString(0),
@@ -367,11 +358,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<ServiceAddress> userAddresses = new ArrayList<>();
         String currentUsername = UserSessionData.GetLoggedInUser().getUser_username();
-//        String getUserAddress = "SELECT * FROM " + SERVICE_ADDRESSES_TABLE + " WHERE Username = '" + currentUsername + "';";
         String getUserAddress = "SELECT * FROM " + SERVICE_ADDRESSES_TABLE + " WHERE Username = ?";
         // need to start using the new String[] method more to pass variables to help against sql injection //
-        Cursor userAddressCursor = db.rawQuery(getUserAddress, new String[]{currentUsername});//db.rawQuery(getUserAddress, null);
-
+        Cursor userAddressCursor = db.rawQuery(getUserAddress, new String[]{currentUsername});
         if(userAddressCursor.moveToFirst())
         {
             do
@@ -396,17 +385,15 @@ public class DatabaseHelper extends SQLiteOpenHelper
         UserSessionData.SetUserAddressCount(userAddresses.size());
         userAddressCursor.close();
         db.close();
-//        return userAddresses;
     }
     public User DB_GetUserFromReviewID(int reviewID) // might delete this
     {
         SQLiteDatabase db = this.getReadableDatabase();
         User db_tempUser = new User();
-        String getUserData = "SELECT * FROM " + USERS_TABLE + " WHERE ReviewID = '" + reviewID + "';";
-        Cursor userData = db.rawQuery(getUserData, null);
+        String getUserData = "SELECT * FROM " + USERS_TABLE + " WHERE ReviewID = ?";
+        Cursor userData = db.rawQuery(getUserData, new String[]{String.valueOf(reviewID)});
         if(userData.moveToFirst())
         {
-//            Log.d("moved to first", "moved to first");
             db_tempUser.setUser_username(userData.getString(0));
             db_tempUser.setUser_password(userData.getString(1));
             db_tempUser.setUser_fname(userData.getString(2));
@@ -417,7 +404,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
         userData.close();
         db.close();
-
         return db_tempUser;
     }
     public void DB_AddNewUser(User user)
@@ -456,9 +442,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void DB_DeleteUserAccount(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + USERS_TABLE + " WHERE Username='" + user.getUser_username() + "';");
-//        UserSessionData.SetLoggedInUser(null);
+        db.delete(USERS_TABLE, "Username = ?", new String[]{user.getUser_username()});
         db.close();
+        DB_DeleteAllUserAddresses();
     }
     public ArrayList<UserReview> DB_GetListOfReviews(String sortStatement, String order, String aORd)
     {
@@ -493,7 +479,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         UserSessionData.GetLoggedInUser().setUser_reviewID(0);
         db.close();
     }
-    public void DB_AddNewUserReview(UserReview ur) //, String uname)
+    public void DB_AddNewReview(UserReview ur)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues addUserReview = new ContentValues();
@@ -505,27 +491,36 @@ public class DatabaseHelper extends SQLiteOpenHelper
             Log.d("review text", ur.getUrv_reviewText());
         }
         db.insert(REVIEWS_TABLE, null, addUserReview);
-//        DB_AddReviewIDToUserData(uname);
         DB_AddReviewIDToUserData();
         DB_GetUserReview();
         db.close();
     }
-    public void DB_AddReviewIDToUserData() //String uname)
+    public void DB_AddReviewIDToUserData()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectLastReviewID = "SELECT ReviewID FROM " + REVIEWS_TABLE + " ORDER BY ReviewID DESC LIMIT 1;";
-        Cursor getReviewID = db.rawQuery(selectLastReviewID, null);
         ContentValues addReviewIDToUser = new ContentValues();
-        int reviewId = 0;
-        if(getReviewID.moveToFirst())
-        {
-            reviewId = getReviewID.getInt(0);
-        }
+        int reviewId = DB_GetNewestReview().getUrv_reviewID();
         addReviewIDToUser.put("ReviewID", reviewId);
-        getReviewID.close();
         db.update(USERS_TABLE, addReviewIDToUser, "Username = ?", new String[]{UserSessionData.GetLoggedInUser().getUser_username()});
         UserSessionData.GetLoggedInUser().setUser_reviewID(reviewId);
         db.close();
+    }
+    private UserReview DB_GetNewestReview()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        UserReview db_tempReview = new UserReview();
+        String selectLastReviewID = "SELECT * FROM " + REVIEWS_TABLE + " ORDER BY ReviewID DESC LIMIT 1;";
+        Cursor getReviewID = db.rawQuery(selectLastReviewID, null);
+        if(getReviewID.moveToFirst())
+        {
+            db_tempReview.setUrv_reviewID(getReviewID.getInt(0));
+            db_tempReview.setUrv_starCount(getReviewID.getString(1));
+            db_tempReview.setUrv_reviewText(getReviewID.getString(2));
+            db_tempReview.setUrv_reviewDate(getReviewID.getString(3));
+        }
+        getReviewID.close();
+        db.close();
+        return db_tempReview;
     }
     public void DB_GetUserReview()
     {
@@ -603,7 +598,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         addNewAddress.put("ZipCode", sa.getSa_zipCode());
         db.insert(SERVICE_ADDRESSES_TABLE,null,addNewAddress);
         db.close();
-        UserSessionData.SetPassedServiceAddress(DB_GetNewestAddress());
+//        UserSessionData.SetPassedServiceAddress(DB_GetNewestAddress());
         DB_GetUserServiceAddresses();
     }
     public void DB_UpdateUserAddress(ServiceAddress sa)
@@ -623,20 +618,47 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
         DB_GetUserServiceAddresses();
     }
-    public void DB_DeleteUserAddress(int addressID)
+    public void DB_DeleteUserAddress(ServiceAddress sa)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String aID = String.valueOf(addressID);
-        db.delete(SERVICE_ADDRESSES_TABLE,"AddressID = ?", new String[]{aID});
+        db.delete(SERVICE_ADDRESSES_TABLE,"AddressID = ?", new String[]{String.valueOf(sa.getSa_addressID())});
         db.close();
+        // need functions deleting polygon and yard services data here //
+        if(sa.getSa_polygonID() != 0)
+        {
+            DB_DeletePolygonData(String.valueOf(sa.getSa_polygonID()));
+        }
+        if(sa.getSa_serviceID() != 0)
+        {
+            DB_DeleteYardServiceData(String.valueOf(sa.getSa_serviceID()));
+        }
         DB_GetUserServiceAddresses();
     }
-    public UserPolygon DB_GetUserPolygonData(int polygonID)
+    private void DB_DeleteAllUserAddresses()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<ServiceAddress> listOfAddresses = UserSessionData.GetUserAddressData();
+        String uname = UserSessionData.GetLoggedInUser().getUser_username();
+        for(ServiceAddress sa : listOfAddresses)
+        {
+            if(sa.getSa_polygonID() != 0)
+            {
+                DB_DeletePolygonData(String.valueOf(sa.getSa_polygonID()));
+            }
+            if(sa.getSa_serviceID() != 0)
+            {
+                DB_DeleteYardServiceData(String.valueOf(sa.getSa_serviceID()));
+            }
+        }
+        db.delete(SERVICE_ADDRESSES_TABLE, "Username = ?", new String[]{uname});
+        db.close();
+    }
+    public UserPolygon DB_GetUserPolygonData(String polygonID)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectPolygon = "SELECT * FROM " + POLYGON_DATA_TABLE + " WHERE PolygonID = '" + polygonID + "';";
+        String selectPolygon = "SELECT * FROM " + POLYGON_DATA_TABLE + " WHERE PolygonID = ?";
         UserPolygon db_userPolygon = new UserPolygon();
-        Cursor polygonCursor = db.rawQuery(selectPolygon, null);
+        Cursor polygonCursor = db.rawQuery(selectPolygon, new String[]{polygonID});
         if(polygonCursor.moveToFirst())
         {
             Log.d("moved to first", "moved to first");
@@ -653,7 +675,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
         return db_userPolygon;
     }
-    public void DB_AddUserPolygon(UserPolygon upoly, int aID)
+    public void DB_AddNewPolygon(UserPolygon upoly)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues addUserPolygon = new ContentValues();
@@ -662,46 +684,35 @@ public class DatabaseHelper extends SQLiteOpenHelper
         Log.d("Lngs AddUserPolygon", upoly.getUp_polygonLngs());
         addUserPolygon.put("Polygon_Latitudes", upoly.getUp_polygonLats());
         addUserPolygon.put("Polygon_Longitudes", upoly.getUp_polygonLngs());
-//        addAcreage.put("Total_Acreage", acreage);
-//        db.update(SERVICE_ADDRESSES_TABLE, addAcreage, "AddressID = ?", new String[]{String.valueOf(addressID)});
         db.insert(POLYGON_DATA_TABLE, null, addUserPolygon);
         db.close();
-        DB_AddPolyIDToAddressData(aID);
+        DB_AddPolyIDToAddressData();
         DB_GetUserServiceAddresses();
     }
-    private void DB_AddPolyIDToAddressData(int aID)
+    private void DB_AddPolyIDToAddressData()
     {
-        Log.d("AddPolyIDToAddressTable", String.valueOf(aID));
-        SQLiteDatabase db = this.getWritableDatabase();
-        String selectLastPolygonID = "SELECT PolygonID FROM " + POLYGON_DATA_TABLE + " ORDER BY PolygonID DESC LIMIT 1;";
-        Cursor getPolyID = db.rawQuery(selectLastPolygonID, null);
-        ContentValues addPolyIDToUser = new ContentValues();
-        int polyID = 0;
-        if(getPolyID.moveToFirst())
+        int aID;
+        int pID = DB_GetNewestPolygon().getUp_polygonID();
+        if(UserSessionData.GetIsPassedFromWelcomeUser())
         {
-            polyID = getPolyID.getInt(0);
-            Log.d("AddPolyIDToAddressTable", String.valueOf(polyID));
+            aID = UserSessionData.GetPassedServiceAddress().getSa_addressID();
         }
-        addPolyIDToUser.put("PolygonID", polyID);
-        db.update(SERVICE_ADDRESSES_TABLE, addPolyIDToUser, "AddressID = ?", new String[]{String.valueOf(aID)});
-        getPolyID.close();
-        db.close();
-    }
-    public void DB_UpdateUserPolygon(UserPolygon upoly, int pID)
-    {
+        else
+        {
+            aID = DB_GetNewestAddress().getSa_addressID();
+        }
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues updateUserPloygon = new ContentValues();
-        updateUserPloygon.put("Polygon_Latitudes", upoly.getUp_polygonLats());
-        updateUserPloygon.put("Polygon_Longitudes", upoly.getUp_polygonLngs());
-        db.update(POLYGON_DATA_TABLE, updateUserPloygon, "PolygonID = ?", new String[]{String.valueOf(pID)});
+        ContentValues addPolyIDToUser = new ContentValues();
+        addPolyIDToUser.put("PolygonID", pID);
+        db.update(SERVICE_ADDRESSES_TABLE, addPolyIDToUser, "AddressID = ?", new String[]{String.valueOf(aID)});
         db.close();
     }
-    public ServiceAddress DB_GetNewestAddress()
+    private ServiceAddress DB_GetNewestAddress()
     {
         SQLiteDatabase db = this.getReadableDatabase();
         ServiceAddress db_tempAddress = new ServiceAddress();
-        String userAddressCnt = "SELECT * FROM " + SERVICE_ADDRESSES_TABLE + " ORDER BY AddressID DESC LIMIT 1;";
-        Cursor getAddress = db.rawQuery(userAddressCnt, null);
+        String newAddress = "SELECT * FROM " + SERVICE_ADDRESSES_TABLE + " ORDER BY AddressID DESC LIMIT 1;";
+        Cursor getAddress = db.rawQuery(newAddress, null);
         if(getAddress.moveToFirst())
         {
             db_tempAddress.setSa_addressID(getAddress.getInt(0));          // addressID
@@ -722,25 +733,167 @@ public class DatabaseHelper extends SQLiteOpenHelper
         Log.d("addressID", String.valueOf(db_tempAddress.getSa_addressID()));
         return db_tempAddress;
     }
-    public void DB_UpdateTotalAcreage(int addressID, double acreage)
+    private UserPolygon DB_GetNewestPolygon()
     {
+        SQLiteDatabase db = this.getReadableDatabase();
+        UserPolygon db_tempPolygon = new UserPolygon();
+        String newPolygon = "SELECT * FROM " + POLYGON_DATA_TABLE + " ORDER BY PolygonID DESC LIMIT 1;";
+        Cursor getPolygon = db.rawQuery(newPolygon, null);
+        if(getPolygon.moveToFirst())
+        {
+            db_tempPolygon.setUp_polygonID(getPolygon.getInt(0));
+            db_tempPolygon.setUp_polygonLats(getPolygon.getString(1));
+            db_tempPolygon.setUp_polygonLngs(getPolygon.getString(2));
+        }
+        getPolygon.close();
+        db.close();
+        return db_tempPolygon;
+    }
+    public void DB_UpdatePolygonData(UserPolygon upoly)
+    {
+        int pID = UserSessionData.GetPassedServiceAddress().getSa_polygonID();
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues updateUserPloygon = new ContentValues();
+        updateUserPloygon.put("Polygon_Latitudes", upoly.getUp_polygonLats());
+        updateUserPloygon.put("Polygon_Longitudes", upoly.getUp_polygonLngs());
+        db.update(POLYGON_DATA_TABLE, updateUserPloygon, "PolygonID = ?", new String[]{String.valueOf(pID)});
+        db.close();
+    }
+    private void DB_DeletePolygonData(String polygonID)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(POLYGON_DATA_TABLE, "PolygonID = ?", new String[]{polygonID});
+        db.close();
+    }
+    public void DB_UpdateTotalAcreage(double acreage)
+    {
+        int aID;
+        if(UserSessionData.GetIsPassedFromWelcomeUser())
+        {
+            aID = UserSessionData.GetPassedServiceAddress().getSa_addressID();
+        }
+        else
+        {
+            aID = DB_GetNewestAddress().getSa_addressID();
+        }
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues addAcreage = new ContentValues();
         addAcreage.put("Total_Acreage", acreage);
-        db.update(SERVICE_ADDRESSES_TABLE, addAcreage, "AddressID = ?", new String[]{String.valueOf(addressID)});
+        db.update(SERVICE_ADDRESSES_TABLE, addAcreage, "AddressID = ?", new String[]{String.valueOf(aID)});
         db.close();
         DB_GetUserServiceAddresses();
     }
-    private void DB_Testing(int addressID)
+    public void DB_AddNewYardServicesData(YardServices ysData)
     {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selectStatement = "SELECT PolygonID FROM " + SERVICE_ADDRESSES_TABLE + " WHERE AddressID = '" + addressID + "';";
-        Cursor temp = db.rawQuery(selectStatement, null);
-        if(temp.moveToFirst())
-        {
-            Log.d("TESTING", String.valueOf(temp.getInt(0)));
-        }
-        temp.close();
+        // set to 0 for false and 1 for true //
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues addNewYardData = new ContentValues();
+        addNewYardData.put("Barrier_Treatment", ysData.getBarrierTreatment());
+        addNewYardData.put("All_Natural", ysData.getAllNatural());
+        addNewYardData.put("Special_Event", ysData.getSpecialEvent());
+        addNewYardData.put("Home_Shield", ysData.getHomeShield());
+        addNewYardData.put("Fly_Control", ysData.getFlyControl());
+        addNewYardData.put("Invader_Guard", ysData.getInvaderGuard());
+        addNewYardData.put("Yard_Defender", ysData.getYardDefender());
+        db.insert(YARD_SERVICES_TABLE, null, addNewYardData);
+        db.close();
+        DB_AddServiceIDtoAddressData();
+        DB_GetUserServiceAddresses();
+    }
+    public void DB_UpdateYardServicesData(YardServices ysData)
+    {
+        int sID = UserSessionData.GetPassedServiceAddress().getSa_serviceID();
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues updateYardServices = new ContentValues();
+        updateYardServices.put("Barrier_Treatment", ysData.getBarrierTreatment());
+        updateYardServices.put("All_Natural", ysData.getAllNatural());
+        updateYardServices.put("Special_Event", ysData.getSpecialEvent());
+        updateYardServices.put("Home_Shield", ysData.getHomeShield());
+        updateYardServices.put("Fly_Control", ysData.getFlyControl());
+        updateYardServices.put("Invader_Guard", ysData.getInvaderGuard());
+        updateYardServices.put("Yard_Defender", ysData.getYardDefender());
+        db.update(YARD_SERVICES_TABLE, updateYardServices, "ServiceID = ?", new String[]{String.valueOf(sID)});
         db.close();
     }
+    public YardServices DB_GetNewestServicesData()
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        YardServices db_tempServices = new YardServices();
+        String newYardServices = "SELECT * FROM " + YARD_SERVICES_TABLE + " ORDER BY ServiceID DESC LIMIT 1;";
+        Cursor getServices = db.rawQuery(newYardServices, null);
+        if(getServices.moveToFirst())
+        {
+            db_tempServices.setServiceID(getServices.getInt(0));
+            db_tempServices.setBarrierTreatment(getServices.getInt(1));
+            db_tempServices.setAllNatural(getServices.getInt(2));
+            db_tempServices.setSpecialEvent(getServices.getInt(3));
+            db_tempServices.setHomeShield(getServices.getInt(4));
+            db_tempServices.setFlyControl(getServices.getInt(5));
+            db_tempServices.setInvaderGuard(getServices.getInt(6));
+            db_tempServices.setYardDefender(getServices.getInt(7));
+        }
+        getServices.close();
+        db.close();
+        return db_tempServices;
+    }
+    public YardServices DB_GetYardServiceData(String sID)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        YardServices db_tempServices = new YardServices();
+        String newYardServices = "SELECT * FROM " + YARD_SERVICES_TABLE + " Where ServiceID = ?";
+        Cursor getServices = db.rawQuery(newYardServices, new String[]{sID});
+        if(getServices.moveToFirst())
+        {
+            db_tempServices.setServiceID(getServices.getInt(0));
+            db_tempServices.setBarrierTreatment(getServices.getInt(1));
+            db_tempServices.setAllNatural(getServices.getInt(2));
+            db_tempServices.setSpecialEvent(getServices.getInt(3));
+            db_tempServices.setHomeShield(getServices.getInt(4));
+            db_tempServices.setFlyControl(getServices.getInt(5));
+            db_tempServices.setInvaderGuard(getServices.getInt(6));
+            db_tempServices.setYardDefender(getServices.getInt(7));
+        }
+        getServices.close();
+        db.close();
+        return db_tempServices;
+    }
+    private void DB_AddServiceIDtoAddressData()
+    {
+        int aID;
+        int sID = DB_GetNewestServicesData().getServiceID();
+        if(UserSessionData.GetIsPassedFromWelcomeUser())
+        {
+            aID = UserSessionData.GetPassedServiceAddress().getSa_addressID();
+        }
+        else
+        {
+            aID = DB_GetNewestAddress().getSa_addressID();
+        }
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues addServiceID = new ContentValues();
+        addServiceID.put("ServiceID", sID);
+        db.update(SERVICE_ADDRESSES_TABLE, addServiceID, "AddressID = ?", new String[]{String.valueOf(aID)});
+        db.close();
+    }
+    private void DB_DeleteYardServiceData(String sID)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(YARD_SERVICES_TABLE, "ServiceID = ?", new String[]{sID});
+        db.close();
+    }
+
+
+
+//    private void DB_Testing(int addressID)
+//    {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        String selectStatement = "SELECT PolygonID FROM " + SERVICE_ADDRESSES_TABLE + " WHERE AddressID = '" + addressID + "';";
+//        Cursor temp = db.rawQuery(selectStatement, null);
+//        if(temp.moveToFirst())
+//        {
+//            Log.d("TESTING", String.valueOf(temp.getInt(0)));
+//        }
+//        temp.close();
+//        db.close();
+//    }
 }

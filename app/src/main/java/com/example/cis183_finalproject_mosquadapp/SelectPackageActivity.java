@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class SelectPackageActivity extends AppCompatActivity
 {
@@ -32,6 +29,7 @@ public class SelectPackageActivity extends AppCompatActivity
     Button btn_jSelectPackage_saveAndContinue;
     TextView tv_jSelectPackage_errorText;
     DatabaseHelper sp_dbHelper;
+    YardServices sp_userYardServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,6 +41,10 @@ public class SelectPackageActivity extends AppCompatActivity
         SP_ListOfViews();
         SP_InitData();
         SP_OnClickListeners();
+        if(UserSessionData.GetIsPassedFromWelcomeUser())
+        {
+            SP_LoadYardServiceData();
+        }
     }
     private void SP_ListOfViews()
     {
@@ -88,6 +90,7 @@ public class SelectPackageActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                SP_SaveNewYardServices();
                 startActivity(sp_estimateOverviewIntent);
             }
         });
@@ -137,7 +140,7 @@ public class SelectPackageActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-
+                // might not need/use //
             }
         });
         cBox_jSelectPackage_flyControl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -145,7 +148,7 @@ public class SelectPackageActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-
+                // might not need/use //
             }
         });
         cBox_jSelectPackage_invaderGuard.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -153,7 +156,7 @@ public class SelectPackageActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-
+                // might not need/use //
             }
         });
         cBox_jSelectPackage_yardDefender.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -161,9 +164,65 @@ public class SelectPackageActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-
+                // might not need/use //
             }
         });
-
+    }
+    private void SP_SaveNewYardServices()
+    {
+        sp_userYardServices = new YardServices();
+        sp_userYardServices.setBarrierTreatment(SP_ConfirmedIfChecked(cBox_jSelectPackage_barrierTreatment));
+        sp_userYardServices.setAllNatural(SP_ConfirmedIfChecked(cBox_jSelectPackage_allNatural));
+        sp_userYardServices.setSpecialEvent(SP_ConfirmedIfChecked(cBox_jSelectPackage_specialEvent));
+        sp_userYardServices.setHomeShield(SP_ConfirmedIfChecked(cBox_jSelectPackage_homeShield));
+        sp_userYardServices.setFlyControl(SP_ConfirmedIfChecked(cBox_jSelectPackage_flyControl));
+        sp_userYardServices.setInvaderGuard(SP_ConfirmedIfChecked(cBox_jSelectPackage_invaderGuard));
+        sp_userYardServices.setYardDefender(SP_ConfirmedIfChecked(cBox_jSelectPackage_yardDefender));
+        if(UserSessionData.GetIsPassedFromWelcomeUser())
+        {
+            sp_dbHelper.DB_UpdateYardServicesData(sp_userYardServices);
+        }
+        else
+        {
+            sp_dbHelper.DB_AddNewYardServicesData(sp_userYardServices);
+        }
+    }
+    private void SP_LoadYardServiceData()
+    {
+        ServiceAddress sp_serviceAddress = UserSessionData.GetPassedServiceAddress();
+        sp_userYardServices = sp_dbHelper.DB_GetYardServiceData(String.valueOf(sp_serviceAddress.getSa_serviceID()));
+        Log.d("LoadYardData", String.valueOf(sp_userYardServices.getServiceID()));
+        if(sp_userYardServices != null)
+        {
+            SP_SetCheckBox(sp_userYardServices.getBarrierTreatment(), cBox_jSelectPackage_barrierTreatment);
+            SP_SetCheckBox(sp_userYardServices.getAllNatural(), cBox_jSelectPackage_allNatural);
+            SP_SetCheckBox(sp_userYardServices.getSpecialEvent(), cBox_jSelectPackage_specialEvent);
+            SP_SetCheckBox(sp_userYardServices.getHomeShield(), cBox_jSelectPackage_homeShield);
+            SP_SetCheckBox(sp_userYardServices.getFlyControl(), cBox_jSelectPackage_flyControl);
+            SP_SetCheckBox(sp_userYardServices.getInvaderGuard(), cBox_jSelectPackage_invaderGuard);
+            SP_SetCheckBox(sp_userYardServices.getYardDefender(), cBox_jSelectPackage_yardDefender);
+        }
+    }
+    private int SP_ConfirmedIfChecked(CheckBox cb)
+    {
+        if(cb.isChecked())
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    private void SP_SetCheckBox(int sel, CheckBox cb)
+    {
+        if(sel == 1)
+        {
+            cb.setChecked(true);
+        }
+        else
+        {
+            cb.setChecked(false);
+        }
     }
 }
