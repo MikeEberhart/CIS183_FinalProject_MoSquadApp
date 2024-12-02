@@ -353,7 +353,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
         return false;
     }
-    public void DB_GetUserServiceAddresses() // might change this later //
+    public void DB_GetUserServiceAddresses()
     {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<ServiceAddress> userAddresses = new ArrayList<>();
@@ -386,7 +386,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         userAddressCursor.close();
         db.close();
     }
-    public User DB_GetUserFromReviewID(int reviewID) // might delete this
+    public User DB_GetUserFromReviewID(int reviewID)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         User db_tempUser = new User();

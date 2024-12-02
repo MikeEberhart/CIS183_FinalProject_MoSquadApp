@@ -56,7 +56,6 @@ public class EnterAddressActivity extends AppCompatActivity
     private boolean[] ea_inputIsGood;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

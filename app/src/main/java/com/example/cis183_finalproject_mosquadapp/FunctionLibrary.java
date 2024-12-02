@@ -4,6 +4,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.SphericalUtil;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +25,10 @@ public class FunctionLibrary
     private static final String ALLOWED_APT_CHARS = "^[a-zA-Z0-9\\s\\-.,/'&]*$";
     private static final String ALLOWED_CITY_CHARS = "^[a-zA-Z\\s\\-.']+$";
     private static final String ALLOWED_ZIP_CHARS = "^[0-9]{5}$";
+
+
+
+
 
     public FunctionLibrary()
     {
@@ -193,5 +202,4 @@ public class FunctionLibrary
         }
         return true;
     }
-
 }
