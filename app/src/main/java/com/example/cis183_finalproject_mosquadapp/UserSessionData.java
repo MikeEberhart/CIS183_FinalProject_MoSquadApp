@@ -1,7 +1,5 @@
 package com.example.cis183_finalproject_mosquadapp;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 public class UserSessionData
@@ -13,7 +11,8 @@ public class UserSessionData
     private static int userAddressCount;
     private static boolean isPassedFromEditReview;
     private static boolean isPassedFromWelcomeUser;
-
+    private static boolean isPassedFromBack;
+    private static boolean isPassedFromOverview;
     // GETTERS //
     public static User GetLoggedInUser()
     {
@@ -38,6 +37,18 @@ public class UserSessionData
     public static boolean GetIsPassedFromWelcomeUser()
     {
         return isPassedFromWelcomeUser;
+    }
+    public static boolean GetIsPassedFromBack()
+    {
+        return isPassedFromBack;
+    }
+    public static boolean GetIsPassedFromOverview()
+    {
+        return isPassedFromOverview;
+    }
+    public static int GetUserAddressCount()
+    {
+        return userAddressCount;
     }
     // SETTERS //
     public static void SetLoggedInUser(User u)
@@ -64,11 +75,13 @@ public class UserSessionData
     {
         isPassedFromWelcomeUser = b;
     }
-
-    // not sure about the addressCount setter/getters here //
-    public static int GetUserAddressCount()
+    public static void SetIsPassedFromBack(boolean b)
     {
-        return userAddressCount;
+        isPassedFromBack = b;
+    }
+    public static void SetIsPassedFromOverview(boolean b)
+    {
+        isPassedFromOverview = b;
     }
     public static void SetUserAddressCount(int cnt)
     {

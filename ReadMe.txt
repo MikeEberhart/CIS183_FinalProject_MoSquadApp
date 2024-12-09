@@ -1,4 +1,3 @@
-# CIS183_FinalProject_MoSquadApp
 Welcome to "The MoSquad App". This app lets the user choose a service package 
 offered by Mosquito Squad. The user first creates a new account and logs in
 Then started a new estimate they can enter their address. After that

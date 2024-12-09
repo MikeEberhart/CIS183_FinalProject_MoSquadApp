@@ -96,13 +96,13 @@
                 android:id="@+id/fab_vPropertyMap_mapTypeSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
                 android:clickable="true"
                 app:backgroundTint="@color/mosquad_green"
                 app:fabCustomSize="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/folding_map_icon" />
 
             <fragment
@@ -122,26 +122,26 @@
                 android:id="@+id/fab_vPropertyMap_undoLast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
                 android:clickable="true"
                 app:backgroundTint="@color/mosquad_green"
                 app:fabCustomSize="40dp"
                 app:layout_constraintBottom_toTopOf="@+id/fab_vPropertyMap_mapTypeSwitch"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/undo_icon_white" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_vPropertyMap_resetAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
                 android:clickable="true"
                 app:backgroundTint="@color/mosquad_green"
                 app:fabCustomSize="40dp"
                 app:layout_constraintBottom_toTopOf="@+id/fab_vPropertyMap_undoLast"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/reset_icon_white" />
 
             <FrameLayout

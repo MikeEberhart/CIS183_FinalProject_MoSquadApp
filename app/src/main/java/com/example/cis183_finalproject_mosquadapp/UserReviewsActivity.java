@@ -31,7 +31,6 @@ public class UserReviewsActivity extends AppCompatActivity
     Intent ur_leaveReviewIntent;
     ConstraintLayout cl_vUserReviews_sortingSpinners;
     ConstraintLayout cl_vUserReviews_main;
-    ConstraintSet tempConstraint;
     TextView tv_jUserReviews_headerMessage;
     TextView tv_jUserReviews_reviewErrorText;
     TextView tv_jUserReviews_sortingBtnDisplay;
@@ -103,14 +102,6 @@ public class UserReviewsActivity extends AppCompatActivity
     private void UR_InitData()
     {
         ur_dbHelper                    = new DatabaseHelper(this);
-//        tempConstraint = new ConstraintSet(); // need to work on this later to get the listView to adjust height depending on if the cl_vUserReview_sortingDisplay is visible //
-//        tempConstraint.connect(ConstraintProperties.BOTTOM, R.id.lv_vUserReviews_listOfReviews, ConstraintProperties.TOP, R.id.btn_vUserReviews_home);
-//        tempConstraint.margin(ConstraintProperties.BOTTOM,0);
-//        tempConstraint.clone(cl_vUserReviews_main);
-//        tempConstraint.connect(R.id.lv_vUserReviews_listOfReviews, ConstraintSet.BOTTOM, R.id.btn_vUserReviews_home, ConstraintSet.TOP);
-//        tempConstraint.applyTo(cl_vUserReviews_main);
-
-
         ur_listOfReviews               = ur_dbHelper.DB_GetListOfReviews(ur_sortingStatement, ur_sortByRating, ur_sortAscOrDesc);
         UR_CreateArraysForSpinners();
         UR_SettingAverageReview();
@@ -285,7 +276,6 @@ public class UserReviewsActivity extends AppCompatActivity
                 if(pos != 0)
                 {
                     ur_byYearSpinnerPos = ur_yearsArray[pos];
-                    Log.d("sortByYear", ur_yearsArray[pos]);
                 }
                 else
                 {
@@ -306,7 +296,6 @@ public class UserReviewsActivity extends AppCompatActivity
             {
                 if(pos != 0)
                 {
-                    Log.d("sortByMonth", ur_monthsArray[pos].substring(0,2));
                     ur_byMonthSpinnerPos = ur_monthsArray[pos].substring(0,2);
                 }
                 else
@@ -397,7 +386,6 @@ public class UserReviewsActivity extends AppCompatActivity
             ur_userReviewsListAdapter = new ReviewListAdapter(this, ur_listOfReviews, rb_jUserReviews_averageRating);
             lv_jUserReviews_listOfReviews.setAdapter(ur_userReviewsListAdapter);
             ur_userReviewsListAdapter.notifyDataSetChanged();
-            Log.d("tempSortStatement", tempSortStatement);
         }
     }
     private void UR_SettingAverageReview()

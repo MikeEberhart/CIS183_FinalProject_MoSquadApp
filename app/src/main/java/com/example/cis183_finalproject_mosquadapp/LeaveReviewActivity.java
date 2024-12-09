@@ -48,18 +48,18 @@ public class LeaveReviewActivity extends AppCompatActivity
     }
     private void LR_InitData()
     {
-        lr_firstRun = true;
-        lr_dbHelper = new DatabaseHelper(this);
-        lr_userReviewIntent = new Intent(this, UserReviewsActivity.class);
+        lr_firstRun          = true;
+        lr_dbHelper          = new DatabaseHelper(this);
+        lr_userReviewIntent  = new Intent(this, UserReviewsActivity.class);
         lr_welcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
     }
     private void LR_ListOfViews()
     {
-        rb_jLeaveReview_starCount   = findViewById(R.id.rb_vLeaveReview_starCount);
-        et_jLeaveReview_reviewText  = findViewById(R.id.et_vLeaverReview_reviewText);
-        btn_jLeaveReview_back       = findViewById(R.id.btn_vLeaveReview_back);
-        btn_jLeaveReview_home       = findViewById(R.id.btn_vLeaveReview_home);
-        btn_jLeaveReview_postReview = findViewById(R.id.btn_vLeaveReview_postReview);
+        rb_jLeaveReview_starCount      = findViewById(R.id.rb_vLeaveReview_starCount);
+        et_jLeaveReview_reviewText     = findViewById(R.id.et_vLeaverReview_reviewText);
+        btn_jLeaveReview_back          = findViewById(R.id.btn_vLeaveReview_back);
+        btn_jLeaveReview_home          = findViewById(R.id.btn_vLeaveReview_home);
+        btn_jLeaveReview_postReview    = findViewById(R.id.btn_vLeaveReview_postReview);
         tv_jLeaveReview_zeroStarsError = findViewById(R.id.tv_vLeaveReview_zeroStarsError);
     }
     private void LR_OnClickListeners()
@@ -138,8 +138,6 @@ public class LeaveReviewActivity extends AppCompatActivity
     }
     private void LR_AddNewUserReview()
     {
-        Log.d("current user", UserSessionData.GetLoggedInUser().getUser_username());
-//        User uname = UserSessionData.GetLoggedInUser();
         String reviewText;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String date = df.format(new Date());
@@ -160,7 +158,7 @@ public class LeaveReviewActivity extends AppCompatActivity
             lr_currentUserReview.setUrv_reviewText(reviewText);
             lr_currentUserReview.setUrv_reviewDate(date);
         }
-        lr_dbHelper.DB_AddNewReview(lr_currentUserReview); //, uname.getUser_username());
+        lr_dbHelper.DB_AddNewReview(lr_currentUserReview);
     }
     private void LR_UpdateUserReview()
     {

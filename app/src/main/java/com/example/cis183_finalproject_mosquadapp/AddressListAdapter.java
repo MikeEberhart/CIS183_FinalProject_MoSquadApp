@@ -32,8 +32,8 @@ public class AddressListAdapter extends BaseAdapter {
     TextView tv_jAddressCell_passedNoAddrTextview;
     Button btn_jAddressCell_editEstimate;
     Button btn_jAddressCell_editAddress;
+    Button btn_jAddressCell_estOverview;
     ImageView iv_jAddressCell_deleteEstimate;
-    ImageView iv_jAddressCell_estOverview;
     DatabaseHelper ala_dbHelper;
     ServiceAddress ala_address;
     String ala_singlePrice;
@@ -91,7 +91,7 @@ public class AddressListAdapter extends BaseAdapter {
         tv_jAddressCell_singleTreatment = v.findViewById(R.id.tv_vAddressCell_singleTreatment);
         tv_jAddressCell_seasonTreatment = v.findViewById(R.id.tv_vAddressCell_seasonTreatment);
         iv_jAddressCell_deleteEstimate  = v.findViewById(R.id.iv_vAddressCell_deleteEstimate);
-        iv_jAddressCell_estOverview     = v.findViewById(R.id.iv_vAddressCell_estOverview);
+        btn_jAddressCell_estOverview    = v.findViewById(R.id.btn_vAddressCell_estOverview);
         btn_jAddressCell_editEstimate   = v.findViewById(R.id.btn_vAddressCell_editEstimate);
         btn_jAddressCell_editAddress    = v.findViewById(R.id.btn_vAddressCell_editAddress);
     }
@@ -126,12 +126,12 @@ public class AddressListAdapter extends BaseAdapter {
                 }
             }
         });
-        iv_jAddressCell_estOverview.setOnClickListener(new View.OnClickListener()
+        btn_jAddressCell_estOverview.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                UserSessionData.SetIsPassedFromWelcomeUser(true);
+                UserSessionData.SetIsPassedFromOverview(true);
                 UserSessionData.SetPassedServiceAddress(sa);
                 ala_passedContext.startActivity(ala_estOverviewIntent);
             }

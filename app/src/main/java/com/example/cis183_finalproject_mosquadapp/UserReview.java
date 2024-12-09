@@ -3,7 +3,6 @@ package com.example.cis183_finalproject_mosquadapp;
 public class UserReview
 {
     private int urv_reviewID;
-//    String urv_username;
     String urv_starCount;
     String urv_reviewText;
     String urv_reviewDate;

@@ -49,17 +49,18 @@ public class WelcomeUserActivity extends AppCompatActivity
     }
     private void WU_InitData()
     {
-        wu_loginIntent          = new Intent(this, LoginActivity.class);
-        wu_userAcctIntent       = new Intent(this, UserAccountActivity.class);
-        wu_userReviewsIntent    = new Intent(this, UserReviewsActivity.class);
-        wu_enterAddressIntent   = new Intent(this, EnterAddressActivity.class);
-        wu_packageDetailsIntent = new Intent(this, PackageDetailsActivity.class);
-        wu_estimateOverview     = new Intent(this, EstimateOverviewActivity.class);
-        wu_currentUser = UserSessionData.GetLoggedInUser();
-        UserSessionData.SetIsPassedFromWelcomeUser(false);
-        String welcomeMessage = "Welcome " + wu_currentUser.getUser_fname();
+        wu_loginIntent           = new Intent(this, LoginActivity.class);
+        wu_userAcctIntent        = new Intent(this, UserAccountActivity.class);
+        wu_userReviewsIntent     = new Intent(this, UserReviewsActivity.class);
+        wu_enterAddressIntent    = new Intent(this, EnterAddressActivity.class);
+        wu_packageDetailsIntent  = new Intent(this, PackageDetailsActivity.class);
+        wu_estimateOverview      = new Intent(this, EstimateOverviewActivity.class);
+        wu_currentUser           = UserSessionData.GetLoggedInUser();
+        UserSessionData          .SetIsPassedFromWelcomeUser(false);
+        UserSessionData          .SetIsPassedFromBack(false);
+        String welcomeMessage     = "Welcome " + wu_currentUser.getUser_fname();
         tv_jWelcomeUser_userFname.setText(welcomeMessage);
-        if(UserSessionData.GetUserAddressCount() != 0)
+        if(UserSessionData       .GetUserAddressCount() != 0)
         {
             tv_jWelcomeUser_noSavedEstimates.setVisibility(View.INVISIBLE);
             wu_addressListAdapter = new AddressListAdapter(this, UserSessionData.GetUserAddressData(), tv_jWelcomeUser_noSavedEstimates); // need to double check if this will be ok when deleting addresses
@@ -123,22 +124,14 @@ public class WelcomeUserActivity extends AppCompatActivity
                 startActivity(wu_packageDetailsIntent);
             }
         });
-//        lv_jWelcomeUser_addressList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+//        lv_jWelcomeUser_addressList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
 //        {
 //            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
 //            {
 //                startActivity(wu_estimateOverview);
+//                return false;
 //            }
 //        });
-        lv_jWelcomeUser_addressList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                startActivity(wu_estimateOverview);
-                return false;
-            }
-        });
     }
 }

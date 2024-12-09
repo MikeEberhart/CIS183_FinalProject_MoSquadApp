@@ -49,25 +49,25 @@ public class ChangePasswordActivity extends AppCompatActivity
     }
     private void CP_ListOfViews()
     {
-        tv_jChangePass_headerMessage = findViewById(R.id.tv_vChangePass_headerMessage);
-        tv_jChangePass_oldPassError = findViewById(R.id.tv_vChangePass_oldPassError);
-        tv_jChangePass_newPassError = findViewById(R.id.tv_vChangePass_newPassError);
+        tv_jChangePass_headerMessage    = findViewById(R.id.tv_vChangePass_headerMessage);
+        tv_jChangePass_oldPassError     = findViewById(R.id.tv_vChangePass_oldPassError);
+        tv_jChangePass_newPassError     = findViewById(R.id.tv_vChangePass_newPassError);
         tv_jChangePass_confirmPassError = findViewById(R.id.tv_vChangePass_confirmPassError);
-        et_jChangePass_oldPass = findViewById(R.id.et_vChangePass_oldPass);
-        et_jChangePass_newPass = findViewById(R.id.et_vChangePass_newPass);
-        et_jChangePass_confirmPass = findViewById(R.id.et_vChangePass_confirmPass);
-        btn_jChangePass_back = findViewById(R.id.btn_vChangePass_back);
-        btn_jChangePass_home = findViewById(R.id.btn_vChangePass_home);
-        btn_jChangePass_saveNewPass = findViewById(R.id.btn_vChangePass_saveNewPass);
+        et_jChangePass_oldPass          = findViewById(R.id.et_vChangePass_oldPass);
+        et_jChangePass_newPass          = findViewById(R.id.et_vChangePass_newPass);
+        et_jChangePass_confirmPass      = findViewById(R.id.et_vChangePass_confirmPass);
+        btn_jChangePass_back            = findViewById(R.id.btn_vChangePass_back);
+        btn_jChangePass_home            = findViewById(R.id.btn_vChangePass_home);
+        btn_jChangePass_saveNewPass     = findViewById(R.id.btn_vChangePass_saveNewPass);
     }
     private void CP_InitData()
     {
-        cp_inputIsGood = new boolean[3];
-        cp_dbHelper = new DatabaseHelper(this);
-        cp_funcLib = new FunctionLibrary();
-        cp_currentUser = UserSessionData.GetLoggedInUser();
+        cp_inputIsGood       = new boolean[3];
+        cp_dbHelper          = new DatabaseHelper(this);
+        cp_funcLib           = new FunctionLibrary();
+        cp_currentUser       = UserSessionData.GetLoggedInUser();
         cp_welcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
-        cp_userAcctIntent = new Intent(this, UserAccountActivity.class);
+        cp_userAcctIntent    = new Intent(this, UserAccountActivity.class);
     }
     private void CP_OnClickListeners()
     {
@@ -92,7 +92,6 @@ public class ChangePasswordActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Log.d("onclick", cp_currentUser.getUser_password());
                 String cp_oldPass = et_jChangePass_oldPass.getText().toString();
                 String cp_newPass = et_jChangePass_newPass.getText().toString();
                 String cp_confirmPass = et_jChangePass_confirmPass.getText().toString();
@@ -116,7 +115,6 @@ public class ChangePasswordActivity extends AppCompatActivity
                     else
                     {
                         cp_currentUser.setUser_password(cp_newPass);
-                        Log.d("saving new pass", cp_currentUser.getUser_password());
                         cp_dbHelper.DB_SaveNewUserPassword(cp_currentUser);
                         startActivity(cp_userAcctIntent);
                     }

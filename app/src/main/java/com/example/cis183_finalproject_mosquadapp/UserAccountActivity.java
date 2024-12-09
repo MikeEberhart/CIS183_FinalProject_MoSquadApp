@@ -69,16 +69,16 @@ public class UserAccountActivity extends AppCompatActivity
     }
     private void UA_InitData()
     {
-        ua_currentUser = null;
-        ua_inputIsGood = new boolean[4];
         // setting bools to true since data loaded into the editTextboxes is good/true //
+        ua_currentUser       = null;
+        ua_inputIsGood       = new boolean[4];
         Arrays.fill(ua_inputIsGood, true);
         ua_welcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
-        ua_changePassIntent = new Intent(this, ChangePasswordActivity.class);
-        ua_loginIntent  = new Intent(this, LoginActivity.class);
-        ua_dbHelper = new DatabaseHelper(this);
-        ua_funcLib = new FunctionLibrary();
-        ua_currentUser = UserSessionData.GetLoggedInUser();
+        ua_changePassIntent  = new Intent(this, ChangePasswordActivity.class);
+        ua_loginIntent       = new Intent(this, LoginActivity.class);
+        ua_dbHelper          = new DatabaseHelper(this);
+        ua_funcLib           = new FunctionLibrary();
+        ua_currentUser       = UserSessionData.GetLoggedInUser();
         tv_jUserAcct_userAcctHeader.setText(ua_currentUser.getUser_username() + "'s Account");
         et_jUserAcct_fname.setText(ua_currentUser.getUser_fname());
         et_jUserAcct_lname.setText(ua_currentUser.getUser_lname());
@@ -102,10 +102,8 @@ public class UserAccountActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Log.d("save acct click", "save acct click");
                 if(!UA_InputIsEmptyCheck() && ua_funcLib.FL_InputIsGood(ua_inputIsGood))
                 {
-                    Log.d("save acct", "save acct");
                     UA_ToggleEditText(false);
                     // function to save the updated info to the database //
                     UA_UpdatingUserData();
@@ -150,7 +148,6 @@ public class UserAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-//                ua_goodFname
                 ua_inputIsGood[0] = ua_funcLib.FL_NameInputValidation(tv_jUserAcct_fnameError, s);
             }
             @Override
@@ -167,7 +164,6 @@ public class UserAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-//                ua_goodLname
                 ua_inputIsGood[1] = ua_funcLib.FL_NameInputValidation(tv_jUserAcct_lnameError, s);
             }
             @Override
@@ -184,7 +180,6 @@ public class UserAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-//                ua_goodEmail
                 ua_inputIsGood[2] = ua_funcLib.FL_EmailInputValidation(tv_jUserAcct_emailError, s);
             }
             @Override
@@ -201,7 +196,6 @@ public class UserAccountActivity extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-//                ua_goodPhoneNum
                 ua_inputIsGood[3] = ua_funcLib.FL_PhoneNumberValidation(tv_jUserAcct_phoneNumError, s);
             }
             @Override
@@ -224,8 +218,6 @@ public class UserAccountActivity extends AppCompatActivity
         ua_currentUser.setUser_email(et_jUserAcct_email.getText().toString());
         ua_currentUser.setUser_phoneNumber(et_jUserAcct_phoneNum.getText().toString());
         ua_dbHelper.DB_UpdateUserData(ua_currentUser);
-        Log.d("user data", ua_currentUser.getUser_fname() + " - " + ua_currentUser.getUser_lname() + " - " +
-                ua_currentUser.getUser_email() + " - " + ua_currentUser.getUser_phoneNumber());
     }
     private boolean UA_InputIsEmptyCheck()
     {

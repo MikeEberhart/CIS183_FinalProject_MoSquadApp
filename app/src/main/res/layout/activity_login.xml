@@ -15,6 +15,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:text="Skip Login"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -25,6 +26,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="Skip Login"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -79,7 +81,7 @@
         android:layout_marginBottom="33dp"
         android:background="@drawable/blk_border_with_radius"
         android:ems="10"
-        android:inputType="text"
+        android:inputType="text|textPassword"
         android:singleLine="true"
         android:textAlignment="textStart"
         android:textColor="@color/black"

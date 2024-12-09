@@ -62,11 +62,9 @@ public class LoginActivity extends AppCompatActivity
     }
     private void LA_InitData()
     {
-//        UserSessionData.SetLoggedInUser(null);
-//        UserSessionData.SetUserAddressData(null);
         la_createAccountIntent = new Intent(this, CreateAccountActivity.class);
         la_welcomeUserIntent   = new Intent(this, WelcomeUserActivity.class);
-        jLogin_dbHelper = new DatabaseHelper(this);
+        jLogin_dbHelper        = new DatabaseHelper(this);
         jLogin_dbHelper.DB_PopulateDummyData();
     }
     private void LA_OnClickListeners()
@@ -84,7 +82,6 @@ public class LoginActivity extends AppCompatActivity
                     if(jLogin_dbHelper.DB_CheckingForGoodUserLogin(uname, pass))
                     {
                         getTv_jLogin_passwordError.setVisibility(View.INVISIBLE);
-                        Log.d("inside btn click", "inside btn click");
                         startActivity(la_welcomeUserIntent);
                     }
                     else
@@ -96,7 +93,6 @@ public class LoginActivity extends AppCompatActivity
                 {
                     tv_jLogin_usernameError.setVisibility(View.VISIBLE);
                 }
-//               MessingWithToast();
             }
         });
         btn_jLogin_createAccount.setOnClickListener(new View.OnClickListener()
@@ -107,30 +103,30 @@ public class LoginActivity extends AppCompatActivity
                 startActivity(la_createAccountIntent);
             }
         });
-        btn_jSkipLogin.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(jLogin_dbHelper.DB_CheckingForGoodUserLogin("mEbbs123", "MikeEbbs123!!!"))
-                {
-                    startActivity(la_welcomeUserIntent);
-                    Log.d("login skipped", "login skipped");
-                }
-            }
-        });
-        btn_jSkipLoginTwo.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(jLogin_dbHelper.DB_CheckingForGoodUserLogin("TestTest1212", "TestTest12!@"))
-                {
-                    startActivity(la_welcomeUserIntent);
-                    Log.d("login skipped", "login skipped");
-                }
-            }
-        });
+        // buttons used to skip login for testing //
+//        btn_jSkipLogin.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                if(jLogin_dbHelper.DB_CheckingForGoodUserLogin("mEbbs123", "MikeEbbs123!!!"))
+//                {
+//                    startActivity(la_welcomeUserIntent);
+//                    Log.d("login skipped", "login skipped");
+//                }
+//            }
+//        });
+//        btn_jSkipLoginTwo.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                if(jLogin_dbHelper.DB_CheckingForGoodUserLogin("TestTest1212", "TestTest12!@"))
+//                {
+//                    startActivity(la_welcomeUserIntent);
+//                }
+//            }
+//        });
     }
     private void LA_TextChangeEventListeners()
     {
@@ -186,6 +182,7 @@ public class LoginActivity extends AppCompatActivity
         }
     }
     // make this into its own base adapter instead of using this to show error message //
+    // not finished //
     private void MessingWithToast()
     {
         LayoutInflater inflater = getLayoutInflater();

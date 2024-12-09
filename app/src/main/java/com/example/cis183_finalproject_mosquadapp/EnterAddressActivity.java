@@ -1,5 +1,6 @@
 package com.example.cis183_finalproject_mosquadapp;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,20 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class EnterAddressActivity extends AppCompatActivity
 {
-    String[] ea_statesArray = {"AL - Alabama", "AK - Alaska", "AZ - Arizona", "AR - Arkansas", "CA - California",
-            "CO - Colorado", "CT - Connecticut", "DE - Delaware", "FL - Florida", "GA - Georgia", "HI - Hawaii",
-            "ID - Idaho", "IL - Illinois", "IN - Indiana", "IA - Iowa", "KS - Kansas", "KY - Kentucky",
-            "LA - Louisiana", "ME - Maine", "MD - Maryland", "MA - Massachusetts", "MI - Michigan",
-            "MN - Minnesota", "MS - Mississippi", "MO - Missouri", "MT - Montana", "NE - Nebraska",
-            "NV - Nevada", "NH - New Hampshire", "NJ - New Jersey", "NM - New Mexico", "NY - New York",
-            "NC - North Carolina", "ND - North Dakota", "OH - Ohio", "OK - Oklahoma", "OR - Oregon",
-            "PA - Pennsylvania", "RI - Rhode Island", "SC - South Carolina", "SD - South Dakota",
-            "TN - Tennessee", "TX - Texas", "UT - Utah", "VT - Vermont", "VA - Virginia", "WA - Washington",
-            "WV - West Virginia", "WI - Wisconsin", "WY - Wyoming"};
-//    String[] ea_statesArray = {"AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS",
-//            "KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK",
-//            "OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"};
-
     Intent ea_welcomeUserIntent;
     Intent ea_propertyMapIntent;
     TextView tv_jEnterAddress_headerText;
@@ -69,19 +57,24 @@ public class EnterAddressActivity extends AppCompatActivity
         EA_TextChangeEventListeners();
         if(UserSessionData.GetIsPassedFromWelcomeUser())
         {
-            EA_LoadUserAddressData();
+            EA_LoadUserAddressData(UserSessionData.GetPassedServiceAddress());
             btn_jEnterAddress_saveAndContinue.setText("Save");
+        }
+        if(UserSessionData.GetIsPassedFromBack())
+        {
+            EA_LoadUserAddressData(UserSessionData.GetPassedServiceAddress());
         }
     }
     private void EA_InitData()
     {
-        ea_funcLib = new FunctionLibrary();
-        ea_dbHelper = new DatabaseHelper(this);
-        ea_welcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
-        ea_propertyMapIntent = new Intent(this, PropertyMapActivity.class);
-        ea_listOfStatesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ea_statesArray);
+        ea_funcLib             = new FunctionLibrary();
+        ea_dbHelper            = new DatabaseHelper(this);
+        ea_welcomeUserIntent   = new Intent(this, WelcomeUserActivity.class);
+        ea_propertyMapIntent   = new Intent(this, PropertyMapActivity.class);
+        ea_listOfStatesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ea_funcLib.FL_GetStatsArray());
         sp_jEnterAddress_states.setAdapter(ea_listOfStatesAdapter);
-        ea_inputIsGood = new boolean[4];
+        ea_inputIsGood         = new boolean[4];
+
     }
     private void EA_ListOfViews()
     {
@@ -111,21 +104,24 @@ public class EnterAddressActivity extends AppCompatActivity
                 {
                     ea_inputIsGood[1] = true;
                 }
-                if(UserSessionData.GetIsPassedFromWelcomeUser())
+                if(UserSessionData.GetIsPassedFromWelcomeUser() || UserSessionData.GetIsPassedFromBack())
                 {
-                    if(!EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood))
+                    if(EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood) && UserSessionData.GetIsPassedFromWelcomeUser())
                     {
                         EA_UpdateUserAddress();
-//                        UserSessionData.SetIsPassedFromWelcomeUser(false);
                         startActivity(ea_welcomeUserIntent);
+                    }
+                    else if(UserSessionData.GetIsPassedFromBack())
+                    {
+                        EA_UpdateUserAddress();
+                        startActivity(ea_propertyMapIntent);
                     }
                 }
                 else
                 {
-                    if(!EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood))
+                    if(EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood))
                     {
                         EA_SaveNewAddress();
-//                        UserSessionData.SetIsPassedFromWelcomeUser(false);
                         startActivity(ea_propertyMapIntent);
                     }
                 }
@@ -153,9 +149,7 @@ public class EnterAddressActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
             {
-               ea_tempStateName = ea_statesArray[pos];
-               ea_tempStateName = ea_tempStateName.substring(0,2);
-               Log.d("ea_tempStateName", ea_tempStateName);
+               ea_tempStateName = ea_funcLib.FL_GetStatsArray().get(pos);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent)
@@ -234,13 +228,8 @@ public class EnterAddressActivity extends AppCompatActivity
     {
         boolean[] ea_emptyInput = new boolean[3];
         ea_emptyInput[0] = ea_funcLib.FL_IsEmptyCheck(et_jEnterAddress_streetAddress, tv_jEnterAddress_streetAddressError, getString(R.string.street_address_blank));
-//        ea_emptyInput[1] = ea_funcLib.FL_IsEmptyCheck(et_jEnterAddress_aptOther, tv_jEnterAddress_aptOtherError, getString(R.string.street_address_blank));
         ea_emptyInput[1] = ea_funcLib.FL_IsEmptyCheck(et_jEnterAddress_city, tv_jEnterAddress_cityError, getString(R.string.city_blank));
         ea_emptyInput[2] = ea_funcLib.FL_IsEmptyCheck(et_jEnterAddress_zipCode, tv_jEnterAddress_zipCodeError, getString(R.string.zip_code_blank));
-        for(boolean b : ea_emptyInput)
-        {
-            Log.d("for loop in input is good", String.valueOf(b));
-        }
         return ea_funcLib.FL_InputIsGood(ea_emptyInput);
     }
     private void EA_SaveNewAddress()
@@ -260,8 +249,6 @@ public class EnterAddressActivity extends AppCompatActivity
         ea_userServiceAddress.setSa_zipCode(et_jEnterAddress_zipCode.getText().toString());
         ea_userServiceAddress.setSa_state(ea_tempStateName);
         ea_dbHelper.DB_AddNewUserAddress(ea_userServiceAddress);
-        Log.d("EA_SaveNewAddress", String.valueOf(ea_userServiceAddress.getSa_addressID()));
-
     }
     private void EA_UpdateUserAddress()
     {
@@ -279,9 +266,9 @@ public class EnterAddressActivity extends AppCompatActivity
         ea_userServiceAddress.setSa_state(ea_tempStateName);
         ea_dbHelper.DB_UpdateUserAddress(ea_userServiceAddress);
     }
-    private void EA_LoadUserAddressData()
+    private void EA_LoadUserAddressData(ServiceAddress sa)
     {
-        ea_userServiceAddress = UserSessionData.GetPassedServiceAddress();
+        ea_userServiceAddress = sa;
         et_jEnterAddress_streetAddress.setText(ea_userServiceAddress.getSa_streetAddress());
         if(ea_userServiceAddress.getSa_apt() != null)
         {
@@ -289,9 +276,9 @@ public class EnterAddressActivity extends AppCompatActivity
         }
         et_jEnterAddress_city.setText(ea_userServiceAddress.getSa_city());
         et_jEnterAddress_zipCode.setText(ea_userServiceAddress.getSa_zipCode());
-        for(int i = 0; i < ea_statesArray.length; i++)
+        for(int i = 0; i < ea_funcLib.FL_GetStatsArray().size(); i++)
         {
-            if(ea_statesArray[i].substring(0,2).equals(ea_userServiceAddress.getSa_state()))
+            if(ea_funcLib.FL_GetStatsArray().get(i).equals(ea_userServiceAddress.getSa_state()))
             {
                 sp_jEnterAddress_states.setSelection(i);
             }

@@ -1,9 +1,14 @@
 package com.example.cis183_finalproject_mosquadapp;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
 
@@ -25,10 +30,6 @@ public class FunctionLibrary
     private static final String ALLOWED_APT_CHARS = "^[a-zA-Z0-9\\s\\-.,/'&]*$";
     private static final String ALLOWED_CITY_CHARS = "^[a-zA-Z\\s\\-.']+$";
     private static final String ALLOWED_ZIP_CHARS = "^[0-9]{5}$";
-
-
-
-
 
     public FunctionLibrary()
     {
@@ -174,7 +175,7 @@ public class FunctionLibrary
         else
         {
             tv.setVisibility(View.VISIBLE);
-            tv.setText("");
+            tv.setText(R.string.zip_code_error_message);
         }
         return tempBool;
     }
@@ -201,5 +202,72 @@ public class FunctionLibrary
             }
         }
         return true;
+    }
+    public ArrayList<String> FL_GetStatsArray()
+    {
+        ArrayList<String> fl_statesArray = new ArrayList<>();
+        fl_statesArray.add("Alabama");
+        fl_statesArray.add("Alaska");
+        fl_statesArray.add("Arizona");
+        fl_statesArray.add("Arkansas");
+        fl_statesArray.add("California");
+        fl_statesArray.add("Colorado");
+        fl_statesArray.add("Connecticut");
+        fl_statesArray.add("Delaware");
+        fl_statesArray.add("Florida");
+        fl_statesArray.add("Georgia");
+        fl_statesArray.add("Hawaii");
+        fl_statesArray.add("Idaho");
+        fl_statesArray.add("Illinois");
+        fl_statesArray.add("Indiana");
+        fl_statesArray.add("Iowa");
+        fl_statesArray.add("Kansas");
+        fl_statesArray.add("Kentucky");
+        fl_statesArray.add("Louisiana");
+        fl_statesArray.add("Maine");
+        fl_statesArray.add("Maryland");
+        fl_statesArray.add("Massachusetts");
+        fl_statesArray.add("Michigan");
+        fl_statesArray.add("Minnesota");
+        fl_statesArray.add("Mississippi");
+        fl_statesArray.add("Missouri");
+        fl_statesArray.add("Montana");
+        fl_statesArray.add("Nebraska");
+        fl_statesArray.add("Nevada");
+        fl_statesArray.add("New Hampshire");
+        fl_statesArray.add("New Jersey");
+        fl_statesArray.add("New Mexico");
+        fl_statesArray.add("New York");
+        fl_statesArray.add("North Carolina");
+        fl_statesArray.add("North Dakota");
+        fl_statesArray.add("Ohio");
+        fl_statesArray.add("Oklahoma");
+        fl_statesArray.add("Oregon");
+        fl_statesArray.add("Pennsylvania");
+        fl_statesArray.add("Rhode Island");
+        fl_statesArray.add("South Carolina");
+        fl_statesArray.add("South Dakota");
+        fl_statesArray.add("Tennessee");
+        fl_statesArray.add("Texas");
+        fl_statesArray.add("Utah");
+        fl_statesArray.add("Vermont");
+        fl_statesArray.add("Virginia");
+        fl_statesArray.add("Washington");
+        fl_statesArray.add("West Virginia");
+        fl_statesArray.add("Wisconsin");
+        fl_statesArray.add("Wyoming");
+        return fl_statesArray;
+    }
+    public void FL_SetTotalAcreage(TextView tv, ArrayList<LatLng> latlngs)
+    {
+        double fl_totalAcreage   = (SphericalUtil.computeArea(latlngs) / 4046.86);
+        DecimalFormat fl_dFormat = new DecimalFormat("0.00");
+        tv.setText(fl_dFormat.format(fl_totalAcreage));
+    }
+    public String FL_GetTotalAcreage(ArrayList<LatLng> latlngs)
+    {
+        double fl_totalAcreage   = (SphericalUtil.computeArea(latlngs) / 4046.86);
+        DecimalFormat fl_dFormat = new DecimalFormat("0.00");
+        return fl_dFormat.format(fl_totalAcreage);
     }
 }

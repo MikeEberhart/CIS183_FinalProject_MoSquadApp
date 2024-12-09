@@ -123,6 +123,7 @@
                     android:text="N/A"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView62"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView62"
@@ -137,6 +138,7 @@
                     android:text="Apt/Suite/Other:"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView52"
                     app:layout_constraintTop_toBottomOf="@+id/textView52" />
@@ -167,6 +169,7 @@
                     android:text="6546 state rd. "
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView52"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView52"
@@ -184,7 +187,8 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView49" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView49"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textView63"
@@ -195,6 +199,7 @@
                     android:text="City:"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView62"
                     app:layout_constraintTop_toBottomOf="@+id/textView62" />
@@ -209,6 +214,7 @@
                     android:text="AbigCityNameForHere"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView63"
                     app:layout_constraintEnd_toStartOf="@+id/textView65"
                     app:layout_constraintStart_toEndOf="@+id/textView63"
@@ -223,6 +229,7 @@
                     android:text="State:"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_vEstOverview_city"
                     app:layout_constraintEnd_toStartOf="@+id/tv_vEstOverview_state"
@@ -232,11 +239,12 @@
                     android:id="@+id/tv_vEstOverview_state"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginEnd="24dp"
                     android:gravity="center"
-                    android:text="MI"
+                    android:text="Michigan"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView65"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView65" />
@@ -250,6 +258,7 @@
                     android:text="Zip Code:"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView63"
                     app:layout_constraintTop_toBottomOf="@+id/textView63" />
@@ -264,6 +273,7 @@
                     android:text="65654"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView67"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView67"
@@ -297,20 +307,24 @@
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.363"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView85"
+                    app:layout_constraintVertical_bias="0.0"
                     tools:context=".EstimateOverviewActivity" />
 
                 <FrameLayout
+                    android:id="@+id/frameLayout2"
                     android:layout_width="147dp"
                     android:layout_height="30dp"
                     android:background="@drawable/blk_border_top_radius"
-                    app:layout_constraintBottom_toBottomOf="@+id/mFrag_vEstOverview_mapView"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_vEstOverview_mapNotSet"
+                    app:layout_constraintVertical_bias="1.0">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -322,6 +336,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/total_acreage_default"
+                            android:textAlignment="center"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -342,12 +357,28 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
 
+                <TextView
+                    android:id="@+id/tv_vEstOverview_mapNotSet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Property map not set please finish estimate"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_error"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView85"
+                    app:layout_constraintVertical_bias="0.0" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/blk_border_with_radius">
+                android:background="@drawable/blk_border_with_radius"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView86"
@@ -372,6 +403,7 @@
                     android:layout_marginTop="2dp"
                     android:text="Standard Barrier Treatment\nSquad Home Shield"
                     android:textColor="@color/black"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView86" />
@@ -390,21 +422,24 @@
                     android:text="$30.00"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_vEstOverview_acreageTotal"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_vEstOverview_priceAfterAcreage"
                     app:layout_constraintEnd_toEndOf="@+id/tv_vEstOverview_packageSubTotals"
                     app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_packageSubTotals"
-                    app:layout_constraintTop_toTopOf="@+id/tv_vEstOverview_acreageTotal" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_vEstOverview_priceAfterAcreage" />
 
                 <TextView
-                    android:id="@+id/tv_vEstOverview_acreageTotal"
+                    android:id="@+id/tv_vEstOverview_pricePerQuarter"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Total Acres: 1.0"
+                    android:layout_height="17dp"
+                    android:text="*$10.00 per 1/4 acre after initial package price*"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_packageList"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_vEstOverview_packageList" />
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_vEstOverview_priceAfterAcreage"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_priceAfterAcreage"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_vEstOverview_priceAfterAcreage" />
 
                 <TextView
                     android:id="@+id/textView90"
@@ -425,13 +460,15 @@
                     android:id="@+id/tv_vEstOverview_packageList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
                     android:text="Standard Barrier Treatment\nSquad Home Shield"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView98" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_vEstOverview_subTotal" />
 
                 <TextView
                     android:id="@+id/tv_vEstOverview_packageSubTotals"
@@ -440,21 +477,25 @@
                     android:text="$59.00\n$95.00"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_vEstOverview_packageList"
-                    app:layout_constraintEnd_toEndOf="@+id/textView98"
-                    app:layout_constraintStart_toStartOf="@+id/textView98"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_vEstOverview_subTotal"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_subTotal"
                     app:layout_constraintTop_toTopOf="@+id/tv_vEstOverview_packageList" />
 
                 <TextView
-                    android:id="@+id/textView93"
+                    android:id="@+id/tv_vEstOverview_singleTotalDisplay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:text="Single Treatment Total:"
+                    android:layout_marginTop="40dp"
+                    android:text="Single Treatment Total"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_acreageTotal"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_vEstOverview_acreageTotal" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_priceAfterAcreage"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_vEstOverview_priceAfterAcreage" />
 
                 <TextView
                     android:id="@+id/tv_vEstOverview_singleTotal"
@@ -462,19 +503,24 @@
                     android:layout_height="wrap_content"
                     android:text="$184.00"
                     android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView93"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_vEstOverview_singleTotalDisplay"
                     app:layout_constraintEnd_toEndOf="@+id/tv_vEstOverview_acreageSubTotal"
-                    app:layout_constraintTop_toTopOf="@+id/textView93" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_vEstOverview_singleTotalDisplay" />
 
                 <TextView
-                    android:id="@+id/textView95"
+                    android:id="@+id/tv_vEstOverview_seasonTotalDisplay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Seasonal Treatment Total:"
+                    android:layout_marginBottom="4dp"
+                    android:text="Seasonal Treatment Total"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="@+id/textView93"
-                    app:layout_constraintTop_toBottomOf="@+id/textView93" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_singleTotalDisplay"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_vEstOverview_singleTotalDisplay" />
 
                 <TextView
                     android:id="@+id/tv_vEstOverview_seasonalTotal"
@@ -482,34 +528,86 @@
                     android:layout_height="wrap_content"
                     android:text="$1288.00"
                     android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView95"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_vEstOverview_seasonTotalDisplay"
                     app:layout_constraintEnd_toEndOf="@+id/tv_vEstOverview_singleTotal"
-                    app:layout_constraintTop_toTopOf="@+id/textView95" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_vEstOverview_seasonTotalDisplay" />
 
                 <TextView
-                    android:id="@+id/textView98"
+                    android:id="@+id/tv_vEstOverview_subTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginEnd="8dp"
                     android:text="Sub Total"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView90" />
 
                 <TextView
-                    android:id="@+id/textView99"
+                    android:id="@+id/tv_vEstOverview_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
                     android:text="Total"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView93"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_vEstOverview_acreageSubTotal"
-                    app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_acreageSubTotal" />
+                    app:layout_constraintEnd_toEndOf="@+id/tv_vEstOverview_subTotal"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_subTotal"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_vEstOverview_pricePerQuarter" />
+
+                <TextView
+                    android:id="@+id/tv_vEstOverview_priceAfterAcreage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price after total acreage added"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_packageList"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_vEstOverview_packageList" />
+
+                <TextView
+                    android:id="@+id/tv_vEstOverview_taxes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="After Taxes (6%)"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_vEstOverview_total"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_vEstOverview_total"
+                    app:layout_constraintTop_toTopOf="@+id/tv_vEstOverview_total" />
+
+                <TextView
+                    android:id="@+id/tv_vEstOverview_missingEstError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Must Finish Estimate for Pricing"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_error"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView90" />
+
+                <TextView
+                    android:id="@+id/tv_vEstOverview_selPackDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Selected Packages"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tv_vEstOverview_packageList"
+                    app:layout_constraintTop_toBottomOf="@+id/textView90" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

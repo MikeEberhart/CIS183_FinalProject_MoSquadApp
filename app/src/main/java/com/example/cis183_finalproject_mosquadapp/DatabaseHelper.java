@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context c)
     {
-        super(c, DATABASE_NAME, null, 23);
+        super(c, DATABASE_NAME, null, 32);
     }
 
     @Override
@@ -176,40 +176,40 @@ public class DatabaseHelper extends SQLiteOpenHelper
             SQLiteDatabase db = this.getWritableDatabase();
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('mEbbs123', '13101  Wanty Rd', null, 'Milan', 'MI', '48160', 1, 2.0, 1, 139.00, 973.00);");
+                    "VALUES ('mEbbs123', '13101  Wanty Rd', null, 'Milan', 'Michigan', '48160', 1, 2.0, 1, 139.00, 973.00);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('mEbbs123', '236 Austin Ct', null, 'Newport', 'MI', '48166', null, 0.25, 2, 154.00, 1078.00);");
+                    "VALUES ('mEbbs123', '236 Austin Ct', null, 'Newport', 'Michigan', '48166', null, 0.25, 2, 154.00, 1078.00);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('AWhite93', '971 Lotus Dr', null, 'Erie', 'MI', '48133', null, 0.5, 3, 114.00, 798.00);");
+                    "VALUES ('AWhite93', '971 Lotus Dr', null, 'Erie', 'Michigan', '48133', null, 0.5, 3, 114.00, 798.00);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('CMay27', '517 Kilberry', null, 'Temperance', 'MI', '48182', null, 0.25, 4, 89.00, 623.00);");
+                    "VALUES ('CMay27', '517 Kilberry', null, 'Temperance', 'Michigan', '48182', null, 0.25, 4, 89.00, 623.00);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('AChambers9', '5204 State Line Rd', null, 'Ottawa Lake', 'MI', '49267', null, 1, 5, 99.00, 693.00);");
+                    "VALUES ('AChambers9', '5204 State Line Rd', null, 'Ottawa Lake', 'Michigan', '49267', null, 1, 5, 99.00, 693.00);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('WDuncan65', '11660 Plank Rd', null, 'Milan', 'MI', '48160', null, 1, 6, 99.00, 693.00);");
+                    "VALUES ('WDuncan65', '11660 Plank Rd', null, 'Milan', 'Michigan', '48160', null, 1, 6, 99.00, 693.00);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('CBradley68', '9150 Doty Rd', null, 'Maybee', 'MI', '48159', null, 1, 7, 194.00, 1358.00);");
+                    "VALUES ('CBradley68', '9150 Doty Rd', null, 'Maybee', 'Michigan', '48159', null, 1, 7, 194.00, 1358.00);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('CAllison3', '9014 Sumpter Rd', null, 'Maybee', 'MI', '48159', null, 1, 8, 99.00, 693.00);");
+                    "VALUES ('CAllison3', '9014 Sumpter Rd', null, 'Maybee', 'Michigan', '48159', null, 1, 8, 99.00, 693.00);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('LPerry54', '8828 Sumpter Rd', null, 'Maybee', 'MI', '48159', null, 1, 9, 129.00, null);");
+                    "VALUES ('LPerry54', '8828 Sumpter Rd', null, 'Maybee', 'Michigan', '48159', null, 1, 9, 129.00, null);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('ARodgers45', '9160 Steffas Rd', null, 'Maybee', 'MI', '48159', null, 1.5, 10, 119.00, 833.00);");
+                    "VALUES ('ARodgers45', '9160 Steffas Rd', null, 'Maybee', 'Michigan', '48159', null, 1.5, 10, 119.00, 833.00);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('AScott83', '1018 Steiner Rd', null, 'Monroe', 'MI', '48162', null, 2, 11, 139.00, 973.00);");
+                    "VALUES ('AScott83', '1018 Steiner Rd', null, 'Monroe', 'Michigan', '48162', null, 2, 11, 139.00, 973.00);");
             db.execSQL("INSERT INTO " + SERVICE_ADDRESSES_TABLE +
                     " (Username, Street_Address, Apt, City, State, ZipCode, PolygonID, Total_Acreage, ServiceID, Single_Treatment_Price, Season_Treatment_Price) " +
-                    "VALUES ('AScott83', '7820 Reinhardt Rd', null, 'Carleton', 'MI', '48117', null, 0.5, 12, 174.00, 1218.00);");
+                    "VALUES ('AScott83', '7820 Reinhardt Rd', null, 'Carleton', 'Michigan', '48117', null, 0.5, 12, 174.00, 1218.00);");
             db.close();
         }
     }
@@ -289,13 +289,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
         {
             SQLiteDatabase db = this.getWritableDatabase();
             db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Barrier_Treatment', 59.00);"); // starts at 1/4 at $59 at 1/2 at $79. after which $4 pre 1/10 acre
-            db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Fly_Control', 35.00);");
-            db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Home_Shield', 95.00);");
-            db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Invader_Guard', 30.00);");
-            db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Yard_Defender', 30.00);");
             db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('All_Natural', 59.00);"); // scales like barrier treatment
             db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Special_Event', 30.00);"); // add the barrier treatment price to this later in the code
-            db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Per_Quarter', 10.00)");
+            db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Home_Shield', 95.00);");
+            db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Fly_Control', 35.00);");
+            db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Invader_Guard', 30.00);");
+            db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Yard_Defender', 30.00);");
+//           db.execSQL("INSERT INTO " + PACKAGE_PRICES_TABLE + "(Package_Name, Price) VALUES ('Per_Quarter', 10.00)");
         }
     }
     public int DB_RecordCount(String tableName)
@@ -442,9 +442,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void DB_DeleteUserAccount(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
+        DB_DeleteAllUserAddresses();
+        if(user.getUser_reviewID() != 0)
+        {
+            DB_DeleteUserReview(user.getUser_reviewID(), user.getUser_username());
+        }
         db.delete(USERS_TABLE, "Username = ?", new String[]{user.getUser_username()});
         db.close();
-        DB_DeleteAllUserAddresses();
     }
     public ArrayList<UserReview> DB_GetListOfReviews(String sortStatement, String order, String aORd)
     {
@@ -477,7 +481,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.delete(REVIEWS_TABLE, "ReviewID = ?", new String[]{rID});
         UserSessionData.SetLoggedInUserReview(null);
         UserSessionData.GetLoggedInUser().setUser_reviewID(0);
-        db.close();
+
     }
     public void DB_AddNewReview(UserReview ur)
     {
@@ -486,14 +490,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
         addUserReview.put("Star_Count", ur.getUrv_starCount());
         addUserReview.put("Review_Text", ur.getUrv_reviewText());
         addUserReview.put("Review_Date", ur.getUrv_reviewDate());
-        if(ur.getUrv_reviewText() != null)
-        {
-            Log.d("review text", ur.getUrv_reviewText());
-        }
         db.insert(REVIEWS_TABLE, null, addUserReview);
         DB_AddReviewIDToUserData();
         DB_GetUserReview();
         db.close();
+
     }
     public void DB_AddReviewIDToUserData()
     {
@@ -519,7 +520,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
             db_tempReview.setUrv_reviewDate(getReviewID.getString(3));
         }
         getReviewID.close();
-        db.close();
         return db_tempReview;
     }
     public void DB_GetUserReview()
@@ -598,7 +598,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         addNewAddress.put("ZipCode", sa.getSa_zipCode());
         db.insert(SERVICE_ADDRESSES_TABLE,null,addNewAddress);
         db.close();
-//        UserSessionData.SetPassedServiceAddress(DB_GetNewestAddress());
+        UserSessionData.SetPassedServiceAddress(DB_GetNewestAddress());
         DB_GetUserServiceAddresses();
     }
     public void DB_UpdateUserAddress(ServiceAddress sa)
@@ -623,7 +623,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(SERVICE_ADDRESSES_TABLE,"AddressID = ?", new String[]{String.valueOf(sa.getSa_addressID())});
         db.close();
-        // need functions deleting polygon and yard services data here //
         if(sa.getSa_polygonID() != 0)
         {
             DB_DeletePolygonData(String.valueOf(sa.getSa_polygonID()));
@@ -651,7 +650,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
             }
         }
         db.delete(SERVICE_ADDRESSES_TABLE, "Username = ?", new String[]{uname});
-        db.close();
     }
     public UserPolygon DB_GetUserPolygonData(String polygonID)
     {
@@ -661,14 +659,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
         Cursor polygonCursor = db.rawQuery(selectPolygon, new String[]{polygonID});
         if(polygonCursor.moveToFirst())
         {
-            Log.d("moved to first", "moved to first");
             db_userPolygon.setUp_polygonID(polygonCursor.getInt(0));
             db_userPolygon.setUp_polygonLats(polygonCursor.getString(1));
             db_userPolygon.setUp_polygonLngs(polygonCursor.getString(2));
         }
         else
         {
-            Log.d("null", "null");
             db_userPolygon = null;
         }
         polygonCursor.close();
@@ -679,9 +675,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues addUserPolygon = new ContentValues();
-        ContentValues addAcreage = new ContentValues();
-        Log.d("Lats AddUserPolygon", upoly.getUp_polygonLats());
-        Log.d("Lngs AddUserPolygon", upoly.getUp_polygonLngs());
         addUserPolygon.put("Polygon_Latitudes", upoly.getUp_polygonLats());
         addUserPolygon.put("Polygon_Longitudes", upoly.getUp_polygonLngs());
         db.insert(POLYGON_DATA_TABLE, null, addUserPolygon);
@@ -691,21 +684,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
     }
     private void DB_AddPolyIDToAddressData()
     {
-        int aID;
+        int aID = UserSessionData.GetPassedServiceAddress().getSa_addressID();
         int pID = DB_GetNewestPolygon().getUp_polygonID();
-        if(UserSessionData.GetIsPassedFromWelcomeUser())
-        {
-            aID = UserSessionData.GetPassedServiceAddress().getSa_addressID();
-        }
-        else
-        {
-            aID = DB_GetNewestAddress().getSa_addressID();
-        }
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues addPolyIDToUser = new ContentValues();
         addPolyIDToUser.put("PolygonID", pID);
         db.update(SERVICE_ADDRESSES_TABLE, addPolyIDToUser, "AddressID = ?", new String[]{String.valueOf(aID)});
         db.close();
+        UserSessionData.SetPassedServiceAddress(DB_GetServiceAddressByID(aID));
     }
     private ServiceAddress DB_GetNewestAddress()
     {
@@ -730,7 +716,31 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
         getAddress.close();
         db.close();
-        Log.d("addressID", String.valueOf(db_tempAddress.getSa_addressID()));
+        return db_tempAddress;
+    }
+    private ServiceAddress DB_GetServiceAddressByID(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ServiceAddress db_tempAddress = new ServiceAddress();
+        String newAddress = "SELECT * FROM " + SERVICE_ADDRESSES_TABLE + " WHERE AddressID = ?;";
+        Cursor getAddress = db.rawQuery(newAddress, new String[]{String.valueOf(UserSessionData.GetPassedServiceAddress().getSa_addressID())});
+        if(getAddress.moveToFirst())
+        {
+            db_tempAddress.setSa_addressID(getAddress.getInt(0));          // addressID
+            db_tempAddress.setSa_username(getAddress.getString(1));        // username
+            db_tempAddress.setSa_streetAddress(getAddress.getString(2));   // street address
+            db_tempAddress.setSa_apt(getAddress.getString(3));             // apt           // can be null
+            db_tempAddress.setSa_city(getAddress.getString(4));            // city
+            db_tempAddress.setSa_state(getAddress.getString(5));           // state
+            db_tempAddress.setSa_zipCode(getAddress.getString(6));         // zipcode
+            db_tempAddress.setSa_polygonID(getAddress.getInt(7));          // polygonID     // can be null
+            db_tempAddress.setSa_totalAcreage(getAddress.getDouble(8));    // total acreage // can be null
+            db_tempAddress.setSa_serviceID(getAddress.getInt(9));          // serviceId     // can be null
+            db_tempAddress.setSa_singleTreatment(getAddress.getDouble(10));// singleT       // can be null
+            db_tempAddress.setSa_seasonTreatment(getAddress.getDouble(11));// seasonT       // can be null
+        }
+        getAddress.close();
+        db.close();
         return db_tempAddress;
     }
     private UserPolygon DB_GetNewestPolygon()
@@ -763,19 +773,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(POLYGON_DATA_TABLE, "PolygonID = ?", new String[]{polygonID});
-        db.close();
     }
     public void DB_UpdateTotalAcreage(double acreage)
     {
-        int aID;
-        if(UserSessionData.GetIsPassedFromWelcomeUser())
-        {
-            aID = UserSessionData.GetPassedServiceAddress().getSa_addressID();
-        }
-        else
-        {
-            aID = DB_GetNewestAddress().getSa_addressID();
-        }
+        int aID = UserSessionData.GetPassedServiceAddress().getSa_addressID();
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues addAcreage = new ContentValues();
         addAcreage.put("Total_Acreage", acreage);
@@ -859,41 +860,49 @@ public class DatabaseHelper extends SQLiteOpenHelper
     }
     private void DB_AddServiceIDtoAddressData()
     {
-        int aID;
+        int aID = UserSessionData.GetPassedServiceAddress().getSa_addressID();
         int sID = DB_GetNewestServicesData().getServiceID();
-        if(UserSessionData.GetIsPassedFromWelcomeUser())
-        {
-            aID = UserSessionData.GetPassedServiceAddress().getSa_addressID();
-        }
-        else
-        {
-            aID = DB_GetNewestAddress().getSa_addressID();
-        }
         SQLiteDatabase db = getWritableDatabase();
         ContentValues addServiceID = new ContentValues();
         addServiceID.put("ServiceID", sID);
         db.update(SERVICE_ADDRESSES_TABLE, addServiceID, "AddressID = ?", new String[]{String.valueOf(aID)});
         db.close();
+        UserSessionData.SetPassedServiceAddress(DB_GetServiceAddressByID(aID));
     }
     private void DB_DeleteYardServiceData(String sID)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(YARD_SERVICES_TABLE, "ServiceID = ?", new String[]{sID});
-        db.close();
     }
-
-
-
-//    private void DB_Testing(int addressID)
-//    {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String selectStatement = "SELECT PolygonID FROM " + SERVICE_ADDRESSES_TABLE + " WHERE AddressID = '" + addressID + "';";
-//        Cursor temp = db.rawQuery(selectStatement, null);
-//        if(temp.moveToFirst())
-//        {
-//            Log.d("TESTING", String.valueOf(temp.getInt(0)));
-//        }
-//        temp.close();
-//        db.close();
-//    }
+    public ArrayList<PackagePrice> DB_GetPackagePrices()
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<PackagePrice> db_tempPackageList = new ArrayList<>();
+        String newPackagePrice = "SELECT * FROM " + PACKAGE_PRICES_TABLE;
+        Cursor getPackegePrice = db.rawQuery(newPackagePrice, null);
+        if(getPackegePrice.moveToFirst())
+        {
+            do
+            {
+                db_tempPackageList.add(new PackagePrice(getPackegePrice.getString(0),
+                                                        getPackegePrice.getDouble(1)));
+            }
+            while(getPackegePrice.moveToNext());
+        }
+        getPackegePrice.close();
+        db.close();
+        return db_tempPackageList;
+    }
+    public void DB_AddEstimateTotals(double single, double season)
+    {
+        int aID = UserSessionData.GetPassedServiceAddress().getSa_addressID();
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues addTotals = new ContentValues();
+        addTotals.put("Single_Treatment_Price", single);
+        addTotals.put("Season_Treatment_Price", season);
+        db.update(SERVICE_ADDRESSES_TABLE, addTotals, "AddressID = ?", new String[]{String.valueOf(aID)});
+        db.close();
+        UserSessionData.SetPassedServiceAddress(DB_GetServiceAddressByID(aID));
+        DB_GetUserServiceAddresses();
+    }
 }

@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class CreateAccountActivity extends AppCompatActivity
 {
     Intent ca_loginIntent;
-//    Intent ca_WelcomeUserIntent; might not use this
     TextView tv_jCreateAcct_usernameError;
     TextView tv_jCreateAcct_passwordError;
     TextView tv_jCreateAcct_confirmPassError;
@@ -50,30 +49,14 @@ public class CreateAccountActivity extends AppCompatActivity
         CA_OnClickListeners();
         CA_TextChangeEventListener();
     }
-
     private void CA_InitData()
     {
         CA_ListOfViews();
-//        CA_ResetErrors();
-        ca_funcLib = new FunctionLibrary();
-        ca_dbHelper = new DatabaseHelper(this);
+        ca_funcLib     = new FunctionLibrary();
+        ca_dbHelper    = new DatabaseHelper(this);
         ca_loginIntent = new Intent(this, LoginActivity.class);
-//        ca_WelcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
         ca_inputIsGood = new boolean[7];
     }
-
-//    private void testingLoop() // used to get all the textviews in the constraintlayout to later pass to function library //
-//    {
-//        for(int i = 0; i < cl.getChildCount(); i++)
-//        {
-//            View v = cl.getChildAt(i);
-//            if(v instanceof TextView)
-//            {
-//
-//            }
-//        }
-//    }
-
     private void CA_ListOfViews()
     {
         tv_jCreateAcct_usernameError    = findViewById(R.id.tv_vCreateAcct_usernameError);
@@ -109,27 +92,20 @@ public class CreateAccountActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Log.d("OnClick", "OnClick");
                 String tempUsername = et_jCreateAcct_username.getText().toString();
-//                    if(ca_goodUsername && ca_goodPassword && ca_goodConfirmPass && ca_goodFname && ca_goodLname &&
-//                            ca_goodEmail && ca_goodPhoneNum && !ca_dbHelper.DB_UsernameExists(tempUsername)) // maybe put these bools in an array too //
                 if(!CA_InputIsEmptyCheck() && ca_funcLib.FL_InputIsGood(ca_inputIsGood) && !ca_dbHelper.DB_UsernameAlreadyExists(tempUsername))
                 {
-                    Log.d("before IF", "before IF");
                     String pass = et_jCreateAcct_password.getText().toString();
                     String confirmPass = et_jCreateAcct_confirmpass.getText().toString();
                     if(pass.equals(confirmPass))
                     {
                         CA_SaveNewUser();
-                        Toast.makeText(CreateAccountActivity.this, "New Account Create", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(CreateAccountActivity.this, "New Account Create", Toast.LENGTH_SHORT).show();
 //                            Toast toast = new Toast();
-//                            toast.
-                        Log.d("equal pass", "equal pass");
                         startActivity(ca_loginIntent);
                     }
                     else
                     {
-                        Log.d("not equal pass", "not equal pass");
                         tv_jCreateAcct_confirmPassError.setVisibility(View.VISIBLE);
                         tv_jCreateAcct_confirmPassError.setText(R.string.password_dont_match_message);
                     }
@@ -258,17 +234,6 @@ public class CreateAccountActivity extends AppCompatActivity
             }
         });
     }
-    private void CA_ResetErrors()
-    {
-        tv_jCreateAcct_usernameError.setVisibility(View.INVISIBLE);
-        tv_jCreateAcct_passwordError.setVisibility(View.INVISIBLE);
-        tv_jCreateAcct_confirmPassError.setVisibility(View.INVISIBLE);
-        tv_jCreateAcct_fnameError.setVisibility(View.INVISIBLE);
-        tv_jCreateAcct_lnameError.setVisibility(View.INVISIBLE);
-        tv_jCreateAcct_emailError.setVisibility(View.INVISIBLE);
-        tv_jCreateAcct_phoneNumError.setVisibility(View.INVISIBLE);
-
-    }
     private boolean CA_InputIsEmptyCheck()
     {
         boolean[] ca_emptyInput = new boolean[7];
@@ -290,12 +255,6 @@ public class CreateAccountActivity extends AppCompatActivity
         ca_newUser.setUser_lname(et_jCreateAcct_lname.getText().toString());
         ca_newUser.setUser_email(et_jCreateAcct_email.getText().toString());
         ca_newUser.setUser_phoneNumber(et_jCreateAcct_phoneNumber.getText().toString());
-        Log.d("username", ca_newUser.getUser_username());
-        Log.d("password", ca_newUser.getUser_password());
-        Log.d("fname", ca_newUser.getUser_fname());
-        Log.d("lname", ca_newUser.getUser_lname());
-        Log.d("email", ca_newUser.getUser_email());
-        Log.d("phoneNum", ca_newUser.getUser_phoneNumber());
         ca_dbHelper.DB_AddNewUser(ca_newUser);
     }
 }

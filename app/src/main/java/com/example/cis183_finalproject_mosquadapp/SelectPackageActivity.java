@@ -30,6 +30,7 @@ public class SelectPackageActivity extends AppCompatActivity
     TextView tv_jSelectPackage_errorText;
     DatabaseHelper sp_dbHelper;
     YardServices sp_userYardServices;
+    private boolean sp_atLeastOneBoxChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,9 +42,9 @@ public class SelectPackageActivity extends AppCompatActivity
         SP_ListOfViews();
         SP_InitData();
         SP_OnClickListeners();
-        if(UserSessionData.GetIsPassedFromWelcomeUser())
+        if(UserSessionData.GetIsPassedFromWelcomeUser() || UserSessionData.GetIsPassedFromBack())
         {
-            SP_LoadYardServiceData();
+            SP_LoadYardServiceData(UserSessionData.GetPassedServiceAddress());
         }
     }
     private void SP_ListOfViews()
@@ -66,6 +67,7 @@ public class SelectPackageActivity extends AppCompatActivity
         sp_welcomeUserIntent      = new Intent(this, WelcomeUserActivity.class);
         sp_estimateOverviewIntent = new Intent(this, EstimateOverviewActivity.class);
         sp_dbHelper               = new DatabaseHelper(this);
+        sp_atLeastOneBoxChecked   = false;
     }
     private void SP_OnClickListeners()
     {
@@ -74,6 +76,7 @@ public class SelectPackageActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                UserSessionData.SetIsPassedFromBack(true);
                 startActivity(sp_propertyMapIntent);
             }
         });
@@ -90,8 +93,16 @@ public class SelectPackageActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                SP_SaveNewYardServices();
-                startActivity(sp_estimateOverviewIntent);
+
+                if(sp_atLeastOneBoxChecked)
+                {
+                    SP_SaveNewYardServices();
+                    startActivity(sp_estimateOverviewIntent);
+                }
+                else
+                {
+                    tv_jSelectPackage_errorText.setVisibility(View.VISIBLE);
+                }
             }
         });
         cBox_jSelectPackage_barrierTreatment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -99,13 +110,16 @@ public class SelectPackageActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                if(isChecked)
+                if(!isChecked)
                 {
-                    Log.d("SelectPackage bTreatment", "is clicked");
+                    sp_atLeastOneBoxChecked = false;
+                }
+                else
+                {
                     cBox_jSelectPackage_allNatural.setChecked(false);
                     cBox_jSelectPackage_specialEvent.setChecked(false);
+                    sp_atLeastOneBoxChecked = true;
                 }
-
             }
         });
         cBox_jSelectPackage_allNatural.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -113,13 +127,16 @@ public class SelectPackageActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                if(isChecked)
+                if(!isChecked)
                 {
-                    Log.d("SelectPackage all natural", "is clicked");
+                    sp_atLeastOneBoxChecked = false;
+                }
+                else
+                {
                     cBox_jSelectPackage_barrierTreatment.setChecked(false);
                     cBox_jSelectPackage_specialEvent.setChecked(false);
+                    sp_atLeastOneBoxChecked = true;
                 }
-
             }
         });
         cBox_jSelectPackage_specialEvent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -127,11 +144,15 @@ public class SelectPackageActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                if(isChecked)
+                if(!isChecked)
                 {
-                    Log.d("SelectPackage spEvent", "is clicked");
+                    sp_atLeastOneBoxChecked = false;
+                }
+                else
+                {
                     cBox_jSelectPackage_barrierTreatment.setChecked(false);
                     cBox_jSelectPackage_allNatural.setChecked(false);
+                    sp_atLeastOneBoxChecked = true;
                 }
             }
         });
@@ -178,7 +199,9 @@ public class SelectPackageActivity extends AppCompatActivity
         sp_userYardServices.setFlyControl(SP_ConfirmedIfChecked(cBox_jSelectPackage_flyControl));
         sp_userYardServices.setInvaderGuard(SP_ConfirmedIfChecked(cBox_jSelectPackage_invaderGuard));
         sp_userYardServices.setYardDefender(SP_ConfirmedIfChecked(cBox_jSelectPackage_yardDefender));
-        if(UserSessionData.GetIsPassedFromWelcomeUser())
+        if(UserSessionData.GetIsPassedFromWelcomeUser() &&
+           UserSessionData.GetPassedServiceAddress().getSa_serviceID() != 0 ||
+           UserSessionData.GetIsPassedFromBack())
         {
             sp_dbHelper.DB_UpdateYardServicesData(sp_userYardServices);
         }
@@ -187,11 +210,9 @@ public class SelectPackageActivity extends AppCompatActivity
             sp_dbHelper.DB_AddNewYardServicesData(sp_userYardServices);
         }
     }
-    private void SP_LoadYardServiceData()
+    private void SP_LoadYardServiceData(ServiceAddress sa)
     {
-        ServiceAddress sp_serviceAddress = UserSessionData.GetPassedServiceAddress();
-        sp_userYardServices = sp_dbHelper.DB_GetYardServiceData(String.valueOf(sp_serviceAddress.getSa_serviceID()));
-        Log.d("LoadYardData", String.valueOf(sp_userYardServices.getServiceID()));
+        sp_userYardServices = sp_dbHelper.DB_GetYardServiceData(String.valueOf(sa.getSa_serviceID()));
         if(sp_userYardServices != null)
         {
             SP_SetCheckBox(sp_userYardServices.getBarrierTreatment(), cBox_jSelectPackage_barrierTreatment);
@@ -202,6 +223,21 @@ public class SelectPackageActivity extends AppCompatActivity
             SP_SetCheckBox(sp_userYardServices.getInvaderGuard(), cBox_jSelectPackage_invaderGuard);
             SP_SetCheckBox(sp_userYardServices.getYardDefender(), cBox_jSelectPackage_yardDefender);
         }
+    }
+    private boolean SP_CheckIfOneBoxChecked()
+    {
+        int[] ifChecked = new int[3];
+        ifChecked[0] = SP_ConfirmedIfChecked(cBox_jSelectPackage_barrierTreatment);
+        ifChecked[1] = SP_ConfirmedIfChecked(cBox_jSelectPackage_allNatural);
+        ifChecked[2] = SP_ConfirmedIfChecked(cBox_jSelectPackage_specialEvent);
+        for (int i : ifChecked)
+        {
+            if(i == 1)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     private int SP_ConfirmedIfChecked(CheckBox cb)
     {

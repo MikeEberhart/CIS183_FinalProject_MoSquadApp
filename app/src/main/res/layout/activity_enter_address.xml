@@ -112,7 +112,7 @@
 
     <EditText
         android:id="@+id/et_vEnterAddress_zipCode"
-        android:layout_width="84dp"
+        android:layout_width="100dp"
         android:layout_height="38dp"
         android:layout_marginTop="60dp"
         android:background="@drawable/blk_border_with_radius"
@@ -142,15 +142,18 @@
     <TextView
         android:id="@+id/tv_vEnterAddress_zipCodeError"
         android:layout_width="0dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/design_default_color_error"
         android:textSize="12sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/tv_vEnterAddress_streetAddrDisplay2"
-        app:layout_constraintEnd_toStartOf="@+id/textView39"
-        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_zipCode" />
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_zipCode"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_vEnterAddress_zipCode"
+        app:layout_constraintTop_toBottomOf="@+id/et_vEnterAddress_city"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/et_vEnterAddress_streetAddress"
@@ -265,27 +268,39 @@
         android:id="@+id/sp_vEnterAddress_states"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="60dp"
-        app:layout_constraintBottom_toBottomOf="@+id/et_vEnterAddress_zipCode"
-        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_city"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/et_vEnterAddress_zipCode"
-        app:layout_constraintTop_toTopOf="@+id/et_vEnterAddress_zipCode" />
+        android:popupBackground="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
 
     <TextView
         android:id="@+id/textView39"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
         android:text="State:"
-        app:layout_constraintBottom_toTopOf="@+id/sp_vEnterAddress_states"
-        app:layout_constraintStart_toStartOf="@+id/sp_vEnterAddress_states" />
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view" />
 
     <TextView
         android:id="@+id/tv_vEnterAddress_stateError"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/sp_vEnterAddress_states"
+        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="@+id/sp_vEnterAddress_states"
         app:layout_constraintStart_toEndOf="@+id/textView39"
         app:layout_constraintTop_toTopOf="@+id/textView39" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="60dp"
+        android:background="@drawable/blk_border_with_radius"
+        app:layout_constraintBottom_toBottomOf="@+id/et_vEnterAddress_zipCode"
+        app:layout_constraintEnd_toEndOf="@+id/et_vEnterAddress_city"
+        app:layout_constraintStart_toEndOf="@+id/et_vEnterAddress_zipCode"
+        app:layout_constraintTop_toTopOf="@+id/et_vEnterAddress_zipCode" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

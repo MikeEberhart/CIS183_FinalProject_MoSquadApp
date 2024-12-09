@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class ReviewListAdapter extends BaseAdapter
 {
-//    Intent rla_leaveReviewIntent;
     Context rla_passedContext;
     ArrayList<UserReview> rla_listOfReviews;
     RatingBar rb_jReviewCell_starCount;
@@ -62,9 +61,7 @@ public class ReviewListAdapter extends BaseAdapter
         }
         rla_dbHelper = new DatabaseHelper(rla_passedContext);
         UserReview rla_userReview = rla_listOfReviews.get(pos);
-//        Log.d("user review", String.valueOf(rla_userReview.getUrv_starCount()));
         User selectedUser = rla_dbHelper.DB_GetUserFromReviewID(rla_userReview.getUrv_reviewID());
-//        Log.d("user id", String.valueOf(selectedUser.getUser_reviewID()));
         User currentUser = UserSessionData.GetLoggedInUser();
         String flName = selectedUser.getUser_fname() + " " + selectedUser.getUser_lname().charAt(0) + ".";
         RLA_ListOfViews(view);
@@ -87,12 +84,12 @@ public class ReviewListAdapter extends BaseAdapter
     }
     private void RLA_ListOfViews(View v)
     {
-        rb_jReviewCell_starCount = v.findViewById(R.id.rb_vReviewCell_starCount);
-        tv_jReviewCell_nameDisplay = v.findViewById(R.id.tv_vReviewCell_nameDisplay);
-        tv_jReviewCell_reviewDate = v.findViewById(R.id.tv_vReviewCell_reviewDate);
-        tv_jReviewCell_reviewText = v.findViewById(R.id.tv_vReviewCell_reviewText);
+        rb_jReviewCell_starCount    = v.findViewById(R.id.rb_vReviewCell_starCount);
+        tv_jReviewCell_nameDisplay  = v.findViewById(R.id.tv_vReviewCell_nameDisplay);
+        tv_jReviewCell_reviewDate   = v.findViewById(R.id.tv_vReviewCell_reviewDate);
+        tv_jReviewCell_reviewText   = v.findViewById(R.id.tv_vReviewCell_reviewText);
         iv_jReviewCell_deleteReview = v.findViewById(R.id.iv_vReviewCell_deleteReview);
-        iv_jReviewCell_editReview = v.findViewById(R.id.iv_vReviewCell_editReview);
+        iv_jReviewCell_editReview   = v.findViewById(R.id.iv_vReviewCell_editReview);
     }
     private void RLA_OnClickListeners(User currentUser, UserReview ur)
     {

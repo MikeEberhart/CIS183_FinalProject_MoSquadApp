@@ -12,7 +12,6 @@ public class PackageDetailsActivity extends AppCompatActivity
 {
     Intent pd_welcomeUserIntent;
     Intent pd_enterAddressIntent;
-    // add intent for the google map here //
     Button btn_jPackageDetails_home;
     Button btn_jPackageDetails_newEstimate;
 
@@ -26,17 +25,16 @@ public class PackageDetailsActivity extends AppCompatActivity
         PD_ListOfViews();
         PD_InitData();
         PD_OnClickListeners();
-
     }
 
     private void PD_InitData()
     {
-        pd_welcomeUserIntent = new Intent(this, WelcomeUserActivity.class);
+        pd_welcomeUserIntent  = new Intent(this, WelcomeUserActivity.class);
         pd_enterAddressIntent = new Intent(this, EnterAddressActivity.class);
     }
     private void PD_ListOfViews()
     {
-        btn_jPackageDetails_home = findViewById(R.id.btn_vPackageDetails_home);
+        btn_jPackageDetails_home        = findViewById(R.id.btn_vPackageDetails_home);
         btn_jPackageDetails_newEstimate = findViewById(R.id.btn_vPackageDetails_newEstimate);
     }
     private void PD_OnClickListeners()
