@@ -106,7 +106,7 @@ public class EnterAddressActivity extends AppCompatActivity
                 }
                 if(UserSessionData.GetIsPassedFromWelcomeUser() || UserSessionData.GetIsPassedFromBack())
                 {
-                    if(EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood) && UserSessionData.GetIsPassedFromWelcomeUser())
+                    if(!EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood) && UserSessionData.GetIsPassedFromWelcomeUser())
                     {
                         EA_UpdateUserAddress();
                         startActivity(ea_welcomeUserIntent);
@@ -119,7 +119,7 @@ public class EnterAddressActivity extends AppCompatActivity
                 }
                 else
                 {
-                    if(EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood))
+                    if(!EA_InputIsEmptyCheck() && ea_funcLib.FL_InputIsGood(ea_inputIsGood))
                     {
                         EA_SaveNewAddress();
                         startActivity(ea_propertyMapIntent);
