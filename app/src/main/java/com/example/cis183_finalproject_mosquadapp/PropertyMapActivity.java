@@ -154,7 +154,7 @@ public class PropertyMapActivity extends AppCompatActivity implements OnMapReady
                 {
                     tv_jPropertyMap_errorText.setVisibility(View.INVISIBLE);
                     PM_SavePolygonData();
-                    startActivity(pm_selectPackageIntent); // change later to packageSelectionIntent
+                    startActivity(pm_selectPackageIntent);
                 }
             }
         });
